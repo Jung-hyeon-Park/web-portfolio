@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.UserMapper">
+
+<!-- 회원가입 -->
+	<insert id="insertUser">
+		insert into user (email, pwd, name, age)
+		values (#{email}, #{password}, #{name}, #{age})
+	</insert>
+	
+<!-- 회원 로그인 체크 -->
+	<select id="login" resultType="UserVO">
+		select * from user
+		where email = #{email} and pwd = #{password}
+	</select>
+	
+<!-- 자동 로그인 -->
+	<update id="keepLogin">
+		update user set sessionkey = #{sessionId}, sessionlimit = #{next}
+		where email = #{email}
+	</update>
+	
+<!-- 세션키 -->
+	<select id="checkUserWithSessionKey" resultType="UserVO">
+		select * from user
+		where sessionkey = #{value} and sessionlimit > now()
+	</select>
+	
+<!-- 회원 리스트 -->
+	<select id="selectUsers" resultType="UserVO">
+		select * from user
+	</select>
+</mapper>

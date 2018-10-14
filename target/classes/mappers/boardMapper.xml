@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.BoardMapper">
+
+<!-- 게시판 리스트 -->
+	<select id="selectPost" resultType="PostVO">
+		<![CDATA[
+		SELECT * FROM post_category
+		where idx < 6
+		order by idx desc;
+		]]>
+	</select>
+
+<!-- 게시글 작성 -->
+	<insert id="insertBoard">
+		INSERT INTO board (title, content, image, user_idx, post_category_idx)
+		VALUES (#{title}, #{content}, #{image}, #{userIdx}, #{postCategoryIdx})
+	</insert>
+
+<!-- 게시글 세부내용 -->
+	<select id="readBoard" resultType="BoardVO">
+		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.image
+		from user u, board b
+		where u.idx = b.user_idx and b.idx = #{idx}
+	</select>
+	
+<!-- 게시글 수정 -->
+	<update id="updateBoard">
+		update board set title = #{title}, content = #{content}
+		where idx = #{idx}
+	</update>
+
+<!-- 게시글 삭제 -->
+	<delete id="deleteBoard">
+		delete from board where idx = #{idx}
+	</delete>
+	
+<!-- 게시글 조회수 -->
+	<update id="viewCount">
+		update board set view_count = view_count + 1
+		where idx = #{idx}
+	</update>
+	
+	<select id="listCriteria" resultType="BoardVO">
+		<![CDATA[
+		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx,
+			(SELECT COUNT(*) FROM comment where board_idx = b.idx) AS recnt
+		from user u, board b
+		where u.idx = b.user_idx and b.post_category_idx = #{postIdx} 
+		order by b.idx desc
+		limit #{pageStart}, #{perPageNum}
+		]]>
+	</select>
+	
+	<select id="countPaging" resultType="int">
+		<![CDATA[
+		SELECT count(b.idx)
+		from user u, board b
+		where u.idx = b.user_idx and b.post_category_idx = #{postIdx}
+		]]>
+	</select>
+	
+	<select id="listSearch" resultType="BoardVO">
+		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx,
+			(SELECT COUNT(*) FROM comment where board_idx = b.idx) AS recnt
+		from user u, board b
+		where u.idx = b.user_idx and b.post_category_idx = #{postIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')
+		order by b.idx desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="listSearchCount" resultType="int">
+		SELECT count(b.idx)
+		from user u, board b
+		where u.idx = b.user_idx and b.post_category_idx = #{postIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')
+	</select>
+</mapper>
