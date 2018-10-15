@@ -48,7 +48,7 @@
 	        		<tr>
 	            		<th class="success">글 내용</th>
 	            		<td colspan="7">${boardVO.content}<br><br>
-	            			<c:if test="${boardVO.img != null}"><img src="/resources/uploadFile/image/${boardVO.image}"></div>
+	            			<c:if test="${boardVO.image != null}"><img src="/resources/uploadFile/image/${boardVO.image}">
 	            			</c:if>
 	            		</td>
 	       		 	</tr>
@@ -58,40 +58,14 @@
 		<input type="hidden" name="boardIdx" value="${boardVO.idx}">
 	</div>
 	</form>
-	
-	<div>
-		<div>
-			<div>제목 : <input type="text" name="title" value="${boardVO.title}" readonly="readonly"></div>
-		</div>
-		<div>
-			<div>조회수 : ${boardVO.viewCount}</div>
-		</div>
-		<div>
-			<div>
-				작성일 :
-				<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.writeDate}" />
-			</div>
-		</div>
-		<div>
-			<div>작성자 : ${boardVO.name}</div>
-		</div>
-		<div>
-			<div>내용 :<textArea name="content" readonly="readonly">${boardVO.content}</textArea></div>
-		</div>
-		<c:if test="${boardVO.image != null}">
-			<div>
-				<div>이미지 : <img src="/resources/uploadFile/image/${boardVO.image}"></div>
-			</div>
-		</c:if>
-	</div>
 	<div>
 		<button type="button" class="btn-warning">수정</button>
 		<button type="button" class="btn-danger">삭제</button>
 		<button type="button" class="btn-primary">리스트로</button>
 	</div>
 	
-	<form role="form" action="/board/listAll.do?postCategoryIdx=${postCategoryIdx}", method="GET">
-		<input type="hidden" name="postCategoryIdx" value="${postCategoryIdx}">
+	<form role="form" action="/board/listAll.do?post=${post}", method="GET">
+		<input type="hidden" name="post" value="${post}">
 		<input type="hidden" name="boardIdx" value="${boardVO.idx}">
 		<input type="hidden" name="page" value="${cri.page}">
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
@@ -112,7 +86,7 @@
 				formObj.submit();
 			});
 			$(".btn-primary").on("click", function() {
-				self.location = "/board/listAll.do?postCategoryIdx=${postCategoryIdx}";
+				self.location = "/board/listAll.do?post=${post}";
 			});
 		});
 	</script>

@@ -104,9 +104,4 @@ public class UserController {
 		}
 		return "/user/logout";
 	}
-	
-	@RequestMapping(value="/signUp2.do")
-	public void signUp2() throws Exception {
-		
-	}
 }

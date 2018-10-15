@@ -31,7 +31,7 @@
 	<c:forEach var="boardVO" items="${boardVOs}">
 		<tr>
 			<td>${boardVO.idx}</td>
-			<td><a href="/board/readBoard.do${pm.makeQuery(pm.cri.page)}&postCategoryIdx=${postCategoryIdx}&boardIdx=${boardVO.idx}">${boardVO.title}<c:if test="${boardVO.recnt > 0}"><span style="color:red;">(${boardVO.recnt})</span></c:if></a></td>
+			<td><a href="/board/readBoard.do${pm.makeQuery(pm.cri.page)}&post=${post}&boardIdx=${boardVO.idx}">${boardVO.title}<c:if test="${boardVO.recnt > 0}"><span style="color:red;">(${boardVO.recnt})</span></c:if></a></td>
 			<td>${boardVO.name}</td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.writeDate}" /></td>
 			<td>${boardVO.viewCount}</td>
@@ -61,7 +61,7 @@
 		
 		<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="idx">
 			<li class="page-item"<c:out value="${pm.cri.page == idx?'class=active':''}" />>
-				<a class="page-link" href="${pm.makeQuery(idx)}&postCategoryIdx=${postCategoryIdx}">${idx}</a>
+				<a class="page-link" href="${pm.makeQuery(idx)}&post=${post}">${idx}</a>
 			</li>
 		</c:forEach>
 		
@@ -71,11 +71,11 @@
 	</ul>
 </div>
 
-<input type="hidden" id="postCategoryIdx" value="${postCategoryIdx}">
+<input type="hidden" id="post" value="${post}">
 
 
 <a href="/main.do"><button>메인으로</button></a>
-<a href="/board/insertBoard.do?postCategoryIdx=${postCategoryIdx}"><button>게시글 작성</button></a>
+<a href="/board/insertBoard.do?post=${post}"><button>게시글 작성</button></a>
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 	var result = '${msg}';
@@ -89,8 +89,8 @@
 	function searchBnt() {
 		self.location = "/board/listAll.do"
 			+ '${pm.makeQuery(1)}'
-			+ '&postCategoryIdx='
-			+ $('#postCategoryIdx').val()
+			+ '&post='
+			+ $('#post').val()
 			+ '&searchType='
 			+ $("select option:selected").val()
 			+ "&keyword="
