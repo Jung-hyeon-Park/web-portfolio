@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,57 +31,63 @@ public class BoardController {
 	
 	//게시글 생성
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.GET)
-	public void board(Model model) throws Exception {
+	public void board(Model model, @RequestParam("postCategoryIdx") int postCategoryIdx) throws Exception {
 		
 		//게시판 목록 생성
-		model.addAttribute("posts", boardService.selectPost());
+		model.addAttribute("postCategoryIdx", postCategoryIdx);
+		model.addAttribute("postVOs", boardService.selectPost());
 	}
 	
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.POST)
-	public String insertBoard(MultipartHttpServletRequest request, Model model, BoardVO boardVO, HttpSession session) throws Exception {
+	public String insertBoard(MultipartHttpServletRequest request, Model model, BoardVO boardVO, HttpSession session, @RequestParam("postCategoryIdx") int postCategoryIdx) throws Exception {
 		
 		//로그인 세션 정보
 		UserVO userVO = (UserVO)session.getAttribute("login");
+		System.out.println("oKKKKKKKK");
 		
 		boardVO.setUserIdx(userVO.getIdx());
 		
 		//이미지 파일 등록
-		MultipartFile mf = request.getFile("image_file");
+		MultipartFile mf = request.getFile("image");
 		String path = request.getRealPath("/resources/uploadFile/image");
 		String fileName = mf.getOriginalFilename();
 		File uploadFile = new File(path+"//"+fileName);
 		
 		try {
 			mf.transferTo(uploadFile);
+			System.out.println("??????");
 		} catch (IllegalStateException e) {
+			System.out.println("no!!!!!!!!!");
 			e.printStackTrace();
 		} catch (IOException e) {
+			System.out.println("wtf!!!!!!!!!!!!!!!");
 			e.printStackTrace();
 		}
 		
 		boardVO.setImage(fileName);
+		boardVO.setPostCategoryIdx(postCategoryIdx);
 		
 		boardService.insertBoard(boardVO);
 		
-		return "redirect:/board/listAll.do";
+		return "/board/listAll.do?postCategoryIdx="+postCategoryIdx;
 	}
 	
 	//게시글 리스트
 	@RequestMapping(value="/listAll.do", method=RequestMethod.GET)
-	public void listAll(SearchVO cri, Model model, @RequestParam("post") int postIdx) throws Exception {
+	public void listAll(SearchVO cri, Model model, @RequestParam("postCategoryIdx") int postCategoryIdx) throws Exception {
 		
-		cri.setPostIdx(postIdx);
+		cri.setPostCategoryIdx(postCategoryIdx);
 		
 		PageMaker pm = new PageMaker();
 		//검색 키워드가 없을경우
 		if(StringUtils.isEmpty(cri.getKeyword())) {
-			model.addAttribute("postIdx", postIdx);
+			model.addAttribute("postCategoryIdx", postCategoryIdx);
 			model.addAttribute("boardVOs", boardService.listCriteria(cri));
 			pm.setCri(cri);
 			pm.setTotalCount(boardService.listCountCriteria(cri));
 		//검색 키워드가 있을경우
 		}else {
-			model.addAttribute("postIdx", postIdx);
+			model.addAttribute("postCategoryIdx", postCategoryIdx);
 			model.addAttribute("boardVOs", boardService.listSearch(cri));
 			pm.setCri(cri);
 			pm.setTotalCount(boardService.listSearchCount(cri));
@@ -90,9 +97,10 @@ public class BoardController {
 	
 	//상세 게시글
 	@RequestMapping(value="/readBoard.do", method=RequestMethod.GET)
-	public void readBoard(@RequestParam("boardIdx") int idx, Model model) throws Exception {
+	public void readBoard(@RequestParam("boardIdx") int idx, Model model, @RequestParam("postCategoryIdx") int postCategoryIdx) throws Exception {
 		
 		//게시글 읽기
+		model.addAttribute("postCategoryIdx", postCategoryIdx);
 		model.addAttribute("boardVO", boardService.readBoard(idx));
 	}
 	
@@ -109,17 +117,18 @@ public class BoardController {
 	
 	//게시글 수정
 	@RequestMapping(value="/updateBoard.do", method=RequestMethod.GET)
-	public void updateBoard(@RequestParam("boardIdx") int idx, Model model) throws Exception {
-		
-		model.addAttribute(boardService.readBoard(idx));
+	public void updateBoard(@RequestParam("boardIdx") int idx, Model model, @RequestParam("postCategoryIdx") int postCategoryIdx) throws Exception {
+		model.addAttribute("postCategoryIdx", postCategoryIdx);
+		model.addAttribute("boardVO", boardService.readBoard(idx));
 	}
 	
 	@RequestMapping(value="/updateBoard.do", method=RequestMethod.POST)
-	public String updateBoard(BoardVO boardVO, RedirectAttributes rttr) throws Exception {
+	public String updateBoard(Model model, BoardVO boardVO, RedirectAttributes rttr, @RequestParam("postCategoryIdx") int postCategoryIdx) throws Exception {
 		
+		model.addAttribute("postCategoryIdx", postCategoryIdx);
 		boardService.updateBoard(boardVO);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
-		return "redirect:/board/listAll.do";
+		return "redirect:/board/listAll.do?postCategoryIdx="+postCategoryIdx;
 	}
 }

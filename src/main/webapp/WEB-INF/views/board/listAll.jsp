@@ -13,12 +13,32 @@
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css">
 
 </head>
-<body>
+<body style="width:1000px; margin: auto;">
 <c:import url="/header.do"></c:import>
 <c:import url="/nav.do"></c:import>
 
-
-
+<table class="table table-striped table-bordered table-hover">
+	<thead>
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>날짜</th>
+			<th>조회수</th>
+		</tr>
+	</thead>
+	<tbody>
+	<c:forEach var="boardVO" items="${boardVOs}">
+		<tr>
+			<td>${boardVO.idx}</td>
+			<td><a href="/board/readBoard.do${pm.makeQuery(pm.cri.page)}&postCategoryIdx=${postCategoryIdx}&boardIdx=${boardVO.idx}">${boardVO.title}<c:if test="${boardVO.recnt > 0}"><span style="color:red;">(${boardVO.recnt})</span></c:if></a></td>
+			<td>${boardVO.name}</td>
+			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.writeDate}" /></td>
+			<td>${boardVO.viewCount}</td>
+		</tr>
+	</c:forEach>
+	</tbody>
+</table>
 
 <div class="box-body">
 	<select name="searchType">
@@ -33,31 +53,6 @@
 
 
 
-<table class="table">
-	<thead>
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>날짜</th>
-			<th>조회수</th>
-		</tr>
-	</thead>
-	<tbody>
-	<c:forEach var="boardVO" items="${boardVOs}">
-		<tr>
-			<td>${boardVO.idx}</td>
-			<td><a href="/board/readBoard.do${pm.makeQuery(pm.cri.page)}&boardIdx=${boardVO.idx}">${boardVO.title}<c:if test="${boardVO.recnt > 0}"><span style="color:red;">(${boardVO.recnt})</span></c:if></a></td>
-			<td>${boardVO.name}</td>
-			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${board.writeDate}"/></td>
-			<td>${boardVO.viewCount}</td>
-		</tr>
-	</c:forEach>
-	</tbody>
-</table>
-
-
-
 <div class="text-center">
 	<ul class="pagination">
 		<c:if test="${pm.prev}">
@@ -66,7 +61,7 @@
 		
 		<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="idx">
 			<li class="page-item"<c:out value="${pm.cri.page == idx?'class=active':''}" />>
-				<a class="page-link" href="${pm.makeQuery(idx)}&post=${postIdx}">${idx}</a>
+				<a class="page-link" href="${pm.makeQuery(idx)}&postCategoryIdx=${postCategoryIdx}">${idx}</a>
 			</li>
 		</c:forEach>
 		
@@ -76,10 +71,11 @@
 	</ul>
 </div>
 
-<input type="hidden" id="postIdx" value="${postIdx}">
+<input type="hidden" id="postCategoryIdx" value="${postCategoryIdx}">
 
 
-<a href="/main.do"><button type="button">메인으로</button></a>
+<a href="/main.do"><button>메인으로</button></a>
+<a href="/board/insertBoard.do?postCategoryIdx=${postCategoryIdx}"><button>게시글 작성</button></a>
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 	var result = '${msg}';
@@ -91,11 +87,10 @@
 <script type="text/javascript">
 
 	function searchBnt() {
-		alert($("postIdx"));
 		self.location = "/board/listAll.do"
 			+ '${pm.makeQuery(1)}'
-			+ '&post='
-			+ $('#postIdx').val()
+			+ '&postCategoryIdx='
+			+ $('#postCategoryIdx').val()
 			+ '&searchType='
 			+ $("select option:selected").val()
 			+ "&keyword="

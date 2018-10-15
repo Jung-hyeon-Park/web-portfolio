@@ -49,7 +49,7 @@
 		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx,
 			(SELECT COUNT(*) FROM comment where board_idx = b.idx) AS recnt
 		from user u, board b
-		where u.idx = b.user_idx and b.post_category_idx = #{postIdx} 
+		where u.idx = b.user_idx and b.post_category_idx = #{postCategoryIdx} 
 		order by b.idx desc
 		limit #{pageStart}, #{perPageNum}
 		]]>
@@ -59,7 +59,7 @@
 		<![CDATA[
 		SELECT count(b.idx)
 		from user u, board b
-		where u.idx = b.user_idx and b.post_category_idx = #{postIdx}
+		where u.idx = b.user_idx and b.post_category_idx = #{postCategoryIdx}
 		]]>
 	</select>
 	
@@ -67,7 +67,7 @@
 		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx,
 			(SELECT COUNT(*) FROM comment where board_idx = b.idx) AS recnt
 		from user u, board b
-		where u.idx = b.user_idx and b.post_category_idx = #{postIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')
+		where u.idx = b.user_idx and b.post_category_idx = #{postCategoryIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')
 		order by b.idx desc
 		limit #{pageStart}, #{perPageNum}
 	</select>
@@ -75,6 +75,6 @@
 	<select id="listSearchCount" resultType="int">
 		SELECT count(b.idx)
 		from user u, board b
-		where u.idx = b.user_idx and b.post_category_idx = #{postIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')
+		where u.idx = b.user_idx and b.post_category_idx = #{postCategoryIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')
 	</select>
 </mapper>

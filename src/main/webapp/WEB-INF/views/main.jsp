@@ -11,7 +11,7 @@
     <style>
     /* stylelint-disable selector-list-comma-newline-after */
 
-.blog-header {
+/*  .blog-header {
   line-height: 1;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -79,9 +79,6 @@ h1, h2, h3, h4, h5, h6 {
   .h-md-250 { height: 250px; }
 }
 
-/*
- * Blog name and description
- */
 .blog-title {
   margin-bottom: 0;
   font-size: 2rem;
@@ -98,7 +95,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Pagination */
 .blog-pagination {
   margin-bottom: 4rem;
 }
@@ -106,9 +102,6 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 2rem;
 }
 
-/*
- * Blog posts
- */
 .blog-post {
   margin-bottom: 4rem;
 }
@@ -121,9 +114,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #999;
 }
 
-/*
- * Footer
- */
+
 .blog-footer {
   padding: 2.5rem 0;
   color: #999;
@@ -133,7 +124,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .blog-footer p:last-child {
   margin-bottom: 0;
-}
+} */
     </style>
     
     <!-- Bootstrap core CSS -->
@@ -145,8 +136,7 @@ h1, h2, h3, h4, h5, h6 {
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
 
-  <body>
-
+  <body style="width:1000px; margin: auto;">
     <div class="container">
       <c:import url="/header.do"></c:import>
 

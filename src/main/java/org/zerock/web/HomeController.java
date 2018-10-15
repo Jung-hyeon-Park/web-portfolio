@@ -59,7 +59,7 @@ public class HomeController {
 	@RequestMapping(value="/nav.do", method=RequestMethod.GET)
 	public void nav(Model model) throws Exception{
 		
-		model.addAttribute("boardCategoryVOs", boardService.selectPost());
+		model.addAttribute("postCategoryVOs", boardService.selectPost());
 	}
 	
 	//푸터 페이지

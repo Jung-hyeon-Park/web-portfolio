@@ -4,14 +4,16 @@ public class Criteria {
 
 	private int page;
 	private int perPageNum;
-	private int postIdx;
+	private int postCategoryIdx;
 
-	public int getPostIdx() {
-		return postIdx;
+	
+
+	public int getPostCategoryIdx() {
+		return postCategoryIdx;
 	}
 
-	public void setPostIdx(int postIdx) {
-		this.postIdx = postIdx;
+	public void setPostCategoryIdx(int postCategoryIdx) {
+		this.postCategoryIdx = postCategoryIdx;
 	}
 
 	public Criteria() {

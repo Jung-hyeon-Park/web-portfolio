@@ -24,11 +24,12 @@
 			});
 
 			$(".btn-primary").on("click", function() {
-				self.location = "/board/listAll.do";
+				self.location = "/board/listAll.do?postCategoryIdx=${postCategoryIdx}";
 			});
 		});
 	</script>
 	<form role="form" method="POST">
+		<input type="hidden" name="postCategoryIdx" value="${postCategoryIdx}">
 		<input type="hidden" name="idx" value="${boardVO.idx}">
 		<div>
 			<div>
