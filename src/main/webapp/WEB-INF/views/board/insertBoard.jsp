@@ -23,7 +23,7 @@
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body style="width: 1000px; margin: auto;">
-	<form role="form" method="POST" enctype="multipart/form-data">
+	<form role="form1" method="POST" enctype="multipart/form-data">
 
 		<h3>게시글 작성</h3>
 		
@@ -32,7 +32,7 @@
 			<label>게시판 선택</label>
 			<select name="postCategoryIdx">
 				<c:forEach var="postVO" items="${postVOs}">
-					<option value="${postVO.idx}" <c:if test="${postVO.idx eq postCategoryIdx}">selected</c:if>>${postVO.name}</option>
+					<option value="${postVO.idx}" <c:if test="${postVO.idx eq postIdx}">selected</c:if>>${postVO.name}</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -48,7 +48,7 @@
 			<textarea cols="10" rows="7" placeholder="내용을 입력하세요." name="content" class="form-control"></textarea>
 		</div>
 
-		<button type="submit" class="btn btn-default">작성</button>
+		<input type="submit" class="btn btn-default" value="작성">
 	</form>
 	<a href="/main.do">메인으로</a>
 </body>

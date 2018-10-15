@@ -30,7 +30,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		if(req.getMethod().equals("GET")) {
 			req.getSession().setAttribute("dest", uri + query);
 		}
-		System.out.println("url = " + uri + query);
 		return uri + query;
 	}
 	
@@ -47,19 +46,16 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			
 			//자동 로그인 쿠키 유무 확인
 			if(loginCookie != null) {
-				System.out.println("1");
 				UserVO userVO = userService.checkLoginBefore(loginCookie.getValue());
 				
 				//유저 정보 유무 확인
 				if(userVO != null) {
-					System.out.println("2");
 					session.setAttribute("login", userVO);
 					
 					// 접속한 페이지 확인
 					if(url.equals("/main.do")) {
 						return true;
 					}else {
-						System.out.println("3");
 						return false;
 					}
 				}
@@ -67,7 +63,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			if(url.equals("/main.do")) {
 				return true;
 			}else {
-				System.out.println("4");
 				response.sendRedirect("/user/login.do");
 				return false;
 			}

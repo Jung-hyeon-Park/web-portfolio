@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +30,12 @@ public class BoardController {
 	
 	//게시글 생성
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.GET)
-	public void board(Model model, @RequestParam("postCategoryIdx") int postCategoryIdx) throws Exception {
+	public void insertBoard(Model model, @RequestParam("postCategoryIdx") int postIdx) throws Exception {
 		
+		
+		System.out.println("idx == " + postIdx);
 		//게시판 목록 생성
-		model.addAttribute("postCategoryIdx", postCategoryIdx);
+		model.addAttribute("postIdx", postIdx);
 		model.addAttribute("postVOs", boardService.selectPost());
 	}
 	
@@ -43,7 +44,8 @@ public class BoardController {
 		
 		//로그인 세션 정보
 		UserVO userVO = (UserVO)session.getAttribute("login");
-		System.out.println("oKKKKKKKK");
+		System.out.println("idxasdf = " + postCategoryIdx);
+		System.out.println("oKKKKKKKK idx = " + boardVO.getPostCategoryIdx());
 		
 		boardVO.setUserIdx(userVO.getIdx());
 		
@@ -65,11 +67,10 @@ public class BoardController {
 		}
 		
 		boardVO.setImage(fileName);
-		boardVO.setPostCategoryIdx(postCategoryIdx);
-		
+		System.out.println("post = " + boardVO.getPostCategoryIdx());
 		boardService.insertBoard(boardVO);
 		
-		return "/board/listAll.do?postCategoryIdx="+postCategoryIdx;
+		return "/board/listAll.do?postCategoryIdx=" + boardVO.getPostCategoryIdx();
 	}
 	
 	//게시글 리스트
