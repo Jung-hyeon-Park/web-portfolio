@@ -8,13 +8,22 @@ public class BoardVO {
 	private String title;
 	private String content;
 	private int viewCount;
-	private String image;
 	private int userIdx;
 	private String name;
 	private Date writeDate;
 	private Date updateDate;
 	private int postCategoryIdx;
 	private int recnt; // 댓글 갯수
+
+	private String[] files;
+
+	public String[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
 
 	public int getRecnt() {
 		return recnt;
@@ -86,14 +95,6 @@ public class BoardVO {
 
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public int getUserIdx() {

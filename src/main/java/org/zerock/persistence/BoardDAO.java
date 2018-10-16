@@ -38,5 +38,8 @@ public interface BoardDAO {
 	
 	//검색한 게시글 카운트
 	public int listSearchCount(SearchVO cri) throws Exception;
+	
+	//파일 추가
+	public void addFiles(String fullName) throws Exception;
 
 }

@@ -1,20 +1,21 @@
 package org.zerock.web;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.PageMaker;
@@ -38,38 +39,36 @@ public class BoardController {
 		//게시판 목록 생성
 		model.addAttribute("postVOs", boardService.selectPost());
 	}
+	/*
+	@Resource(name = "uploadPath")
+	private String uploadPath;*/
 	
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.POST)
-	public String insertBoard(MultipartHttpServletRequest request, BoardVO boardVO, HttpSession session) throws Exception {
+	public String insertBoard(MultipartFile file, BoardVO boardVO, Model model, HttpSession session) throws Exception {
 		
 		//로그인 세션 정보
 		UserVO userVO = (UserVO)session.getAttribute("login");
-		System.out.println("oKKKKKKKK idx = " + boardVO.getPostCategoryIdx());
 		
 		boardVO.setUserIdx(userVO.getIdx());
-		//이미지 파일 등록
-		MultipartFile mf = request.getFile("image");
-		String path = request.getRealPath("/resources/uploadFile/image");
-		String fileName = mf.getOriginalFilename();
-		File uploadFile = new File(path+"//"+fileName);
 		
-		try {
-			mf.transferTo(uploadFile);
-			System.out.println("??????");
-		} catch (IllegalStateException e) {
-			System.out.println("no!!!!!!!!!");
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("wtf!!!!!!!!!!!!!!!");
-			e.printStackTrace();
-		}
+	/*	String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 		
-		boardVO.setImage(fileName);
-		System.out.println("post = " + boardVO.getPostCategoryIdx());
+		boardVO.setImage(savedName);*/
 		boardService.insertBoard(boardVO);
-		
-		return "/board/listAll.do?post=" + boardVO.getPostCategoryIdx();
+	
+		return "redirect:/board/listAll.do?post=" + boardVO.getPostCategoryIdx();
 	}
+	
+	/*private String uploadFile(String originalName, byte[] fileData) throws Exception {
+		UUID uid = UUID.randomUUID();
+		String savedName = uid.toString()+"_"+originalName;
+		
+		File target = new File(uploadPath, savedName);
+		
+		FileCopyUtils.copy(fileData, target);
+		
+		return savedName;
+	}*/
 	
 	//게시글 리스트
 	@RequestMapping(value="/listAll.do", method=RequestMethod.GET)

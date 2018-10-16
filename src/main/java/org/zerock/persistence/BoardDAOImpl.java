@@ -77,4 +77,10 @@ public class BoardDAOImpl implements BoardDAO{
 	public int listSearchCount(SearchVO cri) throws Exception {
 		return sqlSession.selectOne(namespace+".listSearchCount", cri);
 	}
+	
+	//파일 추가
+	@Override
+	public void addFiles(String fullName) throws Exception {
+		sqlSession.insert(namespace+".addFiles", fullName);
+	}
 }

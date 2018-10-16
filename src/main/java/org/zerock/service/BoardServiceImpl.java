@@ -21,6 +21,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void insertBoard(BoardVO boardVO) throws Exception {
 		boardDAO.insertBoard(boardVO);
+		
+		String[] files = boardVO.getFiles();
+		
+		if(files == null) {
+			return;
+		}
+		
+		for(String fullName : files) {
+			boardDAO.addFiles(fullName);
+		}
 	}
 	
 	//게시글 수정

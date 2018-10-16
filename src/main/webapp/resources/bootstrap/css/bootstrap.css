@@ -52,6 +52,14 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-overflow-scrolling: touch;
 }
 
+.fileDrop {
+	width: 80%;
+	height: 100px;
+	border: 1px dotted gray;
+	background: lightslategray;
+	margin: auto;
+}
+
 .nav-scroller .nav-link {
   padding-top: .75rem;
   padding-bottom: .75rem;
