@@ -16,8 +16,8 @@
 
 <!-- 게시글 작성 -->
 	<insert id="insertBoard">
-		INSERT INTO board (title, content, image, user_idx, post_category_idx)
-		VALUES (#{title}, #{content}, #{image}, #{userIdx}, #{postCategoryIdx})
+		INSERT INTO board (title, content, user_idx, post_category_idx)
+		VALUES (#{title}, #{content}, #{userIdx}, #{postCategoryIdx})
 	</insert>
 
 <!-- 게시글 세부내용 -->
@@ -77,9 +77,22 @@
 		from user u, board b
 		where u.idx = b.user_idx and b.post_category_idx = #{postCategoryIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')
 	</select>
-	<!-- 파일 추가 -->
+	
+<!-- 파일 추가 -->
 	<insert id="addFiles">
-		insert into file_list(name, board_idx)
-		value (#{fullName}, LAST_INSERT_ID())
+		insert into file_list(full_name, board_idx)
+		values (#{fullName}, LAST_INSERT_ID())
 	</insert>
+	
+<!-- 파일 삭제 -->
+	<delete id="deleteFiles">
+		delete from file_list
+		where board_idx = #{boardIdx}
+	</delete>
+
+<!-- 파일 수정 -->
+	<update id="replaceFiles">
+		insert into file_list(full_name, board_idx)
+		values (#{fullName}, #{boardIdx})
+	</update>
 </mapper>

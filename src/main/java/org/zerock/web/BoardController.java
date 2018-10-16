@@ -1,27 +1,25 @@
 package org.zerock.web;
 
-import java.io.File;
-import java.util.UUID;
-
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.PageMaker;
 import org.zerock.domain.SearchVO;
 import org.zerock.domain.UserVO;
 import org.zerock.service.BoardService;
+import org.zerock.util.MediaUtils;
 
 @RequestMapping("/board")
 @Controller
@@ -34,41 +32,22 @@ public class BoardController {
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.GET)
 	public void insertBoard(Model model, @ModelAttribute("post") int post) throws Exception {
 		
-		
-		System.out.println("idx == " + post);
 		//게시판 목록 생성
 		model.addAttribute("postVOs", boardService.selectPost());
 	}
-	/*
-	@Resource(name = "uploadPath")
-	private String uploadPath;*/
 	
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.POST)
-	public String insertBoard(MultipartFile file, BoardVO boardVO, Model model, HttpSession session) throws Exception {
+	public String insertBoard(BoardVO boardVO, Model model, HttpSession session) throws Exception {
 		
 		//로그인 세션 정보
 		UserVO userVO = (UserVO)session.getAttribute("login");
-		
+	
 		boardVO.setUserIdx(userVO.getIdx());
 		
-	/*	String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
-		
-		boardVO.setImage(savedName);*/
 		boardService.insertBoard(boardVO);
 	
 		return "redirect:/board/listAll.do?post=" + boardVO.getPostCategoryIdx();
 	}
-	
-	/*private String uploadFile(String originalName, byte[] fileData) throws Exception {
-		UUID uid = UUID.randomUUID();
-		String savedName = uid.toString()+"_"+originalName;
-		
-		File target = new File(uploadPath, savedName);
-		
-		FileCopyUtils.copy(fileData, target);
-		
-		return savedName;
-	}*/
 	
 	//게시글 리스트
 	@RequestMapping(value="/listAll.do", method=RequestMethod.GET)

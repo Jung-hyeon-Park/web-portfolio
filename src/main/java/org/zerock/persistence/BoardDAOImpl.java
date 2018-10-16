@@ -1,6 +1,8 @@
 package org.zerock.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -82,5 +84,23 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public void addFiles(String fullName) throws Exception {
 		sqlSession.insert(namespace+".addFiles", fullName);
+	}
+	
+	//파일 삭제
+	@Override
+	public void deleteFiles(int boardIdx) throws Exception {
+		sqlSession.delete(namespace+".deleteFiles", boardIdx);
+	}
+		
+	//파일 수정
+	@Override
+	public void replaceFiles(String fullName, int boardIdx) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("boardIdx", boardIdx);
+		paramMap.put("fullName", fullName);
+		
+		sqlSession.insert(namespace+".replaceFiles", paramMap);
 	}
 }

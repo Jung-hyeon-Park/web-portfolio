@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PostVO;
@@ -18,6 +19,7 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO boardDAO;
 	
 	//게시글 추가
+	@Transactional
 	@Override
 	public void insertBoard(BoardVO boardVO) throws Exception {
 		boardDAO.insertBoard(boardVO);
@@ -28,20 +30,35 @@ public class BoardServiceImpl implements BoardService {
 			return;
 		}
 		
-		for(String fullName : files) {
-			boardDAO.addFiles(fullName);
+		for(String fileName : files) {
+			boardDAO.addFiles(fileName);
 		}
 	}
 	
 	//게시글 수정
+	@Transactional
 	@Override
 	public void updateBoard(BoardVO boardVO) throws Exception {
 		boardDAO.updateBoard(boardVO);
+		
+		int boardIdx = boardVO.getIdx();
+		
+		String[] files = boardVO.getFiles();
+		
+		if(files == null) {
+			return;
+		}
+		
+		for(String fileName : files) {
+			boardDAO.replaceFiles(fileName, boardIdx);
+		}
 	}
 	
 	//게시글 삭제
+	@Transactional
 	@Override
 	public void deleteBoard(int idx) throws Exception {
+		boardDAO.deleteFiles(idx);
 		boardDAO.deleteBoard(idx);
 	}
 	

@@ -41,5 +41,11 @@ public interface BoardDAO {
 	
 	//파일 추가
 	public void addFiles(String fullName) throws Exception;
+	
+	//파일 삭제
+	public void deleteFiles(int boardIdx) throws Exception;
+	
+	//파일 수정
+	public void replaceFiles(String fullName, int boardIdx) throws Exception;
 
 }

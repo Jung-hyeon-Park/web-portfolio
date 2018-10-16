@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.util.MediaUtils;
@@ -33,6 +34,7 @@ public class UploadController {
 	@RequestMapping(value="/uploadAjax.do", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
 		
+		System.out.println("fileasdf = " + file.getOriginalFilename());
 		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 	}
 	
@@ -45,7 +47,6 @@ public class UploadController {
 		ResponseEntity<byte[]> entity = null;
 		
 		try {
-			System.out.println("testasdfasfeawefawe");
 			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
 			
 			MediaType mType = MediaUtils.getMediaType(formatName);
@@ -88,6 +89,30 @@ public class UploadController {
 		
 		new File(uploadPath+fileName.replace('/', File.separatorChar)).delete();
 		
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+	
+	//업로드 파일 삭제
+	@ResponseBody
+	@RequestMapping(value="/deleteAllFiles.do", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files) throws Exception {
+			
+		if(files == null || files.length == 0) {
+			return new ResponseEntity<String>("deleted", HttpStatus.OK);
+		}
+			
+		for(String fileName : files) {
+			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+				
+			MediaType mType = MediaUtils.getMediaType(formatName);
+			
+			if(mType != null) {
+				String front = fileName.substring(0, 12);
+				String end = fileName.substring(14);
+				new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
+			}
+			new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+		}
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 
