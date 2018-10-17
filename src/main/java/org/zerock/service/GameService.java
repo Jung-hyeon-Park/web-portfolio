@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.domain.GameCategory3VO;
+import org.zerock.domain.BoardVO;
 import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameVO;
 
 public interface GameService {
 	
 	//게임 추가
-	public void insertGame(GameVO gameVO) throws Exception;
+	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception;
 	
 	//게임 카테고리1
 	public List<GameCategory1VO> selectGameType() throws Exception;

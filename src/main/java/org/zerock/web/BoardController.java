@@ -44,12 +44,12 @@ public class BoardController {
 		UserVO userVO = (UserVO)session.getAttribute("login");
 	
 		boardVO.setUserIdx(userVO.getIdx());
-		System.out.println("가격 = " + gameVO.getPrice());
-		
-		boardService.insertBoard(boardVO);
 		if(gameVO.getPrice() != 0) {
-			gameVO.setBoardIdx(boardVO.getIdx());
-			gameService.insertGame(gameVO);
+			System.out.println("idx2 = " + gameVO.getCategory2Idx());
+			System.out.println("idx3 = " + gameVO.getCategory3Idx());
+			gameService.insertGame(gameVO, boardVO);
+		}else {
+			boardService.insertBoard(boardVO);
 		}
 	
 		return "redirect:/board/listAll.do?post=" + boardVO.getPostCategoryIdx();

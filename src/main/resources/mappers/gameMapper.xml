@@ -7,8 +7,8 @@
 
 <!-- 게임 추가 -->
 	<insert id="insertGame">
-		insert into game (title, price, board_idx, category3_idx, status, condition)
-		values (#{title}, #{price}, #{boardIdx}, #{category3Idx}, #{status}, #{condition})
+		insert into game (title, price, board_idx, category3_idx, status, condition, category2_idx)
+		values (#{title}, #{price}, LAST_INSERT_ID(), #{category3Idx}, #{status}, #{condition}, #{category2Idx})
 	</insert>
 
 <!-- 게임 카테고리1 -->

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.domain.GameCategory3VO;
+import org.zerock.domain.BoardVO;
 import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameVO;
 

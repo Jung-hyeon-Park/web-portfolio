@@ -5,10 +5,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.zerock.domain.BoardVO;
+import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.domain.GameCategory3VO;
-import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameVO;
+import org.zerock.persistence.BoardDAO;
 import org.zerock.persistence.GameDAO;
 
 @Service
@@ -17,10 +20,17 @@ public class GameServiceImpl implements GameService {
 	@Inject
 	private GameDAO gameDAO;
 	
+	@Inject
+	private BoardDAO boardDAO;
+	
 	//게임 추가
+	@Transactional
 	@Override
-	public void insertGame(GameVO gameVO) throws Exception {
+	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception {
+		System.out.println("1");
 		gameDAO.insertGame(gameVO);
+		System.out.println("2");
+		boardDAO.insertBoard(boardVO);
 	}
 	
 	//게임 카테고리1

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.domain.GameCategory3VO;
+import org.zerock.domain.BoardVO;
 import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameVO;
 
