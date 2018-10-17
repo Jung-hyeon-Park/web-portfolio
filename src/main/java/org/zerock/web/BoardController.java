@@ -3,8 +3,6 @@ package org.zerock.web;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -12,14 +10,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.GameVO;
 import org.zerock.domain.PageMaker;
 import org.zerock.domain.SearchVO;
 import org.zerock.domain.UserVO;
 import org.zerock.service.BoardService;
-import org.zerock.util.MediaUtils;
+import org.zerock.service.GameService;
 
 @RequestMapping("/board")
 @Controller
@@ -27,6 +25,9 @@ public class BoardController {
 	
 	@Inject
 	private BoardService boardService;
+	
+	@Inject
+	private GameService gameService;
 	
 	//게시글 생성
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.GET)
@@ -37,14 +38,19 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.POST)
-	public String insertBoard(BoardVO boardVO, Model model, HttpSession session) throws Exception {
+	public String insertBoard(BoardVO boardVO, GameVO gameVO, Model model, HttpSession session) throws Exception {
 		
 		//로그인 세션 정보
 		UserVO userVO = (UserVO)session.getAttribute("login");
 	
 		boardVO.setUserIdx(userVO.getIdx());
+		System.out.println("가격 = " + gameVO.getPrice());
 		
 		boardService.insertBoard(boardVO);
+		if(gameVO.getPrice() != 0) {
+			gameVO.setBoardIdx(boardVO.getIdx());
+			gameService.insertGame(gameVO);
+		}
 	
 		return "redirect:/board/listAll.do?post=" + boardVO.getPostCategoryIdx();
 	}
@@ -74,35 +80,35 @@ public class BoardController {
 	
 	//상세 게시글
 	@RequestMapping(value="/readBoard.do", method=RequestMethod.GET)
-	public void readBoard(@RequestParam("boardIdx") int idx, Model model, @RequestParam("post") int postCategoryIdx) throws Exception {
+	public void readBoard(@RequestParam("boardIdx") int idx, Model model, @RequestParam("post") int post) throws Exception {
 		
 		//게시글 읽기
-		model.addAttribute("post", postCategoryIdx);
+		model.addAttribute("post", post);
 		model.addAttribute("boardVO", boardService.readBoard(idx));
 	}
 	
 	//게시글 삭제
 	@RequestMapping(value="/deleteBoard.do", method=RequestMethod.POST)
-	public String deleteBoard(@RequestParam("boardIdx") int idx, RedirectAttributes rttr) throws Exception {
+	public String deleteBoard(@RequestParam("boardIdx") int idx, RedirectAttributes rttr, @RequestParam("post") int postCategoryIdx) throws Exception {
 		
 		//게시글 삭제 후 "SUCCESS메세지 보내기
 		boardService.deleteBoard(idx);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
-		return "redirect:/board/listAll.do";
+		return "redirect:/board/listAll.do?post="+postCategoryIdx;
 	}
 	
 	//게시글 수정
 	@RequestMapping(value="/updateBoard.do", method=RequestMethod.GET)
-	public void updateBoard(@RequestParam("boardIdx") int idx, Model model, @RequestParam("post") int postCategoryIdx) throws Exception {
-		model.addAttribute("post", postCategoryIdx);
+	public void updateBoard(@RequestParam("boardIdx") int idx, Model model,  @ModelAttribute("post") int post) throws Exception {
+		model.addAttribute("postVOs", boardService.selectPost());
 		model.addAttribute("boardVO", boardService.readBoard(idx));
+		model.addAttribute("files", boardService.getFiles(idx));
 	}
 	
 	@RequestMapping(value="/updateBoard.do", method=RequestMethod.POST)
-	public String updateBoard(Model model, BoardVO boardVO, RedirectAttributes rttr, @RequestParam("post") int postCategoryIdx) throws Exception {
+	public String updateBoard(BoardVO boardVO, RedirectAttributes rttr, @RequestParam("post") int postCategoryIdx) throws Exception {
 		
-		model.addAttribute("post", postCategoryIdx);
 		boardService.updateBoard(boardVO);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		

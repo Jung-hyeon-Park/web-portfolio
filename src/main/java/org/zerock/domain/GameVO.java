@@ -5,10 +5,36 @@ public class GameVO {
 	private int idx;
 	private String title;
 	private int price;
-	private String content;
-	private int viewCount;
-	private String image;
-	private String name;
+	private int status;
+	private int condition;
+	private int category3Idx;
+	private int boardIdx;
+	
+	
+
+	public int getCategory3Idx() {
+		return category3Idx;
+	}
+
+	public void setCategory3Idx(int category3Idx) {
+		this.category3Idx = category3Idx;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public int getCondition() {
+		return condition;
+	}
+
+	public void setCondition(int condition) {
+		this.condition = condition;
+	}
 
 	public int getIdx() {
 		return idx;
@@ -34,36 +60,12 @@ public class GameVO {
 		this.price = price;
 	}
 
-	public String getContent() {
-		return content;
+	public int getBoardIdx() {
+		return boardIdx;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public int getViewCount() {
-		return viewCount;
-	}
-
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setBoardIdx(int boardIdx) {
+		this.boardIdx = boardIdx;
 	}
 
 }

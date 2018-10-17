@@ -36,4 +36,7 @@ public interface BoardService {
 	//검색한 게시글 카운트
 	public int listSearchCount(SearchVO cri) throws Exception;
 	
+	//파일 조회
+	public List<String> getFiles(int boardIdx) throws Exception;
+	
 }

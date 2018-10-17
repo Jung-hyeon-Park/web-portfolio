@@ -47,5 +47,8 @@ public interface BoardDAO {
 	
 	//파일 수정
 	public void replaceFiles(String fullName, int boardIdx) throws Exception;
+	
+	//파일 조회
+	public List<String> getFiles(int boardIdx) throws Exception;
 
 }

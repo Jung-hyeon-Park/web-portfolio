@@ -17,6 +17,12 @@ public class GameServiceImpl implements GameService {
 	@Inject
 	private GameDAO gameDAO;
 	
+	//게임 추가
+	@Override
+	public void insertGame(GameVO gameVO) throws Exception {
+		gameDAO.insertGame(gameVO);
+	}
+	
 	//게임 카테고리1
 	@Override
 	public List<GameCategory1VO> selectGameType() throws Exception {

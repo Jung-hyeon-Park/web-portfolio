@@ -5,6 +5,12 @@
 
 <mapper namespace="org.zerock.mapper.GameMapper">
 
+<!-- 게임 추가 -->
+	<insert id="insertGame">
+		insert into game (title, price, board_idx, category3_idx, status, condition)
+		values (#{title}, #{price}, #{boardIdx}, #{category3Idx}, #{status}, #{condition})
+	</insert>
+
 <!-- 게임 카테고리1 -->
 	<select id="selectGameType" resultType="GameCategory1VO">
 		select * from category order by idx asc;

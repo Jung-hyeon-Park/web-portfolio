@@ -8,18 +8,48 @@
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/resources/bootstrap/js/upload.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <script>
 	var text = document.querySelector("textarea");
 	var result2 = text.value.replace(/\n|\r\n/g, '<br>');
 </script>
+
+<style type="text/css">
+.popup {
+	position: absolute;	
+}
+.back {
+	background-color: gray;
+	opacity: 0.5;
+	width: 100%;
+	height: 300%;
+	overflow: hidden;
+	z-index: 1101;
+}
+.front {
+	z-index: 1110;
+	opacity: 1;
+	border: 1px;
+	margin: auto;
+}
+.show {
+	position: relative;
+	max-width: 1200px;
+	max-height: 800px;
+	overflow: auto;
+}
+</style>
 </head>
 <body>
 
-	<form role="form" method="POST">
-	
-	
+<form role="form" method="POST">
 	<div class="row">
     	<div class="col-xs-2 col-md-2"></div>
    		<div class="col-xs-8 col-md-8">
@@ -48,31 +78,76 @@
 	        		<tr>
 	            		<th class="success">글 내용</th>
 	            		<td colspan="7">${boardVO.content}<br><br>
-	            			<c:if test="${boardVO.image != null}"><img src="/resources/uploadFile/image/${boardVO.image}">
-	            			</c:if>
+	            		<div class="box-footer">
+	            			<div><hr></div>
+							<ul class="mailbox-attachments clearfix uploadedList">
+							</ul>
+						</div>
 	            		</td>
 	       		 	</tr>
 	       		 </table>
 	       		</div>
 	       	</div>
 		<input type="hidden" name="boardIdx" value="${boardVO.idx}">
+		<input type="hidden" name="post" value="${boardVO.postCategoryIdx}">
 	</div>
-	</form>
 	<div>
 		<button type="button" class="btn-warning">수정</button>
 		<button type="button" class="btn-danger">삭제</button>
 		<button type="button" class="btn-primary">리스트로</button>
 	</div>
-	
-	<form role="form" action="/board/listAll.do?post=${post}", method="GET">
-		<input type="hidden" name="post" value="${post}">
-		<input type="hidden" name="boardIdx" value="${boardVO.idx}">
-		<input type="hidden" name="page" value="${cri.page}">
-		<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
-	</form>
+</form>
+
+<div class="popup back" style="display: none;"></div>
+<div id="popup_frount" class="popup front" style="display: none;">
+	 <img id="popup_img">
+</div>
+<form role="form1" action="/board/listAll.do?post=${post}" method="GET">
+	<input type="hidden" name="post" value="${post}">
+	<input type="hidden" name="boardIdx" value="${boardVO.idx}">
+	<input type="hidden" name="page" value="${cri.page}">
+	<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+</form>
+
+<div>
+	<%@include file="../comment/comment.jsp" %>
+</div>
 	
 	<script>
 		$(document).ready(function() {
+			
+			var boardIdx = ${boardVO.idx};
+			var template = Handlebars.compile($("#templateAttach").html());
+			
+			$.getJSON("/upload/getFiles.do/"+boardIdx, function(list) {
+				
+				$(list).each(function() {
+					
+					var fileInfo = getFileInfo(this);
+					var html = template(fileInfo);
+					
+					$(".uploadedList").append(html);
+				});
+			});
+			
+			$(".uploadedList").on("click", ".mailbox-attachment-info a", function(event) {
+				
+				var fileLink = $(this).attr("href");
+				
+				if(checkImageType(fileLink)) {
+					event.preventDefault();
+					
+					var imgTag = $("#popup_img");
+					imgTag.attr("src", fileLink);
+					
+					$(".popup").show("slow");
+					imgTag.addClass("show");
+				}
+			});
+			
+			$("#popup_img").on("click", function() {
+				$(".popup").hide("slow");
+			});
 			
 			var formObj = $("form[role='form']");
 	
@@ -81,9 +156,11 @@
 				formObj.attr("method", "GET");
 				formObj.submit();
 			});
+			
 			$(".btn-danger").on("click", function() {
 				
-				var replyCnt = $("#replycntSmall").html().replace(/[^0-9]/g,"");
+				var replyCnt = $("#cCnt").html().replace(/[^0-9]/g,"");
+				
 				
 				if(replyCnt > 0) {
 					alert("댓글이 달린 게시물을 삭제할 수 없습니다.");
@@ -96,11 +173,11 @@
 				});
 				
 				if(arr.length > 0) {
+					
 					$.post("/upload/deleteAllFiles.do", {files:arr}, function() {
 						
 					});
 				}
-				
 				
 				formObj.attr("action", "/board/deleteBoard.do");
 				formObj.submit();
@@ -110,10 +187,15 @@
 			});
 		});
 	</script>
-	
-	<div>
-		<%@include file="../comment/comment.jsp" %>
-	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script id="templateAttach" type="text/x-handlebars-template">
+		<li data-src='{{fullName}}'>
+			<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
+			<div class="mailbox-attachment-info">
+				<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+			</div>
+		</li>
+	</script>
 	
 </body>
 </html>

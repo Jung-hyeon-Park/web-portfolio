@@ -53,8 +53,8 @@ function getCommentList() {
 			if (data.length > 0) {
 				for (i = 0; i < data.length; i++) {
 					html += "<div>";
-					html += "<div><table class='table'><h6><strong>"+ data[i].name + "</strong></h6>";
-					html += data[i].comment+ "<tr><td></td></tr>";
+					html += "<div id='smallCMT'><table class='table'><h6><strong>"+ data[i].name + "</strong></h6>";
+					html += "<tr><td>"+data[i].comment+"</td></tr>";
 					html += "</table></div>";
 					html += "</div>";
 				}

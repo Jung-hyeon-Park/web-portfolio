@@ -22,7 +22,7 @@
 
 <!-- 게시글 세부내용 -->
 	<select id="readBoard" resultType="BoardVO">
-		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.image
+		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx
 		from user u, board b
 		where u.idx = b.user_idx and b.idx = #{idx}
 	</select>
@@ -95,4 +95,11 @@
 		insert into file_list(full_name, board_idx)
 		values (#{fullName}, #{boardIdx})
 	</update>
+	
+<!-- 파일 조회 -->
+	<select id="getFiles" resultType="String">
+		select full_name from file_list
+		where board_idx = #{boardIdx}
+		order by date
+	</select>
 </mapper>

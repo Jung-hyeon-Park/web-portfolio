@@ -103,4 +103,10 @@ public class BoardDAOImpl implements BoardDAO{
 		
 		sqlSession.insert(namespace+".replaceFiles", paramMap);
 	}
+	
+	//파일 조회
+	@Override
+	public List<String> getFiles(int boardIdx) throws Exception {
+		return sqlSession.selectList(namespace+".getFiles", boardIdx);
+	}
 }

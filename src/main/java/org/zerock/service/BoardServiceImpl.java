@@ -99,4 +99,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.listSearchCount(cri);
 	}
 	
+	//파일 조회
+	@Override
+	public List<String> getFiles(int boardIdx) throws Exception {
+		return boardDAO.getFiles(boardIdx);
+	}
+	
 }
