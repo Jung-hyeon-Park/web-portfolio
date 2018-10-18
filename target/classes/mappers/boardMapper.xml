@@ -5,6 +5,12 @@
 
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
+<!-- 게임 조회 -->
+	<select id="selectGame" resultType="GameDTO">
+		select c2.name2, c3.name3, g.status, g.state, g.price from game g, category2 c2, category3 c3 
+		where board_idx = #{boardIdx} and g.category2_idx = c2.idx and g.category3_idx = c3.idx
+	</select>
+
 <!-- 게시판 리스트 -->
 	<select id="selectPost" resultType="PostVO">
 		<![CDATA[
@@ -16,13 +22,13 @@
 
 <!-- 게시글 작성 -->
 	<insert id="insertBoard">
-		INSERT INTO board (title, content, user_idx, post_category_idx)
-		VALUES (#{title}, #{content}, #{userIdx}, #{postCategoryIdx})
+		INSERT INTO board (title, content, user_idx, post_category_idx, user_id)
+		VALUES (#{title}, #{content}, #{userIdx}, #{postCategoryIdx}, #{userId})
 	</insert>
 
 <!-- 게시글 세부내용 -->
 	<select id="readBoard" resultType="BoardVO">
-		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx
+		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx, b.user_id
 		from user u, board b
 		where u.idx = b.user_idx and b.idx = #{idx}
 	</select>
@@ -78,10 +84,16 @@
 		where u.idx = b.user_idx and b.post_category_idx = #{postCategoryIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')
 	</select>
 	
+<!-- 게임 추가 -->
+	<insert id="insertGame">
+		insert into game (title, price, board_idx, category3_idx, status, state, category2_idx)
+		values (#{title}, #{price}, LAST_INSERT_ID(), #{category3Idx}, #{status}, #{condition}, #{category2Idx})
+	</insert>
+	
 <!-- 파일 추가 -->
 	<insert id="addFiles">
 		insert into file_list(full_name, board_idx)
-		values (#{fullName}, LAST_INSERT_ID())
+		values (#{fileName}, LAST_INSERT_ID())
 	</insert>
 	
 <!-- 파일 삭제 -->
@@ -102,4 +114,5 @@
 		where board_idx = #{boardIdx}
 		order by date
 	</select>
+	
 </mapper>

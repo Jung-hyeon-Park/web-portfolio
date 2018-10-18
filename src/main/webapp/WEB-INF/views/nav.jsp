@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="nav-scroller py-1 mb-2" style="background:black;">
-		<nav class="nav d-flex justify-content-between">
+		<nav class="nav d-flex justify-content-around">
 		<c:forEach var="postCategoryVO" items="${postCategoryVOs}">
 			<a class="p-2 text-muted" href="/board/listAll.do?post=${postCategoryVO.idx}">${postCategoryVO.name}</a>
 		</c:forEach>

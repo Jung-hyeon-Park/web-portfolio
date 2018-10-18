@@ -12,6 +12,23 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css">
 
+<style>
+	.abc1 {
+	width: 100px;
+	}
+	.abc2 {
+	width: 400px;
+	}
+	.abc3 {
+	width: 150px;
+	}
+	.abc4 {
+	width: 250px;
+	}
+	.abc5 {
+	width: 100px;
+	}
+</style>
 </head>
 <body style="width:1000px; margin: auto;">
 <c:import url="/header.do"></c:import>
@@ -20,11 +37,11 @@
 <table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>날짜</th>
-			<th>조회수</th>
+			<th class="abc1">번호</th>
+			<th class="abc2">제목</th>
+			<th class="abc3">작성자</th>
+			<th class="abc4">날짜</th>
+			<th class="abc5">조회수</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -42,7 +59,6 @@
 
 <div class="box-body">
 	<select name="searchType">
-		<option value="null" <c:out value="${searchVO.searchType == null ? 'selected':''}"/>>---</option>
 		<option value="b.title" <c:out value="${searchVO.searchType eq 'b.title' ? 'selected':''}"/>>제목</option>
 		<option value="b.content" <c:out value="${searchVO.searchType eq 'b.content' ? 'selected':''}"/>>내용</option>
 		<option value="u.name" <c:out value="${searchVO.searchType eq 'u.name' ? 'selected':''}"/>>작성자</option>

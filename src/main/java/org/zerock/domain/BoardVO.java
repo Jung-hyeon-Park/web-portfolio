@@ -6,6 +6,7 @@ public class BoardVO {
 
 	private int idx;
 	private String title;
+	private String userId;
 	private String content;
 	private int viewCount;
 	private int userIdx;
@@ -16,6 +17,14 @@ public class BoardVO {
 	private int recnt; // 댓글 갯수
 
 	private String[] files;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public String[] getFiles() {
 		return files;

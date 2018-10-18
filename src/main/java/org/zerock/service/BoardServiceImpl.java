@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.GameDTO;
+import org.zerock.domain.GameVO;
 import org.zerock.domain.PostVO;
 import org.zerock.domain.SearchVO;
 import org.zerock.persistence.BoardDAO;
@@ -17,6 +19,21 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Inject
 	private BoardDAO boardDAO;
+	
+	//게임 추가
+	@Transactional
+	@Override
+	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception {
+		boardDAO.insertBoard(boardVO);
+		boardDAO.insertGame(gameVO);
+		
+	}
+	
+	//게임 조회
+	@Override
+	public GameDTO selectGame(int boardIdx) throws Exception {
+		return boardDAO.selectGame(boardIdx);
+	}
 	
 	//게시글 추가
 	@Transactional
@@ -39,9 +56,11 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public void updateBoard(BoardVO boardVO) throws Exception {
+		
 		boardDAO.updateBoard(boardVO);
 		
 		int boardIdx = boardVO.getIdx();
+		boardDAO.deleteFiles(boardIdx);
 		
 		String[] files = boardVO.getFiles();
 		

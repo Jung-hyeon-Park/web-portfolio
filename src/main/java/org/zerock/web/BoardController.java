@@ -1,4 +1,4 @@
-package org.zerock.web;
+ package org.zerock.web;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -26,8 +26,6 @@ public class BoardController {
 	@Inject
 	private BoardService boardService;
 	
-	@Inject
-	private GameService gameService;
 	
 	//게시글 생성
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.GET)
@@ -38,16 +36,16 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/insertBoard.do", method=RequestMethod.POST)
-	public String insertBoard(BoardVO boardVO, GameVO gameVO, Model model, HttpSession session) throws Exception {
+	public String insertBoard(GameVO gameVO, BoardVO boardVO, Model model, HttpSession session) throws Exception {
 		
 		//로그인 세션 정보
 		UserVO userVO = (UserVO)session.getAttribute("login");
 	
 		boardVO.setUserIdx(userVO.getIdx());
-		if(gameVO.getPrice() != 0) {
-			System.out.println("idx2 = " + gameVO.getCategory2Idx());
-			System.out.println("idx3 = " + gameVO.getCategory3Idx());
-			gameService.insertGame(gameVO, boardVO);
+		boardVO.setUserId(userVO.getEmail());
+		
+		if(boardVO.getPostCategoryIdx() == 5) {
+			boardService.insertGame(gameVO, boardVO);
 		}else {
 			boardService.insertBoard(boardVO);
 		}
@@ -85,6 +83,10 @@ public class BoardController {
 		//게시글 읽기
 		model.addAttribute("post", post);
 		model.addAttribute("boardVO", boardService.readBoard(idx));
+		
+		if(post == 5) {
+			model.addAttribute("gameDTO", boardService.selectGame(idx));
+		}
 	}
 	
 	//게시글 삭제
@@ -101,14 +103,16 @@ public class BoardController {
 	//게시글 수정
 	@RequestMapping(value="/updateBoard.do", method=RequestMethod.GET)
 	public void updateBoard(@RequestParam("boardIdx") int idx, Model model,  @ModelAttribute("post") int post) throws Exception {
+		
 		model.addAttribute("postVOs", boardService.selectPost());
 		model.addAttribute("boardVO", boardService.readBoard(idx));
-		model.addAttribute("files", boardService.getFiles(idx));
 	}
 	
 	@RequestMapping(value="/updateBoard.do", method=RequestMethod.POST)
-	public String updateBoard(BoardVO boardVO, RedirectAttributes rttr, @RequestParam("post") int postCategoryIdx) throws Exception {
+	public String updateBoard(BoardVO boardVO, RedirectAttributes rttr, @RequestParam("post") int postCategoryIdx, @RequestParam("boardIdx") int boardIdx) throws Exception {
 		
+		System.out.println("title = " + boardVO.getTitle());
+		boardVO.setIdx(boardIdx);
 		boardService.updateBoard(boardVO);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		

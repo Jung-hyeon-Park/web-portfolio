@@ -31,7 +31,7 @@ function getFileInfo(fullName) {
 	
 	// 목록에 출력할 원본파일 명
 	fileName = fileLink.substr(fileLink.indexOf("_")+1);
-	
+
 	// json 객체 리턴
 	return {fileName:fileName, imgsrc:imgsrc, getLink:getLink, fullName:fullName};
 }

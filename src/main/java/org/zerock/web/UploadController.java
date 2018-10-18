@@ -41,7 +41,6 @@ public class UploadController {
 	@RequestMapping(value="/uploadAjax.do", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
 		
-		System.out.println("fileasdf = " + file.getOriginalFilename());
 		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 	}
 	
@@ -83,7 +82,7 @@ public class UploadController {
 	@ResponseBody
 	@RequestMapping(value="/deleteFile.do", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) throws Exception {
-		System.out.println("RQWEqwerdfasdsaf = " + fileName);
+		
 		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
 		MediaType mType = MediaUtils.getMediaType(formatName);
 		

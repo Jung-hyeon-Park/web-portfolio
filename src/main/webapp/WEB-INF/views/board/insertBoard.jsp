@@ -6,7 +6,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css">
@@ -67,9 +67,8 @@
 		<button type="submit" class="btn btn-primary">작성</button>
 	</form>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
 <script id="template" type="text/x-handlebars-template">
-	<li>
+	<li class="abc">
 		<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
 		<div class="mailbox-attachment-info">
 			<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
@@ -79,6 +78,7 @@
 </script>
 
 <script>
+
 var template = Handlebars.compile($("#template").html());
 
 // 파일 업로드 영역에서 기본효과 제한
@@ -99,7 +99,6 @@ $(".fileDrop").on("drop", function(event) {
 	
 	// 첨부파일 추가
 	formData.append("file", file);
-	
 	$.ajax({
 		url: '/upload/uploadAjax.do',
 		data: formData,
@@ -118,23 +117,6 @@ $(".fileDrop").on("drop", function(event) {
 		}
 	});
 });
-	
-$(".uploadedList").on("click", ".delbtn", function(event) {
-	
-	var that = $(this).attr("data-src");
-
-	$.ajax({
-		url: "/upload/deleteFile.do",
-		type: "POST",
-		data: {fileName:$(this).attr("data-src")},
-		dataType: "text",
-		success: function(result) {
-			if(result == 'deleted') {
-				that.parent("li").remove();
-			}
-		}
-	});
-});
 
 $("#insertBoardForm").submit(function(event) {
 	event.preventDefault();
@@ -144,18 +126,79 @@ $("#insertBoardForm").submit(function(event) {
 	
 	$(".uploadedList .delbtn").each(function(index) {
 		
-		str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href")+"'>";
+		str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("data-src")+"'>";
 	});
 	
 	that.append(str);
-	
 	that.get(0).submit();
+});
+	
+$(".uploadedList").on("click"," .delbtn", function(event) {
+	
+	var that = $(this);
+
+	$.ajax({
+		url: "/upload/deleteFile.do",
+		type: "POST",
+		data: {fileName:$(this).attr("data-src")},
+		dataType: "text",
+		success: function(result) {
+			if(result == 'deleted') {
+				that.parent("div").parent().remove();
+			}
+		}
+	});
 });
 </script>
 
+
+
 <script>
+
+var category = $("#postCategory option:selected").val();
+var html = "";
+if(category == '5') {
+	html = "<div class='form-group'>"
+		+"<label>사용여부</label>"
+		+"<select name='status'>"
+		+"<option value='미사용/미개봉'>미사용/미개봉</option>"
+		+"<option value='사용품'>사용품</option>"
+		+"</select>"
+		+"<label>상태</label>"
+		+"<select name='condition'>"
+		+"<option value='A+'>A+</option>"
+		+"<option value='A'>A</option>"
+		+"<option value='B'>B</option>"
+		+"<option value='C'>C</option>"
+		+"</select>"
+		+"<label>분류1</label>"
+		+"<select name='category2Idx'>"
+		+"<option value=1>PSVR</option>"
+		+"<option value=2>PS4</option>"
+		+"<option value=3>PS3</option>"
+		+"<option value=4>PSVITA</option>"
+		+"<option value=5>닌텐도 SWITCH</option>"
+		+"<option value=6>닌텐도 3DS</option>"
+		+"<option value=7>닌텐도 Wii</option>"
+		+"<option value=8>XBOX ONE</option>"
+		+"<option value=9>XBOX X360</option>"
+		+"</select>"
+		+"<label>분류2</label>"
+		+"<select name='category3Idx'>"
+		+"<option value=1>본체/패키지</option>"
+		+"<option value=2>게임 타이틀</option>"
+		+"<option value=3>주변 기기</option>"
+		+"</select>"
+		+"</div>"
+		+"<div class='form-group'>"
+		+"<label>가격</label>"
+		+"<input type='number' name='price'><strong>원</strong>"
+		+"</div>";
+	$(".inner").append(html);
+}
+
 $("#postCategory").change(function() {
-	var category = $(this).val();
+	category = $(this).val();
 	var html = "";
 	if(category == '5') {
 		html = "<div class='form-group'>"

@@ -6,12 +6,12 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/resources/bootstrap/js/upload.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -33,15 +33,17 @@
 		<h3>게시글 작성</h3>
 		<div class="form-group">
 			<label>게시판 선택</label>
-			<select name="postCategoryIdx">
+			<select name="postCategoryIdx" id="postCategory">
 				<c:forEach var="postVO" items="${postVOs}">
 					<option value="${postVO.idx}"<c:if test="${postVO.idx eq post}">selected</c:if>>${postVO.name}</option>
 				</c:forEach>
 			</select>
 		</div>
+		<div class="inner">
+		</div>
 		<div class="form-group">
 			<label>제목</label>
-			<input type="text" placeholder="제목을 입력하세요." name="title" class="form-control" value="${boardVO.content}"/>
+			<input type="text" placeholder="제목을 입력하세요." name="title" class="form-control" value="${boardVO.title}"/>
 		</div>
 		
 		<div class="form-group">
@@ -62,23 +64,55 @@
 		</ul>
 	</div>
 
-		<button type="submit" class="btn btn-primary">작성</button>
+		<button type="submit" class="btn btn-primary">수정완료</button>
 	</form>
 	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 <script id="template" type="text/x-handlebars-template">
-	<li>
+	<li class="abc">
 		<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
 		<div class="mailbox-attachment-info">
 			<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-			<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn"><i class="fa fa-fw fa-remove"></i></a>
+			<a data-src="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn"><i class="fa fa-fw fa-remove"></i></a>
 		</div>
 	</li>
 </script>
 
 <script>
+
 var template = Handlebars.compile($("#template").html());
+
+$(document).ready(function() {
+	
+	var boardIdx = ${boardVO.idx};
+
+	
+	$.getJSON("/upload/getFiles.do/"+boardIdx, function(list) {
+		
+		$(list).each(function() {
+			
+			var fileInfo = getFileInfo(this);
+			var html = template(fileInfo);
+			
+			$(".uploadedList").append(html);
+		});
+	});
+	
+	$(".uploadedList").on("click", ".mailbox-attachment-info a", function(event) {
+		
+		var fileLink = $(this).attr("href");
+		
+		if(checkImageType(fileLink)) {
+			event.preventDefault();
+			
+			var imgTag = $("#popup_img");
+			imgTag.attr("src", fileLink);
+			
+			$(".popup").show("slow");
+			imgTag.addClass("show");
+		}
+	});
+});
 
 // 파일 업로드 영역에서 기본효과 제한
 $(".fileDrop").on("dragenter dragover", function(event) {
@@ -98,7 +132,6 @@ $(".fileDrop").on("drop", function(event) {
 	
 	// 첨부파일 추가
 	formData.append("file", file);
-	
 	$.ajax({
 		url: '/upload/uploadAjax.do',
 		data: formData,
@@ -117,23 +150,6 @@ $(".fileDrop").on("drop", function(event) {
 		}
 	});
 });
-	
-$(".uploadedList").on("click", "small", function(event) {
-	
-	var that = $(this);
-	
-	$.ajax({
-		url: "/upload/deleteFile.do",
-		type: "POST",
-		data: {fileName:$(this).attr("data-src")},
-		dataType: "text",
-		success: function(result) {
-			if(result == 'deleted') {
-				that.parent("div").remove();
-			}
-		}
-	});
-});
 
 $("#insertBoardForm").submit(function(event) {
 	event.preventDefault();
@@ -142,12 +158,79 @@ $("#insertBoardForm").submit(function(event) {
 	var str = "";
 	
 	$(".uploadedList .delbtn").each(function(index) {
-		str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href")+"'>";
+		
+		str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("data-src")+"'>";
 	});
 	
 	that.append(str);
-	
 	that.get(0).submit();
+});
+	
+$(".uploadedList").on("click"," .delbtn", function(event) {
+	
+	var that = $(this);
+
+	$.ajax({
+		url: "/upload/deleteFile.do",
+		type: "POST",
+		data: {fileName:$(this).attr("data-src")},
+		dataType: "text",
+		success: function(result) {
+			if(result == 'deleted') {
+				that.parent("div").parent().remove();
+			}
+		}
+	});
+});
+</script>
+
+
+
+<script>
+$("#postCategory").change(function() {
+	var category = $(this).val();
+	var html = "";
+	if(category == '5') {
+		html = "<div class='form-group'>"
+			+"<label>사용여부</label>"
+			+"<select name='status'>"
+			+"<option value=1>미사용/미개봉</option>"
+			+"<option value=2>사용품</option>"
+			+"</select>"
+			+"<label>상태</label>"
+			+"<select name='condition'>"
+			+"<option value=1>A+</option>"
+			+"<option value=2>A</option>"
+			+"<option value=3>B</option>"
+			+"<option value=4>C</option>"
+			+"</select>"
+			+"<label>분류1</label>"
+			+"<select name='category2Idx'>"
+			+"<option value=1>PSVR</option>"
+			+"<option value=2>PS4</option>"
+			+"<option value=3>PS3</option>"
+			+"<option value=4>PSVITA</option>"
+			+"<option value=5>닌텐도 SWITCH</option>"
+			+"<option value=6>닌텐도 3DS</option>"
+			+"<option value=7>닌텐도 Wii</option>"
+			+"<option value=8>XBOX ONE</option>"
+			+"<option value=9>XBOX X360</option>"
+			+"</select>"
+			+"<label>분류2</label>"
+			+"<select name='category3Idx'>"
+			+"<option value=1>본체/패키지</option>"
+			+"<option value=2>게임 타이틀</option>"
+			+"<option value=3>주변 기기</option>"
+			+"</select>"
+			+"</div>"
+			+"<div class='form-group'>"
+			+"<label>가격</label>"
+			+"<input type='number' name='price'><strong>원</strong>"
+			+"</div>";
+		$(".inner").append(html);
+	}else{
+		$(".inner > div").remove();
+	}
 });
 </script>
 	<a href="/main.do">메인으로</a>

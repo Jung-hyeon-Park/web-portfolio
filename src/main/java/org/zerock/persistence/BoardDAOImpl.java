@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.GameDTO;
+import org.zerock.domain.GameVO;
 import org.zerock.domain.PostVO;
 import org.zerock.domain.SearchVO;
 
@@ -21,6 +23,18 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	private static final String namespace = "org.zerock.mapper.BoardMapper";
 	
+	//게임 추가
+	@Override
+	public void insertGame(GameVO gameVO) throws Exception {
+		sqlSession.insert(namespace+".insertGame", gameVO);
+	}
+	
+	//게임 조회
+	@Override
+	public GameDTO selectGame(int boardIdx) throws Exception {
+		return sqlSession.selectOne(namespace+".selectGame", boardIdx);
+	}
+	
 	// 게시글 추가
 	@Override
 	public void insertBoard(BoardVO boardVO) throws Exception {
@@ -30,6 +44,7 @@ public class BoardDAOImpl implements BoardDAO{
 	// 게시글 수정
 	@Override
 	public void updateBoard(BoardVO boardVO) throws Exception {
+		System.out.println("dao = " + boardVO.getTitle());
 		sqlSession.update(namespace + ".updateBoard", boardVO);
 	}
 
@@ -82,8 +97,8 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	//파일 추가
 	@Override
-	public void addFiles(String fullName) throws Exception {
-		sqlSession.insert(namespace+".addFiles", fullName);
+	public void addFiles(String fileName) throws Exception {
+		sqlSession.insert(namespace+".addFiles", fileName);
 	}
 	
 	//파일 삭제

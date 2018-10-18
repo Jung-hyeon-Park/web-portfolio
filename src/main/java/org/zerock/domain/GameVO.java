@@ -5,8 +5,8 @@ public class GameVO {
 	private int idx;
 	private String title;
 	private int price;
-	private int status;
-	private int condition;
+	private String status;
+	private String condition;
 	private int category3Idx;
 	private int boardIdx;
 	private int category2Idx;
@@ -27,19 +27,19 @@ public class GameVO {
 		this.category3Idx = category3Idx;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public int getCondition() {
+	public String getCondition() {
 		return condition;
 	}
 
-	public void setCondition(int condition) {
+	public void setCondition(String condition) {
 		this.condition = condition;
 	}
 

@@ -17,8 +17,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <script>
-	var text = document.querySelector("textarea");
-	var result2 = text.value.replace(/\n|\r\n/g, '<br>');
+	var str = document.getElementById("content").value;
+	str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+	document.getElementById("content").value = str;
 </script>
 
 <style type="text/css">
@@ -74,10 +75,24 @@
 	            		<th class="success">제목</th>
 	            		<td colspan="3">${boardVO.title}</td>
 	        		</tr>
+	        		<c:if test="${post == 5}">
+	        		<tr>
+	        		<th class="success">기기</th>
+	            		<td colspan="3">${gameDTO.name2}</td>
+	            		<th class="success">분류</th>
+	            		<td colspan="3">${gameDTO.name3}</td>
+	            		<th class="success">사용여부</th>
+	            		<td colspan="3">${gameDTO.status}</td>
+	            		<th class="success">상태</th>
+	            		<td colspan="3">${gameDTO.state}</td>
+	            		<th class="success">가격</th>
+	            		<td colspan="3">${gameDTO.price}</td>
+	        		</tr>
+	        		</c:if>
 	         
 	        		<tr>
 	            		<th class="success">글 내용</th>
-	            		<td colspan="7">${boardVO.content}<br><br>
+	            		<td colspan="3" class="content">${boardVO.content}<br><br>
 	            		<div class="box-footer">
 	            			<div><hr></div>
 							<ul class="mailbox-attachments clearfix uploadedList">
@@ -92,8 +107,10 @@
 		<input type="hidden" name="post" value="${boardVO.postCategoryIdx}">
 	</div>
 	<div>
+	<c:if test="${login.email == boardVO.userId}">
 		<button type="button" class="btn-warning">수정</button>
 		<button type="button" class="btn-danger">삭제</button>
+	</c:if>
 		<button type="button" class="btn-primary">리스트로</button>
 	</div>
 </form>
@@ -189,11 +206,8 @@
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script id="templateAttach" type="text/x-handlebars-template">
-		<li data-src='{{fullName}}'>
+		<li style= "list-style: none;">
 			<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
-			<div class="mailbox-attachment-info">
-				<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-			</div>
 		</li>
 	</script>
 	

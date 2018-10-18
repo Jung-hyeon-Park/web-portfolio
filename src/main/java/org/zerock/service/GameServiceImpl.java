@@ -23,15 +23,6 @@ public class GameServiceImpl implements GameService {
 	@Inject
 	private BoardDAO boardDAO;
 	
-	//게임 추가
-	@Transactional
-	@Override
-	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception {
-		System.out.println("1");
-		gameDAO.insertGame(gameVO);
-		System.out.println("2");
-		boardDAO.insertBoard(boardVO);
-	}
 	
 	//게임 카테고리1
 	@Override

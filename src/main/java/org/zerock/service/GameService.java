@@ -10,9 +10,6 @@ import org.zerock.domain.GameVO;
 
 public interface GameService {
 	
-	//게임 추가
-	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception;
-	
 	//게임 카테고리1
 	public List<GameCategory1VO> selectGameType() throws Exception;
 	

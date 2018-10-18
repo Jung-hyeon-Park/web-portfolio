@@ -20,11 +20,6 @@ public class GameDAOImpl implements GameDAO {
 	
 	private static final String NAMESPACE = "org.zerock.mapper.GameMapper";
 	
-	//게임 추가
-	@Override
-	public void insertGame(GameVO gameVO) throws Exception {
-		sqlSession.insert(NAMESPACE+".insertGame", gameVO);
-	}
 	
 	//게임 카테고리1
 	@Override
