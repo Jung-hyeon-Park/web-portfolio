@@ -15,8 +15,8 @@ public class BoardVO {
 	private Date updateDate;
 	private int postCategoryIdx;
 	private int recnt; // 댓글 갯수
-
 	private String[] files;
+
 
 	public String getUserId() {
 		return userId;

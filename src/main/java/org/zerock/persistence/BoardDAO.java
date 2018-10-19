@@ -6,7 +6,9 @@ import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
+import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
+import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
 
 public interface BoardDAO {
@@ -36,6 +38,9 @@ public interface BoardDAO {
 	//게시판 리스트
 	public List<PostVO> selectPost() throws Exception;
 	
+	//게시판 리스트2
+	public List<PostVO> selectPost2() throws Exception;
+	
 	//게시글 리스트
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception;
 	
@@ -59,5 +64,19 @@ public interface BoardDAO {
 	
 	//파일 조회
 	public List<String> getFiles(int boardIdx) throws Exception;
-
+	
+	//리뷰게시글 추가
+	public void insertReview(ReviewVO reviewVO) throws Exception;
+	
+	//게시글 추천
+	public void insertNomination(NominationVO nominationVO) throws Exception;
+	
+	//게시글 추천 조회 
+	public int selectNomination(NominationVO nominationVO) throws Exception;
+	
+	//게시글 추천 삭제
+	public void deleteNomination(NominationVO nominationVO) throws Exception;
+	
+	//게시글 추천 수정
+	public void updateNomination(int boardIdx) throws Exception;
 }

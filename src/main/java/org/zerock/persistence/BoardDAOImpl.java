@@ -12,7 +12,9 @@ import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
+import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
+import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
 
 @Repository
@@ -71,6 +73,12 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSession.selectList(namespace+".selectPost");
 	}
 	
+	//게시판 리스트2
+	@Override
+	public List<PostVO> selectPost2() throws Exception {
+		return sqlSession.selectList(namespace+".selectPost2");
+	}
+	
 	//게시글 리스트
 	@Override
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
@@ -123,5 +131,35 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public List<String> getFiles(int boardIdx) throws Exception {
 		return sqlSession.selectList(namespace+".getFiles", boardIdx);
+	}
+	
+	//리뷰게시글 추가
+	@Override
+	public void insertReview(ReviewVO reviewVO) throws Exception {
+		sqlSession.insert(namespace+".insertReview", reviewVO);
+	}
+	
+	//게시글 추천
+	@Override
+	public void insertNomination(NominationVO nominationVO) throws Exception {
+		sqlSession.insert(namespace+".insertNomination", nominationVO);
+	}
+	
+	//게시글 추천 조회
+	@Override
+	public int selectNomination(NominationVO nominationVO) throws Exception {
+		return sqlSession.selectOne(namespace+".selectNomination", nominationVO);
+	}
+	
+	//게시글 추천 삭제
+	@Override
+	public void deleteNomination(NominationVO nominationVO) throws Exception {
+		sqlSession.delete(namespace+".deleteNomination", nominationVO);
+	}
+	
+	//게시글 추천 수정
+	@Override
+	public void updateNomination(int boardIdx) throws Exception {
+		sqlSession.update(namespace+".updateNomination", boardIdx);
 	}
 }

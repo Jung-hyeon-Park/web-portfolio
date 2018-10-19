@@ -19,11 +19,23 @@
 		order by idx desc;
 		]]>
 	</select>
+	
+<!-- 게시판 리스트2 -->
+	<select id="selectPost2" resultType="PostVO">
+		<![CDATA[
+		SELECT * FROM post_category
+		where idx > 5 and idx < 9
+		order by idx asc;
+		]]>
+	</select>
 
 <!-- 게시글 작성 -->
 	<insert id="insertBoard">
 		INSERT INTO board (title, content, user_idx, post_category_idx, user_id)
 		VALUES (#{title}, #{content}, #{userIdx}, #{postCategoryIdx}, #{userId})
+		<selectKey resultType="int" keyProperty="idx" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 
 <!-- 게시글 세부내용 -->
@@ -114,5 +126,35 @@
 		where board_idx = #{boardIdx}
 		order by date
 	</select>
+	
+<!-- 리뷰 게시글 추가 -->
+	<insert id="insertReview">
+		insert into review (rank, board_idx, category2_idx)
+		values (#{rank}, LAST_INSERT_ID(), #{category2Idx});
+	</insert>
+	
+<!-- 게시글 추천 -->
+	<insert id="insertNomination">
+		INSERT INTO nomination (board_idx, user_idx)
+		values (#{boardIdx}, #{userIdx})
+	</insert>
+	
+<!-- 게시글 조회 -->
+	<select id="selectNomination" resultType="int">
+		SELECT COUNT(nomination) FROM nomination
+		where board_idx = #{boardIdx} AND user_idx = #{userIdx}
+	</select>
+	
+<!-- 게시글 삭제 -->
+	<delete id="deleteNomination">
+		DELETE FROM nomination
+		WHERE user_idx = #{userIdx} AND board_idx = #{boardIdx}
+	</delete>
+<!-- 게시글 수정 -->
+	<update id="updateNomination">
+		UPDATE nomination SET check = (SELECT COUNT(*) FROM nomination
+		WHERE board_idx = #{boardIdx})
+		WHERE board_idx = #{boardIdx}
+	</update>
 	
 </mapper>

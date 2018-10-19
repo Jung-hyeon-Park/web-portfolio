@@ -75,7 +75,7 @@
 	            		<th class="success">제목</th>
 	            		<td colspan="3">${boardVO.title}</td>
 	        		</tr>
-	        		<c:if test="${post == 5}">
+	        		<c:if test="${post eq 5}">
 	        		<tr>
 	        		<th class="success">기기</th>
 	            		<td colspan="3">${gameDTO.name2}</td>
@@ -88,6 +88,10 @@
 	            		<th class="success">가격</th>
 	            		<td colspan="3">${gameDTO.price}</td>
 	        		</tr>
+	        		</c:if>
+	        		<c:if test="${post gt 5 and post lt 9}">
+	        			<td colspan="3">${gameDTO.name2}</td>
+	            		<th class="success">분류</th>
 	        		</c:if>
 	         
 	        		<tr>
@@ -114,6 +118,12 @@
 		<button type="button" class="btn-primary">리스트로</button>
 	</div>
 </form>
+
+<div style="text-align: right;">
+	<a class="btn btn-outline-dark check">
+		<img id="check" src="">
+	</a>
+</div>
 
 <div class="popup back" style="display: none;"></div>
 <div id="popup_frount" class="popup front" style="display: none;">
@@ -202,6 +212,39 @@
 			$(".btn-primary").on("click", function() {
 				self.location = "/board/listAll.do?post=${post}";
 			});
+			
+			// 추천 체크
+			var check = ${check};
+			
+			if(check > 0) {
+				$("#check").prop("src", "/resources/uploadFile/image/check.png");
+				$(".check").prop("name", check);
+			}else{
+				$("#check").prop("src", "/resources/uploadFile/image/NOcheck.png");
+				$(".check").prop("name", check);
+			}
+			
+			$(".check").on("click", function() {
+				
+				var that = $(".check");
+				
+				var sendData = {'boardIdx':'${boardVO.idx}', 'check':that.prop('name')}
+				
+				$.ajax({
+					url:"/board/nomination.do",
+					type:"post",
+					data: sendData,
+					sucess: function(data) {
+						that.prop('name', data);
+						if(data == 1) {
+							$('#check').prop("src", "/resources/uploadFile/image/check.png");
+						}else{
+							$("#check").prop("src", "/resources/uploadFile/image/NOcheck.png");
+						}
+					}
+				});
+			});
+			
 		});
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

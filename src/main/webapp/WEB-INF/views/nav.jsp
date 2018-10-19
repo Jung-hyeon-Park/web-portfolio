@@ -17,3 +17,5 @@
 		</c:forEach>
 		</nav>
 	</div>
+</body>
+</html>

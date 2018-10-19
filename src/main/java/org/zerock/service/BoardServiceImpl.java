@@ -10,7 +10,9 @@ import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
+import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
+import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
 import org.zerock.persistence.BoardDAO;
 
@@ -94,6 +96,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.selectPost();
 	}
 	
+	//게시판 리스트2
+	@Override
+	public List<PostVO> selectPost2() throws Exception {
+		return boardDAO.selectPost2();
+	}
+	
 	//게시글 리스트
 	@Override
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
@@ -123,5 +131,47 @@ public class BoardServiceImpl implements BoardService {
 	public List<String> getFiles(int boardIdx) throws Exception {
 		return boardDAO.getFiles(boardIdx);
 	}
+	
+	//리뷰게시글 추가
+	@Transactional
+	@Override
+	public void insertReview(ReviewVO reviewVO, BoardVO boardVO) throws Exception {
+		boardDAO.insertBoard(boardVO);
+		String[] files = boardVO.getFiles();
+		
+		if(files == null) {
+			return;
+		}
+		
+		for(String fileName : files) {
+			boardDAO.addFiles(fileName);
+		}
+		reviewVO.setBoardIdx(boardVO.getIdx());
+		boardDAO.insertReview(reviewVO);
+	}
+	
+	//게시글 추천
+	@Transactional
+	@Override
+	public void insertNomination(NominationVO nominationVO) throws Exception {
+		boardDAO.insertNomination(nominationVO);
+		boardDAO.updateNomination(nominationVO.getBoardIdx());
+	}
+	
+	//게시글 추천 조회
+	@Override
+	public int selectNomination(NominationVO nominationVO) throws Exception {
+		return boardDAO.selectNomination(nominationVO);
+	}
+	
+	//게시글 추천 삭제
+	@Transactional
+	@Override
+	public void deleteNomination(NominationVO nominationVO) throws Exception {
+		boardDAO.deleteNomination(nominationVO);
+		boardDAO.updateNomination(nominationVO.getBoardIdx());
+	}
+	
+
 	
 }

@@ -66,7 +66,11 @@ public class HomeController {
 	@RequestMapping(value="/footer.do", method=RequestMethod.GET)
 	public void footer() throws Exception{}
 	
-	@RequestMapping(value="/test.do", method=RequestMethod.GET) 
-	public void test() throws Exception{}
+	//사이드 바
+	@RequestMapping(value="/sideBar.do", method=RequestMethod.GET) 
+	public void sideBar(Model model) throws Exception{
+			
+		model.addAttribute("post2VOs", boardService.selectPost2());
+	}
 	
 }
