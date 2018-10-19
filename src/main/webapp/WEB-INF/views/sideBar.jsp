@@ -319,7 +319,7 @@ body {
   
             <ul id="menu-content" class="menu-content collapse out">
 
-                <li data-toggle="collapse" data-target="#products" class="collapsed active">
+                <li data-toggle="collapse" data-target="#products" class="collapsed">
                   <a href="#"><i class="fa fa-gift fa-lg"></i> 게임 리뷰 <span class="arrow"></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="products">

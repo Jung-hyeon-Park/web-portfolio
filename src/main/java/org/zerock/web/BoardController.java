@@ -123,9 +123,12 @@ public class BoardController {
 		
 		if(post == 5) {
 			model.addAttribute("gameDTO", boardService.selectGame(boardIdx));
+		}else if(post > 5 && post < 9) {
+			model.addAttribute("reviewVO", boardService.selectReview(boardIdx));
 		}
 		
 		int userIdx = ((UserVO)request.getSession().getAttribute("login")).getIdx();
+		
 		
 		NominationVO nominationVO = new NominationVO();
 		nominationVO.setBoardIdx(boardIdx);

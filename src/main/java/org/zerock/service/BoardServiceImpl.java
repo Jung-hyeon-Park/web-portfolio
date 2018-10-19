@@ -12,6 +12,7 @@ import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
+import org.zerock.domain.ReviewDTO;
 import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
 import org.zerock.persistence.BoardDAO;
@@ -44,6 +45,7 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.insertBoard(boardVO);
 		
 		String[] files = boardVO.getFiles();
+		int postCategoryIdx = boardVO.getPostCategoryIdx();
 		
 		if(files == null) {
 			return;
@@ -148,6 +150,12 @@ public class BoardServiceImpl implements BoardService {
 		}
 		reviewVO.setBoardIdx(boardVO.getIdx());
 		boardDAO.insertReview(reviewVO);
+	}
+	
+	//리뷰 조회
+	@Override
+	public ReviewDTO selectReview(int boardIdx) throws Exception {
+		return boardDAO.selectReview(boardIdx);
 	}
 	
 	//게시글 추천

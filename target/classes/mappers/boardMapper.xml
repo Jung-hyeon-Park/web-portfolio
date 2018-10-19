@@ -133,6 +133,11 @@
 		values (#{rank}, LAST_INSERT_ID(), #{category2Idx});
 	</insert>
 	
+<!-- 리뷰 조회 -->
+	<select id="selectReview" resultType="ReviewVO">
+		SELECT c2.name2, r.rank FROM review r, category2 c2
+		where c2.idx = r.category2_idx and r.board_idx = #{boardIdx}
+	</select>	
 <!-- 게시글 추천 -->
 	<insert id="insertNomination">
 		INSERT INTO nomination (board_idx, user_idx)

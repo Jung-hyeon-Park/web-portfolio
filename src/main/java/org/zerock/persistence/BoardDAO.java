@@ -8,6 +8,7 @@ import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
+import org.zerock.domain.ReviewDTO;
 import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
 
@@ -67,6 +68,9 @@ public interface BoardDAO {
 	
 	//리뷰게시글 추가
 	public void insertReview(ReviewVO reviewVO) throws Exception;
+	
+	//리뷰 조회
+	public ReviewDTO selectReview(int boardIdx) throws Exception;
 	
 	//게시글 추천
 	public void insertNomination(NominationVO nominationVO) throws Exception;

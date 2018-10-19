@@ -14,6 +14,7 @@ import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
+import org.zerock.domain.ReviewDTO;
 import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
 
@@ -137,6 +138,12 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public void insertReview(ReviewVO reviewVO) throws Exception {
 		sqlSession.insert(namespace+".insertReview", reviewVO);
+	}
+	
+	//리뷰 조회
+	@Override
+	public ReviewDTO selectReview(int boardIdx) throws Exception {
+		return sqlSession.selectOne(namespace+".selectReview", boardIdx);
 	}
 	
 	//게시글 추천

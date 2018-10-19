@@ -217,10 +217,10 @@
 			var check = ${check};
 			
 			if(check > 0) {
-				$("#check").prop("src", "/resources/uploadFile/image/check.png");
+				$("#check").prop("src", "/resources/uploadFile/image/OnCheck.png");
 				$(".check").prop("name", check);
 			}else{
-				$("#check").prop("src", "/resources/uploadFile/image/NOcheck.png");
+				$("#check").prop("src", "/resources/uploadFile/image/OffCheck.png");
 				$(".check").prop("name", check);
 			}
 			
@@ -237,9 +237,9 @@
 					sucess: function(data) {
 						that.prop('name', data);
 						if(data == 1) {
-							$('#check').prop("src", "/resources/uploadFile/image/check.png");
+							$('#check').prop("src", "/resources/uploadFile/image/OnCheck.png");
 						}else{
-							$("#check").prop("src", "/resources/uploadFile/image/NOcheck.png");
+							$("#check").prop("src", "/resources/uploadFile/image/OffCheck.png");
 						}
 					}
 				});
