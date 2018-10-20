@@ -30,7 +30,7 @@
 <body style="width: 1000px; margin: auto;">
 	<form role="form" method="POST" id="insertBoardForm" enctype="multipart/form-data">
 	<div style="width: 1000px; margin: auto;">
-		<h3>게시글 작성</h3>
+		<h3>게시글 수정</h3>
 		<div class="form-group">
 			<label>게시판 선택</label>
 			<select name="postCategoryIdx" id="postCategory">
@@ -187,8 +187,111 @@ $(".uploadedList").on("click"," .delbtn", function(event) {
 
 
 <script>
+
+var category = $("#postCategory option:selected").val();
+var html = "";
+
+if(category == '6') {
+	html = "<div class='form-group'>"
+		+"<label>평점</label>"
+		+"<select name='grade'>"
+		+"<option value=5>★★★★★</option>"
+		+"<option value=4>★★★★☆</option>"
+		+"<option value=3>★★★☆☆</option>"
+		+"<option value=2>★★☆☆☆</option>"
+		+"<option value=1>★☆☆☆☆</option>"
+		+"</select>"
+		+"<label>기기선택</label>"
+		+"<select name='category2Idx'>"
+		+"<option value=1>PSVR</option>"
+		+"<option value=2>PS4</option>"
+		+"<option value=3>PS3</option>"
+		+"<option value=4>PSVITA</option>"
+		+"<option value=5>닌텐도 SWITCH</option>"
+		+"<option value=6>닌텐도 3DS</option>"
+		+"<option value=7>닌텐도 Wii</option>"
+		+"<option value=8>XBOX ONE</option>"
+		+"<option value=9>XBOX X360</option>"
+		+"</select>"
+		+"</div>";
+	$(".inner").append(html);
+}else if(category == '7') {
+	html = "<div class='form-group'>"
+		+"<label>평점</label>"
+		+"<select name='grade'>"
+		+"<option value=5>★★★★★</option>"
+		+"<option value=4>★★★★☆</option>"
+		+"<option value=3>★★★☆☆</option>"
+		+"<option value=2>★★☆☆☆</option>"
+		+"<option value=1>★☆☆☆☆</option>"
+		+"</select>"
+		+"<label>게임선택</label>"
+		+"<select name='category2Idx'>"
+		+"<option value=10>스팀 게임</option>"
+		+"<option value=11>비디오 게임</option>"
+		+"<option value=12>CD 게임</option>"
+		+"</select>"
+		+"</div>";
+	$(".inner").append(html);
+}else if(category == '8') {
+	html = "<div class='form-group'>"
+		+"<label>평점</label>"
+		+"<select name='grade'>"
+		+"<option value=5>★★★★★</option>"
+		+"<option value=4>★★★★☆</option>"
+		+"<option value=3>★★★☆☆</option>"
+		+"<option value=2>★★☆☆☆</option>"
+		+"<option value=1>★☆☆☆☆</option>"
+		+"</select>"
+		+"<label>게임선택</label>"
+		+"<select name='category2Idx'>"
+		+"<option value=13>안드로이드</option>"
+		+"<option value=14>IOS</option>"
+		+"</select>"
+		+"</div>";
+	$(".inner").append(html);
+}else if(category == '5') {
+	html = "<div class='form-group'>"
+		+"<label>사용여부</label>"
+		+"<select name='status'>"
+		+"<option value='미사용/미개봉'>미사용/미개봉</option>"
+		+"<option value='사용품'>사용품</option>"
+		+"</select>"
+		+"<label>상태</label>"
+		+"<select name='condition'>"
+		+"<option value='A+'>A+</option>"
+		+"<option value='A'>A</option>"
+		+"<option value='B'>B</option>"
+		+"<option value='C'>C</option>"
+		+"</select>"
+		+"<label>기기선택</label>"
+		+"<select name='category2Idx'>"
+		+"<option value=1>PSVR</option>"
+		+"<option value=2>PS4</option>"
+		+"<option value=3>PS3</option>"
+		+"<option value=4>PSVITA</option>"
+		+"<option value=5>닌텐도 SWITCH</option>"
+		+"<option value=6>닌텐도 3DS</option>"
+		+"<option value=7>닌텐도 Wii</option>"
+		+"<option value=8>XBOX ONE</option>"
+		+"<option value=9>XBOX X360</option>"
+		+"</select>"
+		+"<label>분류2</label>"
+		+"<select name='category3Idx'>"
+		+"<option value=1>본체/패키지</option>"
+		+"<option value=2>게임 타이틀</option>"
+		+"<option value=3>주변 기기</option>"
+		+"</select>"
+		+"</div>"
+		+"<div class='form-group'>"
+		+"<label>가격</label>"
+		+"<input type='number' name='price'><strong>원</strong>"
+		+"</div>";
+	$(".inner").append(html);
+}
+
 $("#postCategory").change(function() {
-	var category = $(this).val();
+	category = $(this).val();
 	var html = "";
 	if(category == '5') {
 		html = "<div class='form-group'>"
@@ -226,6 +329,69 @@ $("#postCategory").change(function() {
 			+"<div class='form-group'>"
 			+"<label>가격</label>"
 			+"<input type='number' name='price'><strong>원</strong>"
+			+"</div>";
+		$(".inner").append(html);
+	}else if(category == '6') {
+		$(".inner > div").remove();
+		html = "<div class='form-group'>"
+			+"<label>평점</label>"
+			+"<select name='grade'>"
+			+"<option value=5>★★★★★</option>"
+			+"<option value=4>★★★★☆</option>"
+			+"<option value=3>★★★☆☆</option>"
+			+"<option value=2>★★☆☆☆</option>"
+			+"<option value=1>★☆☆☆☆</option>"
+			+"</select>"
+			+"<label>기기선택</label>"
+			+"<select name='category2Idx'>"
+			+"<option value=1>PSVR</option>"
+			+"<option value=2>PS4</option>"
+			+"<option value=3>PS3</option>"
+			+"<option value=4>PSVITA</option>"
+			+"<option value=5>닌텐도 SWITCH</option>"
+			+"<option value=6>닌텐도 3DS</option>"
+			+"<option value=7>닌텐도 Wii</option>"
+			+"<option value=8>XBOX ONE</option>"
+			+"<option value=9>XBOX X360</option>"
+			+"</select>"
+			+"</div>";
+		
+		$(".inner").append(html);
+	}else if(category == '7') {
+		$(".inner > div").remove();
+		html = "<div class='form-group'>"
+			+"<label>평점</label>"
+			+"<select name='grade'>"
+			+"<option value=5>★★★★★</option>"
+			+"<option value=4>★★★★☆</option>"
+			+"<option value=3>★★★☆☆</option>"
+			+"<option value=2>★★☆☆☆</option>"
+			+"<option value=1>★☆☆☆☆</option>"
+			+"</select>"
+			+"<label>게임선택</label>"
+			+"<select name='category2Idx'>"
+			+"<option value=10>스팀 게임</option>"
+			+"<option value=11>비디오 게임</option>"
+			+"<option value=12>CD 게임</option>"
+			+"</select>"
+			+"</div>";
+		$(".inner").append(html);
+	}else if(category == '8') {
+		$(".inner > div").remove();
+		html = "<div class='form-group'>"
+			+"<label>평점</label>"
+			+"<select name='grade'>"
+			+"<option value=5>★★★★★</option>"
+			+"<option value=4>★★★★☆</option>"
+			+"<option value=3>★★★☆☆</option>"
+			+"<option value=2>★★☆☆☆</option>"
+			+"<option value=1>★☆☆☆☆</option>"
+			+"</select>"
+			+"<label>기종선택</label>"
+			+"<select name='category2Idx'>"
+			+"<option value=13>안드로이드</option>"
+			+"<option value=14>IOS</option>"
+			+"</select>"
 			+"</div>";
 		$(".inner").append(html);
 	}else{

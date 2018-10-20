@@ -5,6 +5,13 @@
 
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
+<!-- 뉴스 조회 -->
+	<select id="selectNews" resultType="FileVO">
+		select f.full_name from file_list f, board b
+		where b.post_category_idx = 4 and f.board_idx = b.idx
+ 		order by f.date desc limit 2
+	</select>
+
 <!-- 게임 조회 -->
 	<select id="selectGame" resultType="GameDTO">
 		select c2.name2, c3.name3, g.status, g.state, g.price from game g, category2 c2, category3 c3 
@@ -40,7 +47,7 @@
 
 <!-- 게시글 세부내용 -->
 	<select id="readBoard" resultType="BoardVO">
-		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx, b.user_id
+		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx, b.user_id, b.like_count
 		from user u, board b
 		where u.idx = b.user_idx and b.idx = #{idx}
 	</select>
@@ -102,6 +109,11 @@
 		values (#{title}, #{price}, LAST_INSERT_ID(), #{category3Idx}, #{status}, #{condition}, #{category2Idx})
 	</insert>
 	
+<!-- 게임 수정 -->
+	<update id="updateGame">
+		UPDATE game SET title = #{title}, price = #{price}, status = #{status}, state = #{condition}, category3_idx = #{category3Idx}, category2_idx = #{category2Idx}
+		WHERE board_idx = #{boardIdx}
+	</update>	
 <!-- 파일 추가 -->
 	<insert id="addFiles">
 		insert into file_list(full_name, board_idx)
@@ -129,15 +141,23 @@
 	
 <!-- 리뷰 게시글 추가 -->
 	<insert id="insertReview">
-		insert into review (rank, board_idx, category2_idx)
-		values (#{rank}, LAST_INSERT_ID(), #{category2Idx});
+		insert into review (grade, board_idx, category2_idx)
+		values (#{grade}, LAST_INSERT_ID(), #{category2Idx});
 	</insert>
 	
 <!-- 리뷰 조회 -->
-	<select id="selectReview" resultType="ReviewVO">
-		SELECT c2.name2, r.rank FROM review r, category2 c2
+	<select id="selectReview" resultType="ReviewDTO">
+		SELECT c2.name2, r.grade FROM review r, category2 c2
 		where c2.idx = r.category2_idx and r.board_idx = #{boardIdx}
-	</select>	
+	</select>
+	
+<!-- 리뷰 수정 -->	
+	<update id="updateReview">
+		UPDATE review SET grade = #{grade}, category2_idx = #{category2Idx}
+		WHERE board_idx = #{boardIdx}
+	</update>
+
+
 <!-- 게시글 추천 -->
 	<insert id="insertNomination">
 		INSERT INTO nomination (board_idx, user_idx)
@@ -146,20 +166,20 @@
 	
 <!-- 게시글 조회 -->
 	<select id="selectNomination" resultType="int">
-		SELECT COUNT(nomination) FROM nomination
+		SELECT COUNT(*) FROM nomination
 		where board_idx = #{boardIdx} AND user_idx = #{userIdx}
 	</select>
 	
-<!-- 게시글 삭제 -->
+<!-- 추천 삭제 -->
 	<delete id="deleteNomination">
 		DELETE FROM nomination
 		WHERE user_idx = #{userIdx} AND board_idx = #{boardIdx}
 	</delete>
-<!-- 게시글 수정 -->
+<!-- 추천 수정 -->
 	<update id="updateNomination">
-		UPDATE nomination SET check = (SELECT COUNT(*) FROM nomination
+		UPDATE board SET like_count = (SELECT COUNT(*) FROM nomination
 		WHERE board_idx = #{boardIdx})
-		WHERE board_idx = #{boardIdx}
+		WHERE idx = #{boardIdx}
 	</update>
 	
 </mapper>

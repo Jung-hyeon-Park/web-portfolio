@@ -3,7 +3,7 @@ package org.zerock.domain;
 public class ReviewVO {
 
 	private int idx;
-	private int rank;
+	private int grade;
 	private int boardIdx;
 	private int category2Idx;
 
@@ -15,12 +15,12 @@ public class ReviewVO {
 		this.idx = idx;
 	}
 
-	public int getRank() {
-		return rank;
+	public int getGrade() {
+		return grade;
 	}
 
-	public void setRank(int rank) {
-		this.rank = rank;
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 
 	public int getBoardIdx() {

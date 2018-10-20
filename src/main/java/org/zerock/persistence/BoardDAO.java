@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileVO;
 import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
@@ -14,12 +15,17 @@ import org.zerock.domain.SearchVO;
 
 public interface BoardDAO {
 	
+	//뉴스 이미지 조회
+	public List<FileVO> selectNews() throws Exception;
 	
 	//게임 추가
 	public void insertGame(GameVO gameVO) throws Exception;
 	
 	//게임 조회
 	public GameDTO selectGame(int boardIdx) throws Exception;
+	
+	//게임 수정
+	public void updateGame(GameVO gameVO) throws Exception;
 	
 	// 게시글 추가
 	public void insertBoard(BoardVO boardVO) throws Exception;
@@ -69,8 +75,11 @@ public interface BoardDAO {
 	//리뷰게시글 추가
 	public void insertReview(ReviewVO reviewVO) throws Exception;
 	
-	//리뷰 조회
+	//리뷰게시글 조회
 	public ReviewDTO selectReview(int boardIdx) throws Exception;
+	
+	//리뷰게시글 수정
+	public void updateReview(ReviewVO reviewVO) throws Exception;
 	
 	//게시글 추천
 	public void insertNomination(NominationVO nominationVO) throws Exception;

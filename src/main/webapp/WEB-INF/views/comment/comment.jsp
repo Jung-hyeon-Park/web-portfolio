@@ -24,12 +24,12 @@ function add_comment(boardIdx) {
 			data : $("#commentForm").serialize(),
 			complete : function(data) {
 				if(data == "success") {
-					alert("댓글이 등록 되었습니다.");
+					alert("댓글이 등록 되었습니다.2");
 					getCommentList();
 				}
 			},
 			error : function() {
-				alert("댓글이 등록 되었습니다.2");
+				alert("댓글이 등록 되었습니다.");
 				getCommentList();
 				$("#comment").val("");
 			}

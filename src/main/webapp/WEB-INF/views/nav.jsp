@@ -9,11 +9,11 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/bootstrap/css/bootstrap.css">
 </head>
-<body>
+<body style="width: 1000px;">
 	<div class="nav-scroller py-1 mb-2" style="background:black;">
 		<nav class="nav d-flex justify-content-around">
 		<c:forEach var="postCategoryVO" items="${postCategoryVOs}">
-			<a class="p-2 text-muted" href="/board/listAll.do?post=${postCategoryVO.idx}">${postCategoryVO.name}</a>
+			<a class="p-2 text-muted" style= "justify-content: center; align-items: center;" href="/board/listAll.do?post=${postCategoryVO.idx}">${postCategoryVO.name}</a>
 		</c:forEach>
 		</nav>
 	</div>

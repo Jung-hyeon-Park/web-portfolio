@@ -36,7 +36,6 @@ public class UserController {
 	@RequestMapping(value="/signUp.do", method=RequestMethod.POST)
 	public String signUp(UserVO userVO) throws Exception {
 		
-		System.out.println("userVO = " + userVO.getEmail());
 		userDAO.insertUser(userVO);
 		
 		//return "redirect:/user/login.do";

@@ -15,8 +15,16 @@ public class BoardVO {
 	private Date updateDate;
 	private int postCategoryIdx;
 	private int recnt; // 댓글 갯수
+	private int likeCount;
 	private String[] files;
 
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
 
 	public String getUserId() {
 		return userId;

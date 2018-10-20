@@ -161,7 +161,7 @@ var html = "";
 if(category == '6') {
 	html = "<div class='form-group'>"
 		+"<label>평점</label>"
-		+"<select name='rank'>"
+		+"<select name='grade'>"
 		+"<option value=5>★★★★★</option>"
 		+"<option value=4>★★★★☆</option>"
 		+"<option value=3>★★★☆☆</option>"
@@ -182,11 +182,10 @@ if(category == '6') {
 		+"</select>"
 		+"</div>";
 	$(".inner").append(html);
-}
-if(category == '7') {
+}else if(category == '7') {
 	html = "<div class='form-group'>"
 		+"<label>평점</label>"
-		+"<select name='rank'>"
+		+"<select name='grade'>"
 		+"<option value=5>★★★★★</option>"
 		+"<option value=4>★★★★☆</option>"
 		+"<option value=3>★★★☆☆</option>"
@@ -201,12 +200,10 @@ if(category == '7') {
 		+"</select>"
 		+"</div>";
 	$(".inner").append(html);
-}
-
-if(category == '8') {
+}else if(category == '8') {
 	html = "<div class='form-group'>"
 		+"<label>평점</label>"
-		+"<select name='rank'>"
+		+"<select name='grade'>"
 		+"<option value=5>★★★★★</option>"
 		+"<option value=4>★★★★☆</option>"
 		+"<option value=3>★★★☆☆</option>"
@@ -220,9 +217,7 @@ if(category == '8') {
 		+"</select>"
 		+"</div>";
 	$(".inner").append(html);
-}
-
-if(category == '5') {
+}else if(category == '5') {
 	html = "<div class='form-group'>"
 		+"<label>사용여부</label>"
 		+"<select name='status'>"
@@ -307,7 +302,7 @@ $("#postCategory").change(function() {
 		$(".inner > div").remove();
 		html = "<div class='form-group'>"
 			+"<label>평점</label>"
-			+"<select name='rank'>"
+			+"<select name='grade'>"
 			+"<option value=5>★★★★★</option>"
 			+"<option value=4>★★★★☆</option>"
 			+"<option value=3>★★★☆☆</option>"
@@ -333,7 +328,7 @@ $("#postCategory").change(function() {
 		$(".inner > div").remove();
 		html = "<div class='form-group'>"
 			+"<label>평점</label>"
-			+"<select name='rank'>"
+			+"<select name='grade'>"
 			+"<option value=5>★★★★★</option>"
 			+"<option value=4>★★★★☆</option>"
 			+"<option value=3>★★★☆☆</option>"
@@ -352,7 +347,7 @@ $("#postCategory").change(function() {
 		$(".inner > div").remove();
 		html = "<div class='form-group'>"
 			+"<label>평점</label>"
-			+"<select name='rank'>"
+			+"<select name='grade'>"
 			+"<option value=5>★★★★★</option>"
 			+"<option value=4>★★★★☆</option>"
 			+"<option value=3>★★★☆☆</option>"

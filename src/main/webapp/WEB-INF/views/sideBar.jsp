@@ -14,9 +14,10 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
 .nav-side-menu {
+  margin-left: -200px;
   overflow: auto;
   font-family: verdana;
-  font-size: 12px;
+  font-size: 1.6rem;
   font-weight: 200;
   background-color: #2e353d;
   position: fixed;
@@ -109,6 +110,7 @@
 .nav-side-menu li a {
   text-decoration: none;
   color: #e1ffff;
+  font-size: 1.2rem;
 }
 .nav-side-menu li a i {
   padding-left: 10px;

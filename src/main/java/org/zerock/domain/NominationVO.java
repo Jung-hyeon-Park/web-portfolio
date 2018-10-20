@@ -3,7 +3,6 @@ package org.zerock.domain;
 public class NominationVO {
 
 	private int idx;
-	private int check;
 	private int boardIdx;
 	private int userIdx;
 
@@ -13,14 +12,6 @@ public class NominationVO {
 
 	public void setIdx(int idx) {
 		this.idx = idx;
-	}
-
-	public int getCheck() {
-		return check;
-	}
-
-	public void setCheck(int check) {
-		this.check = check;
 	}
 
 	public int getBoardIdx() {

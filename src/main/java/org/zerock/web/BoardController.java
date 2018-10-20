@@ -1,9 +1,15 @@
  package org.zerock.web;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -11,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.GameVO;
@@ -30,18 +37,16 @@ public class BoardController {
 	
 	//게시글 추천
 	@RequestMapping(value="/nomination", method=RequestMethod.POST, produces="application/json")
-	public int nomination(HttpServletRequest request) throws Exception {
+	@ResponseBody
+	public int nomination(HttpServletRequest request, Model model) throws Exception {
 		
 		int check = Integer.parseInt(request.getParameter("check"));
 		int boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
 		int userIdx = ((UserVO) request.getSession().getAttribute("login")).getIdx();
 		
 		NominationVO nominationVO = new NominationVO();
-		
 		nominationVO.setBoardIdx(boardIdx);
 		nominationVO.setUserIdx(userIdx);
-		
-		System.out.println("check = " + check);
 		
 		if(check >= 1) {
 			boardService.deleteNomination(nominationVO);
@@ -51,6 +56,17 @@ public class BoardController {
 			check = 1;
 		}
 		
+		
+		/*HttpHeaders responseHeaders = new HttpHeaders();
+		BoardVO boardVO = boardService.readBoard(boardIdx);
+		int likeCount = boardVO.getLikeCount();
+		HashMap hm = new HashMap();
+		hm.put("check", check);
+		hm.put("likeCount", likeCount);
+		
+        JSONArray json = new JSONArray(hm);
+        return new ResponseEntity(json, responseHeaders, HttpStatus.CREATED);*/
+
 		return check;
 	}
 	
@@ -78,10 +94,13 @@ public class BoardController {
 		boardVO.setUserId(userVO.getEmail());
 		
 		if(boardVO.getPostCategoryIdx() == 5) {
+			
 			boardService.insertGame(gameVO, boardVO);
+			
 		}else if(boardVO.getPostCategoryIdx() > 5 && boardVO.getPostCategoryIdx() < 9) {
+			
 			reviewVO.setCategory2Idx(gameVO.getCategory2Idx());
-			System.out.println("category2 = " + reviewVO.getCategory2Idx());
+			
 			boardService.insertReview(reviewVO, boardVO);
 		}else {
 			boardService.insertBoard(boardVO);
@@ -124,7 +143,7 @@ public class BoardController {
 		if(post == 5) {
 			model.addAttribute("gameDTO", boardService.selectGame(boardIdx));
 		}else if(post > 5 && post < 9) {
-			model.addAttribute("reviewVO", boardService.selectReview(boardIdx));
+			model.addAttribute("reviewDTO", boardService.selectReview(boardIdx));
 		}
 		
 		int userIdx = ((UserVO)request.getSession().getAttribute("login")).getIdx();
@@ -136,8 +155,6 @@ public class BoardController {
 		
 		
 		int count = boardService.selectNomination(nominationVO);
-		
-		System.out.println("count = " + count);
 		
 		model.addAttribute("count", count);
 	}
@@ -157,16 +174,33 @@ public class BoardController {
 	@RequestMapping(value="/updateBoard.do", method=RequestMethod.GET)
 	public void updateBoard(@RequestParam("boardIdx") int idx, Model model,  @ModelAttribute("post") int post) throws Exception {
 		
-		model.addAttribute("postVOs", boardService.selectPost());
 		model.addAttribute("boardVO", boardService.readBoard(idx));
+		
+		if(post < 6) {
+			model.addAttribute("postVOs", boardService.selectPost());
+		}else if(post > 5 && post < 9) {
+			model.addAttribute("postVOs", boardService.selectPost2());
+		}
+		
 	}
 	
 	@RequestMapping(value="/updateBoard.do", method=RequestMethod.POST)
-	public String updateBoard(BoardVO boardVO, RedirectAttributes rttr, @RequestParam("post") int postCategoryIdx, @RequestParam("boardIdx") int boardIdx) throws Exception {
+	public String updateBoard(ReviewVO reviewVO, GameVO gameVO, BoardVO boardVO, RedirectAttributes rttr, @RequestParam("post") int postCategoryIdx, @RequestParam("boardIdx") int boardIdx) throws Exception {
 		
-		System.out.println("title = " + boardVO.getTitle());
 		boardVO.setIdx(boardIdx);
-		boardService.updateBoard(boardVO);
+		
+		if(boardVO.getPostCategoryIdx() == 5) {
+			
+			boardService.updateGame(gameVO, boardVO);
+			
+		}else if(boardVO.getPostCategoryIdx() > 5 && boardVO.getPostCategoryIdx() < 9) {
+			
+			boardService.updateReview(reviewVO, boardVO);
+			
+		}else {
+			boardService.updateBoard(boardVO);
+		}
+		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
 		return "redirect:/board/listAll.do?post="+postCategoryIdx;

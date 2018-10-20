@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<c:import url="/sideBar.do"></c:import>
 <body>
 	<header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">

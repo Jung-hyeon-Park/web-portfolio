@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileVO;
 import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
@@ -26,6 +27,12 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	private static final String namespace = "org.zerock.mapper.BoardMapper";
 	
+	//뉴스 이미지 조회
+	@Override
+	public List<FileVO> selectNews() throws Exception {
+		return sqlSession.selectList(namespace+".selectNews");
+	}
+	
 	//게임 추가
 	@Override
 	public void insertGame(GameVO gameVO) throws Exception {
@@ -38,6 +45,12 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSession.selectOne(namespace+".selectGame", boardIdx);
 	}
 	
+	//게임 수정
+	@Override
+	public void updateGame(GameVO gameVO) throws Exception {
+		sqlSession.update(namespace+".updateGame", gameVO);
+	}
+	
 	// 게시글 추가
 	@Override
 	public void insertBoard(BoardVO boardVO) throws Exception {
@@ -47,7 +60,6 @@ public class BoardDAOImpl implements BoardDAO{
 	// 게시글 수정
 	@Override
 	public void updateBoard(BoardVO boardVO) throws Exception {
-		System.out.println("dao = " + boardVO.getTitle());
 		sqlSession.update(namespace + ".updateBoard", boardVO);
 	}
 
@@ -144,6 +156,12 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public ReviewDTO selectReview(int boardIdx) throws Exception {
 		return sqlSession.selectOne(namespace+".selectReview", boardIdx);
+	}
+	
+	//리뷰 수정
+	@Override
+	public void updateReview(ReviewVO reviewVO) throws Exception {
+		sqlSession.update(namespace+".updateReview", reviewVO);
 	}
 	
 	//게시글 추천

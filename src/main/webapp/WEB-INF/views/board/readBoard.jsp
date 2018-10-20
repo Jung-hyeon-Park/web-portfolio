@@ -78,20 +78,27 @@
 	        		<c:if test="${post eq 5}">
 	        		<tr>
 	        		<th class="success">기기</th>
-	            		<td colspan="3">${gameDTO.name2}</td>
-	            		<th class="success">분류</th>
-	            		<td colspan="3">${gameDTO.name3}</td>
-	            		<th class="success">사용여부</th>
-	            		<td colspan="3">${gameDTO.status}</td>
-	            		<th class="success">상태</th>
-	            		<td colspan="3">${gameDTO.state}</td>
-	            		<th class="success">가격</th>
-	            		<td colspan="3">${gameDTO.price}</td>
+            		<td colspan="3">${gameDTO.name2}</td>
+            		
+            		<th class="success">분류</th>
+            		<td colspan="3">${gameDTO.name3}</td>
+            		
+            		<th class="success">사용여부</th>
+            		<td colspan="3">${gameDTO.status}</td>
+            		
+            		<th class="success">상태</th>
+            		<td colspan="3">${gameDTO.state}</td>
+            		
+            		<th class="success">가격</th>
+            		<td colspan="3">${gameDTO.price}</td>
+            		
 	        		</tr>
 	        		</c:if>
 	        		<c:if test="${post gt 5 and post lt 9}">
-	        			<td colspan="3">${gameDTO.name2}</td>
-	            		<th class="success">분류</th>
+	        		<th class="success">분류</th>
+	        			<td colspan="3">${reviewDTO.name2}</td>
+	        		<th class="success">평점</th>
+	            		<td colspan="3">${reviewDTO.grade}</td>
 	        		</c:if>
 	         
 	        		<tr>
@@ -105,24 +112,23 @@
 	            		</td>
 	       		 	</tr>
 	       		 </table>
-	       		</div>
+	       		 <c:if test="${login.email == boardVO.userId}">
+					<button type="button" class="btn-warning">수정</button>
+					<button type="button" class="btn-danger">삭제</button>
+				</c:if>
+					<button type="button" class="btn-primary">리스트로</button>
+				</div>
 	       	</div>
-		<input type="hidden" name="boardIdx" value="${boardVO.idx}">
-		<input type="hidden" name="post" value="${boardVO.postCategoryIdx}">
-	</div>
-	<div>
-	<c:if test="${login.email == boardVO.userId}">
-		<button type="button" class="btn-warning">수정</button>
-		<button type="button" class="btn-danger">삭제</button>
-	</c:if>
-		<button type="button" class="btn-primary">리스트로</button>
-	</div>
+	    </div>
+	<input type="hidden" name="boardIdx" value="${boardVO.idx}">
+	<input type="hidden" name="post" value="${boardVO.postCategoryIdx}">
 </form>
 
 <div style="text-align: right;">
 	<a class="btn btn-outline-dark check">
-		<img id="check" src="">
+		<img id="check" style="width:20px; height: 20px;" src="">
 	</a>
+	<p>${boardVO.likeCount}</p>
 </div>
 
 <div class="popup back" style="display: none;"></div>
@@ -213,8 +219,8 @@
 				self.location = "/board/listAll.do?post=${post}";
 			});
 			
-			// 추천 체크
-			var check = ${check};
+			// 좋아요 체크
+			var check = ${count};
 			
 			if(check > 0) {
 				$("#check").prop("src", "/resources/uploadFile/image/OnCheck.png");
@@ -225,7 +231,6 @@
 			}
 			
 			$(".check").on("click", function() {
-				
 				var that = $(".check");
 				
 				var sendData = {'boardIdx':'${boardVO.idx}', 'check':that.prop('name')}
@@ -234,13 +239,15 @@
 					url:"/board/nomination.do",
 					type:"post",
 					data: sendData,
-					sucess: function(data) {
+					success: function(data) {
 						that.prop('name', data);
+						
 						if(data == 1) {
 							$('#check').prop("src", "/resources/uploadFile/image/OnCheck.png");
 						}else{
 							$("#check").prop("src", "/resources/uploadFile/image/OffCheck.png");
 						}
+						/* $("#cCnt").html(cCnt); */
 					}
 				});
 			});

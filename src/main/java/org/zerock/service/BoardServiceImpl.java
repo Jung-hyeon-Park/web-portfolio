@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileVO;
 import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
@@ -22,6 +23,12 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Inject
 	private BoardDAO boardDAO;
+	
+	//뉴스 이미지 조회
+	@Override
+	public List<FileVO> selectNews() throws Exception {
+		return boardDAO.selectNews();
+	}
 	
 	//게임 추가
 	@Transactional
@@ -38,6 +45,27 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.selectGame(boardIdx);
 	}
 	
+	//게임 수정
+	@Transactional
+	@Override
+	public void updateGame(GameVO gameVO, BoardVO boardVO) throws Exception {
+		boardDAO.updateBoard(boardVO);
+		boardDAO.updateGame(gameVO);
+		
+		int boardIdx = boardVO.getIdx();
+		boardDAO.deleteFiles(boardIdx);
+		
+		String[] files = boardVO.getFiles();
+		
+		if(files == null) {
+			return;
+		} 
+		
+		for(String fileName : files) {
+			boardDAO.replaceFiles(fileName, boardIdx);
+		}
+	}
+	
 	//게시글 추가
 	@Transactional
 	@Override
@@ -45,7 +73,6 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.insertBoard(boardVO);
 		
 		String[] files = boardVO.getFiles();
-		int postCategoryIdx = boardVO.getPostCategoryIdx();
 		
 		if(files == null) {
 			return;
@@ -158,6 +185,28 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.selectReview(boardIdx);
 	}
 	
+	//리뷰 수정
+	@Transactional
+	@Override
+	public void updateReview(ReviewVO reviewVO, BoardVO boardVO) throws Exception {
+		
+		boardDAO.updateBoard(boardVO);
+		boardDAO.updateReview(reviewVO);
+		
+		int boardIdx = boardVO.getIdx();
+		boardDAO.deleteFiles(boardIdx);
+		
+		String[] files = boardVO.getFiles();
+		
+		if(files == null) {
+			return;
+		}
+		
+		for(String fileName : files) {
+			boardDAO.replaceFiles(fileName, boardIdx);
+		}
+	}
+	
 	//게시글 추천
 	@Transactional
 	@Override
@@ -179,7 +228,5 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.deleteNomination(nominationVO);
 		boardDAO.updateNomination(nominationVO.getBoardIdx());
 	}
-	
-
 	
 }

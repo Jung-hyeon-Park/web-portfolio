@@ -2,15 +2,15 @@ package org.zerock.domain;
 
 public class ReviewDTO {
 
-	private int rank;
+	private int grade;
 	private String name2;
 
-	public int getRank() {
-		return rank;
+	public int getGrade() {
+		return grade;
 	}
 
-	public void setRank(int rank) {
-		this.rank = rank;
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 
 	public String getName2() {
