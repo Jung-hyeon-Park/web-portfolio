@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.FileVO;
 import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
@@ -24,9 +23,9 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	private BoardDAO boardDAO;
 	
-	//뉴스 이미지 조회
+	//파일 조회
 	@Override
-	public List<FileVO> selectNews() throws Exception {
+	public List<String> selectNews() throws Exception {
 		return boardDAO.selectNews();
 	}
 	

@@ -143,7 +143,8 @@ h1, h2, h3, h4, h5, h6 {
         <div class="col-md-6">
         	<strong class="d-inline-block mb-2 text-primary">뉴스&기사</strong>
           <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-          <img class="card-img-right flex-auto d-none d-lg-block" src="/upload/displayFile.do?fileName="+${newsVO.files} alt="Card image cap">
+          <img class="card-img-right flex-auto d-none d-lg-block" src="${uploadPath + newsVO}" alt="Card image cap">
+          
         </div>
         </div>
        </c:forEach>

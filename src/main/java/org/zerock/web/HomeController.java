@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.zerock.domain.FileVO;
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.service.BoardService;
 import org.zerock.service.GameService;
@@ -53,12 +52,7 @@ public class HomeController {
 	@RequestMapping(value="/main.do", method=RequestMethod.GET)
 	public void main(Model model) throws Exception{
 		
-		System.out.println("image = " + boardService.selectNews());
 		model.addAttribute("newsVOs", boardService.selectNews());
-		/*List<FileVO> a = boardService.selectNews();
-		for(FileVO b : a) {
-			System.out.println("image = " + b.getFiles());
-		}*/
 	}
 	
 	//헤더 페이지

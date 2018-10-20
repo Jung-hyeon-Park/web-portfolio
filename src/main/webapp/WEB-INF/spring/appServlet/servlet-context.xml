@@ -29,7 +29,7 @@
 	</beans:bean>
 	
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="C:\\image_file\\upload"></beans:constructor-arg>
+		<beans:constructor-arg value="/resources/uploadFile/image"></beans:constructor-arg>
 	</beans:bean>
 	<interceptors>
 	

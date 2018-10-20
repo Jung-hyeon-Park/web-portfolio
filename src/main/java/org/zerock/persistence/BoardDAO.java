@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.FileVO;
 import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
@@ -15,8 +14,8 @@ import org.zerock.domain.SearchVO;
 
 public interface BoardDAO {
 	
-	//뉴스 이미지 조회
-	public List<FileVO> selectNews() throws Exception;
+	//파일 조회
+	public List<String> selectNews() throws Exception;
 	
 	//게임 추가
 	public void insertGame(GameVO gameVO) throws Exception;
