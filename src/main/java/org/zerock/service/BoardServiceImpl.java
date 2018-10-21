@@ -23,6 +23,12 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	private BoardDAO boardDAO;
 	
+	//인기 리뷰 게시글 조회 
+	@Override
+	public List<BoardVO> selectTopReview() throws Exception {
+		return boardDAO.selectTopReview();
+	}
+	
 	//파일 조회
 	@Override
 	public List<String> selectNews() throws Exception {

@@ -76,34 +76,49 @@
 	            		<td colspan="3">${boardVO.title}</td>
 	        		</tr>
 	        		<c:if test="${post eq 5}">
-	        		<tr>
-	        		<th class="success">기기</th>
-            		<td colspan="3">${gameDTO.name2}</td>
-            		
-            		<th class="success">분류</th>
-            		<td colspan="3">${gameDTO.name3}</td>
-            		
-            		<th class="success">사용여부</th>
-            		<td colspan="3">${gameDTO.status}</td>
-            		
-            		<th class="success">상태</th>
-            		<td colspan="3">${gameDTO.state}</td>
-            		
-            		<th class="success">가격</th>
-            		<td colspan="3">${gameDTO.price}</td>
-            		
-	        		</tr>
+		        		<tr>
+			        		<th class="success">기기</th>
+		            		<td>${gameDTO.name2}</td>
+		            		
+		            		<th class="success">분류</th>
+		            		<td>${gameDTO.name3}</td>
+		            	</tr>
+		            	<tr>
+		            		<th class="success">사용여부</th>
+		            		<td>${gameDTO.status}</td>
+		            		
+		            		<th class="success">상태</th>
+		            		<td>${gameDTO.state}</td>
+		            	</tr>
+		            	<tr>
+		            		<th class="success">가격</th>
+		            		<td>${gameDTO.price}원</td>
+		        		</tr>
 	        		</c:if>
 	        		<c:if test="${post gt 5 and post lt 9}">
 	        		<th class="success">분류</th>
-	        			<td colspan="3">${reviewDTO.name2}</td>
+	        			<td>${reviewDTO.name2}</td>
 	        		<th class="success">평점</th>
-	            		<td colspan="3">${reviewDTO.grade}</td>
+	        			<c:if test="${reviewDTO.grade eq 5}">
+	            			<td>★★★★★</td>
+	            		</c:if>
+	            		<c:if test="${reviewDTO.grade eq 4}">
+	            			<td>★★★★☆</td>
+	            		</c:if>
+	            		<c:if test="${reviewDTO.grade eq 3}">
+	            			<td>★★★☆☆</td>
+	            		</c:if>
+	            		<c:if test="${reviewDTO.grade eq 2}">
+	            			<td>★★☆☆☆</td>
+	            		</c:if>
+	            		<c:if test="${reviewDTO.grade eq 1}">
+	            			<td>★☆☆☆☆</td>
+	            		</c:if>
 	        		</c:if>
 	         
 	        		<tr>
 	            		<th class="success">글 내용</th>
-	            		<td colspan="3" class="content">${boardVO.content}<br><br>
+	            		<td class="content" id="content" style="word-break:break-all;">${boardVO.content}<br><br>
 	            		<div class="box-footer">
 	            			<div><hr></div>
 							<ul class="mailbox-attachments clearfix uploadedList">

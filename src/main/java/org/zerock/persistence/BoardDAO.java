@@ -14,6 +14,9 @@ import org.zerock.domain.SearchVO;
 
 public interface BoardDAO {
 	
+	//인기 리뷰 게시글 조회 
+	public List<BoardVO> selectTopReview() throws Exception;
+	
 	//파일 조회
 	public List<String> selectNews() throws Exception;
 	

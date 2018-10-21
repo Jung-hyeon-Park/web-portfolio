@@ -26,6 +26,12 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	private static final String namespace = "org.zerock.mapper.BoardMapper";
 	
+	//인기 리뷰 게시글 조회 
+	@Override
+	public List<BoardVO> selectTopReview() throws Exception {
+		return sqlSession.selectList(namespace+".selectTopReview");
+	}
+	
 	//파일 조회
 	@Override
 	public List<String> selectNews() throws Exception {

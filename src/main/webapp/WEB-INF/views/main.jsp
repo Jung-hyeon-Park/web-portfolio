@@ -143,7 +143,7 @@ h1, h2, h3, h4, h5, h6 {
         <div class="col-md-6">
         	<strong class="d-inline-block mb-2 text-primary">뉴스&기사</strong>
           <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-          <img class="card-img-right flex-auto d-none d-lg-block" src="${uploadPath + newsVO}" alt="Card image cap">
+          <img class="card-img-right flex-auto d-none d-lg-block" src="${newsVO}" alt="Card image cap">
           
         </div>
         </div>
@@ -192,33 +192,12 @@ h1, h2, h3, h4, h5, h6 {
         </div><!-- /.blog-main -->
 
         <aside class="col-md-4 blog-sidebar">
-          <div class="p-3 mb-3 bg-light rounded">
-            <h4 class="font-italic">About</h4>
-            <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-          </div>
-
-          <div class="p-3">
-            <h4 class="font-italic">Archives</h4>
-            <ol class="list-unstyled mb-0">
-              <li><a href="#">March 2014</a></li>
-              <li><a href="#">February 2014</a></li>
-              <li><a href="#">January 2014</a></li>
-              <li><a href="#">December 2013</a></li>
-              <li><a href="#">November 2013</a></li>
-              <li><a href="#">October 2013</a></li>
-              <li><a href="#">September 2013</a></li>
-              <li><a href="#">August 2013</a></li>
-              <li><a href="#">July 2013</a></li>
-              <li><a href="#">June 2013</a></li>
-              <li><a href="#">May 2013</a></li>
-              <li><a href="#">April 2013</a></li>
-            </ol>
-          </div>
+         
 
           <div class="p-3">
             <h4 class="font-italic">Elsewhere</h4>
             <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
+              <li><a href="https://github.com/Jung-hyeon-Park/">GitHub</a></li>
               <li><a href="#">Twitter</a></li>
               <li><a href="#">Facebook</a></li>
             </ol>
@@ -227,24 +206,36 @@ h1, h2, h3, h4, h5, h6 {
 
       </div><!-- /.row -->
 
+		<div class="ad8" style="width: 830px; clear: both; background-color: sliver;">
+			<p class="ty1" style="width: 540px; float: left; margin-top: 25px;">
+			<c:forEach var="topReviewVO" items="${topReviewVOs}" begin="0" end="2">
+				<span style="display: inline-block; height: 234px; width: 540px; margin-bottom: 25px;">
+					<a style="color: #555; text-decoration: none; cursor: pointer;" href="/board/readBoard.do?post=${topReviewVO.postCategoryIdx}&boardIdx=${topReviewVO.idx}">
+					${topReviewVO.title}
+						<img style="width: 540px; height: 234px; vertical-align: middle; border: 0px;" src="C:\Users\JungHyeon\Desktop\1539942699-blz.jpg">
+					</a>
+				</span>
+				</c:forEach>
+			</p>
+			<p class="ty2" style="width: 280px; margin-left: 10px; float: left; margin-top: 25px;">
+			<c:forEach var="topReviewVO" items="${topReviewVOs}" begin="3" end="7">
+				<span style="display: inline-block; height: 152px; width: 280px; margin-bottom: 47.5px;">
+					<a style="color: #555; text-decoration: none; cursor: pointer;" href="/board/readBoard.do?post=${topReviewVO.postCategoryIdx}&boardIdx=${topReviewVO.idx}">
+					${topReviewVO.title}
+					<img style="width: 280px; height: 152px; vertical-align: middle; border: 0px;" src="C:\Users\JungHyeon\Desktop\1539942699-blz.jpg">
+					</a>
+				</span>
+				</c:forEach>
+			</p>
+		</div>
     </main><!-- /.container -->
 
     <footer class="blog-footer">
-      <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p>Blog template built for <a href="#">BRAND</a> by <a href="#">tkarnrrns200@naver.com</a></p>
       <p>
         <a href="#">Back to top</a>
       </p>
     </footer>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-  <!--   <script>
-      Holder.addTheme('thumb', {
-        bg: '#55595c',
-        fg: '#eceeef',
-        text: 'Thumbnail'
-      });
-    </script> -->
   </body>
 </html>

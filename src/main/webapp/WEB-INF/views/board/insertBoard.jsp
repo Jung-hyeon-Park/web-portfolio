@@ -17,6 +17,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+<script>
+	var str = document.getElementById("content").value;
+	str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+	document.getElementById("content").value = str;
+</script>
+
 <style>
 .fileDrop {
 	width: 80%;
@@ -25,7 +31,7 @@
 	background: lightslategray;
 	margin: auto;
 }
-	</style>
+</style>
 </head>
 <body style="width: 1000px; margin: auto;">
 	<form role="form" method="POST" id="insertBoardForm" enctype="multipart/form-data">
@@ -52,7 +58,7 @@
 		</div>
 		<div class="form-group">
 			<label>내용</label>
-			<textarea cols="10" rows="7" placeholder="내용을 입력하세요." name="content" class="form-control"></textarea>
+			<textarea cols="10" rows="7" placeholder="내용을 입력하세요." name="content" class="form-control" id="content"></textarea>
 		</div>
 	</div>
 		

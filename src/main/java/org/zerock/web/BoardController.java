@@ -1,6 +1,7 @@
  package org.zerock.web;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -55,17 +56,8 @@ public class BoardController {
 			boardService.insertNomination(nominationVO);
 			check = 1;
 		}
-		
-		
-		/*HttpHeaders responseHeaders = new HttpHeaders();
 		BoardVO boardVO = boardService.readBoard(boardIdx);
 		int likeCount = boardVO.getLikeCount();
-		HashMap hm = new HashMap();
-		hm.put("check", check);
-		hm.put("likeCount", likeCount);
-		
-        JSONArray json = new JSONArray(hm);
-        return new ResponseEntity(json, responseHeaders, HttpStatus.CREATED);*/
 
 		return check;
 	}

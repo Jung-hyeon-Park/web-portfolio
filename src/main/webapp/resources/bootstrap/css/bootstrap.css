@@ -1239,7 +1239,7 @@ pre code {
 		max-width: 58.333333%;
 	}
 	.col-md-8 {
-		margin: 0 auto;
+		/* margin: 0 auto; */
 		-ms-flex: 0 0 66.666667%;
 		flex: 0 0 66.666667%;
 		max-width: 66.666667%;

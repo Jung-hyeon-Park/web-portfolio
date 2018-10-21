@@ -1,5 +1,10 @@
 package org.zerock.web;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -50,7 +55,9 @@ public class HomeController {
 	
 	//메인 페이지
 	@RequestMapping(value="/main.do", method=RequestMethod.GET)
-	public void main(Model model) throws Exception{
+	public void main(Model model) throws Exception {
+		
+		model.addAttribute("topReviewVOs", boardService.selectTopReview());
 		
 		model.addAttribute("newsVOs", boardService.selectNews());
 	}
@@ -74,7 +81,7 @@ public class HomeController {
 	@RequestMapping(value="/sideBar.do", method=RequestMethod.GET) 
 	public void sideBar(Model model) throws Exception{
 			
-		model.addAttribute("post2VOs", boardService.selectPost2());
+		model.addAttribute("postVOs", boardService.selectPost2());
 	}
 	
 }

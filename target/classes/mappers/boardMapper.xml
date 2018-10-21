@@ -5,6 +5,15 @@
 
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
+<!-- 인기 리뷰 게시글 조회 -->
+	<select id="selectTopReview" resultType="BoardVO">
+		SELECT  b.title, b.content, b.idx, b.post_category_idx
+		FROM nomination n, board b
+		where n.write_date > date_add(now(), INTERVAL -7 day) and b.idx = n.board_idx  
+		GROUP BY n.board_idx
+		ORDER BY count(*) DESC limit 7;
+	</select>
+
 <!-- 뉴스 이미지 -->
 	<select id="selectNews" resultType="String">
 		select f.full_name from file_list f, board b
@@ -31,7 +40,7 @@
 	<select id="selectPost2" resultType="PostVO">
 		<![CDATA[
 		SELECT * FROM post_category
-		where idx > 5 and idx < 9
+		where idx > 5 and idx < 11
 		order by idx asc;
 		]]>
 	</select>

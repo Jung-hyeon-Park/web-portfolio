@@ -325,9 +325,9 @@ body {
                   <a href="#"><i class="fa fa-gift fa-lg"></i> 게임 리뷰 <span class="arrow"></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="products">
-                	<c:forEach var="post2VO" items="${post2VOs}">
-                		<c:if test="${post2VO.idx gt 5 and post2VO.idx lt 9}">
-                    		<li><a href="/board/listAll.do?post=${post2VO.idx}">${post2VO.name}</a></li>
+                	<c:forEach var="postVO" items="${postVOs}">
+                		<c:if test="${postVO.idx gt 5 and postVO.idx lt 9}">
+                    		<li><a href="/board/listAll.do?post=${postVO.idx}">${postVO.name}</a></li>
                     	</c:if>
                 	</c:forEach>
                 </ul>
@@ -335,9 +335,9 @@ body {
                   <a href="#"><i class="fa fa-globe fa-lg"></i> 정보 공유 <span class="arrow"></span></a>
                 </li>  
                 <ul class="sub-menu collapse" id="service">
-                  <c:forEach var="post2VO" items="${post2VOs}">
-                		<c:if test="${post2VO.idx gt 8 and post2VO.idx lt 11}">
-                    		<li><a href="/board/listAll.do?post=${post2VO.idx}">${post2VO.name}</a></li>
+                  <c:forEach var="postVO" items="${postVOs}">
+                		<c:if test="${postVO.idx gt 8 and postVO.idx lt 11}">
+                    		<li><a href="/board/listAll.do?post=${postVO.idx}">${postVO.name}</a></li>
                     	</c:if>
                 	</c:forEach>
                 </ul>
