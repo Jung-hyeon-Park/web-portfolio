@@ -14,7 +14,7 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
 .nav-side-menu {
-  margin-left: -200px;
+  margin-left: -170px;
   overflow: auto;
   font-family: verdana;
   font-size: 1.6rem;

@@ -27,5 +27,6 @@ public interface UserDAO {
 	
 	//회원 리스트
 	public List<UserVO> selectUsers() throws Exception;
+	
 
 }

@@ -7,20 +7,20 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.zerock.domain.GameCategory2VO;
 import org.zerock.service.BoardService;
-import org.zerock.service.GameService;
 
 /**
  * Handles requests for the application home page.
@@ -28,8 +28,6 @@ import org.zerock.service.GameService;
 @Controller
 public class HomeController {
 	
-	@Inject
-	private GameService gameService;
 	
 	@Inject
 	private BoardService boardService;
@@ -54,11 +52,10 @@ public class HomeController {
 	}
 	
 	//메인 페이지
-	@RequestMapping(value="/main.do", method=RequestMethod.GET)
-	public void main(Model model) throws Exception {
+	@RequestMapping(value="/main.do", method=RequestMethod.GET, produces="application/json; charset=utf8")
+	public void main(Model model, HttpSession session) throws Exception {
 		
 		model.addAttribute("topReviewVOs", boardService.selectTopReview());
-		
 		model.addAttribute("newsVOs", boardService.selectNews());
 	}
 	

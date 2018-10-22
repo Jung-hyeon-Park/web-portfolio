@@ -17,6 +17,7 @@ import org.zerock.domain.PostVO;
 import org.zerock.domain.ReviewDTO;
 import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
+import org.zerock.domain.SimpleBoardDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO{
@@ -28,13 +29,13 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	//인기 리뷰 게시글 조회 
 	@Override
-	public List<BoardVO> selectTopReview() throws Exception {
+	public List<SimpleBoardDTO> selectTopReview() throws Exception {
 		return sqlSession.selectList(namespace+".selectTopReview");
 	}
 	
 	//파일 조회
 	@Override
-	public List<String> selectNews() throws Exception {
+	public List<SimpleBoardDTO> selectNews() throws Exception {
 		return sqlSession.selectList(namespace+".selectNews");
 	}
 	

@@ -48,7 +48,7 @@
 }
 </style>
 </head>
-<body>
+<body style="width: 880px; margin: 0 auto;">
 
 <form role="form" method="POST">
 	<div class="row">

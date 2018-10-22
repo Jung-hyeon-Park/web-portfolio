@@ -6,17 +6,21 @@
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
 <!-- 인기 리뷰 게시글 조회 -->
-	<select id="selectTopReview" resultType="BoardVO">
-		SELECT  b.title, b.content, b.idx, b.post_category_idx
-		FROM nomination n, board b
-		where n.write_date > date_add(now(), INTERVAL -7 day) and b.idx = n.board_idx  
+	<select id="selectTopReview" resultType="SimpleBoardDTO">
+		SELECT  b.title, f.full_name, b.post_category_idx, b.idx
+		FROM nomination n, board b, file_list f
+		where n.write_date > date_add(now(), INTERVAL -7 day)
+		and b.idx = n.board_idx
+        and f.board_idx = b.idx
+		and (b.post_category_idx = 6 or b.post_category_idx = 7 or b.post_category_idx = 8)
 		GROUP BY n.board_idx
-		ORDER BY count(*) DESC limit 7;
+		ORDER BY b.like_count DESC limit 7
 	</select>
 
 <!-- 뉴스 이미지 -->
-	<select id="selectNews" resultType="String">
-		select f.full_name from file_list f, board b
+	<select id="selectNews" resultType="SimpleBoardDTO">
+		select f.full_name, b.title
+		from file_list f, board b
 		where b.post_category_idx = 4 and f.board_idx = b.idx
 		order by f.date desc limit 2
 	</select>
@@ -173,7 +177,7 @@
 		values (#{boardIdx}, #{userIdx})
 	</insert>
 	
-<!-- 게시글 조회 -->
+<!-- 추천 조회 -->
 	<select id="selectNomination" resultType="int">
 		SELECT COUNT(*) FROM nomination
 		where board_idx = #{boardIdx} AND user_idx = #{userIdx}

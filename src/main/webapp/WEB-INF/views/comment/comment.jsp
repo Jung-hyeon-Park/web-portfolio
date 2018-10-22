@@ -11,7 +11,7 @@
 <body>
 <script>
 function add_comment(boardIdx) {
-	var userVO = "<%=session.getAttribute("login")%>"
+	var userVO = '<%=session.getAttribute("login")%>';
 	
 	if(userVO == "null") {
 		alert("로그인이 필요합니다.");

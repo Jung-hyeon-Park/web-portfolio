@@ -11,14 +11,15 @@ import org.zerock.domain.PostVO;
 import org.zerock.domain.ReviewDTO;
 import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
+import org.zerock.domain.SimpleBoardDTO;
 
 public interface BoardService {
 	
 	//인기 리뷰 게시글 조회 
-	public List<BoardVO> selectTopReview() throws Exception;
+	public List<SimpleBoardDTO> selectTopReview() throws Exception;
 	
 	//파일 조회
-	public List<String> selectNews() throws Exception;
+	public List<SimpleBoardDTO> selectNews() throws Exception;
 	
 	//게임 추가
 	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception;

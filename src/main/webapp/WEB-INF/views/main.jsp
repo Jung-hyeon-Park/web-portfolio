@@ -132,7 +132,7 @@ h1, h2, h3, h4, h5, h6 {
 </style>
   
   </head>
-  <body style="width:1000px; margin: 0 auto;">
+  <body style="width:880px; margin: 0 auto;">
     <div class="container">
       <c:import url="/header.do"></c:import>
 
@@ -141,9 +141,9 @@ h1, h2, h3, h4, h5, h6 {
       <div class="row mb-2">
       <c:forEach var="newsVO" items="${newsVOs}"> 
         <div class="col-md-6">
-        	<strong class="d-inline-block mb-2 text-primary">뉴스&기사</strong>
+        	<strong class="d-inline-block mb-2 text-primary">${newsVO.title}</strong>
           <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-          <img class="card-img-right flex-auto d-none d-lg-block" src="${newsVO}" alt="Card image cap">
+          <img class="card-img-right flex-auto d-none d-lg-block" src="/upload/displayFile.do?fileName=${newsVO.fullName}" alt="Card image cap">
           
         </div>
         </div>
@@ -155,17 +155,14 @@ h1, h2, h3, h4, h5, h6 {
       <div class="row">
         <div class="col-md-8 blog-main">
           <h3 class="pb-3 mb-4 font-italic border-bottom">Game Review</h3>
+		
+          <div class="blog-post" id="blogReview"></div>
 
-          <div class="blog-post">
-            <h4 class="blog-post-title">블로그 review</h4>
-            <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
-          </div><!-- /.blog-post -->
-
-          <div class="blog-post">
+          <!-- <div class="blog-post">
             <h4 class="blog-post-title">유튜브 review</h4>
             <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
-          </div><!-- /.blog-post -->
-
+          </div>/.blog-post
+ -->
         </div><!-- /.blog-main -->
         
         
@@ -212,7 +209,7 @@ h1, h2, h3, h4, h5, h6 {
 				<span style="display: inline-block; height: 234px; width: 540px; margin-bottom: 25px;">
 					<a style="color: #555; text-decoration: none; cursor: pointer;" href="/board/readBoard.do?post=${topReviewVO.postCategoryIdx}&boardIdx=${topReviewVO.idx}">
 					${topReviewVO.title}
-						<img style="width: 540px; height: 234px; vertical-align: middle; border: 0px;" src="C:\Users\JungHyeon\Desktop\1539942699-blz.jpg">
+						<img style="width: 540px; height: 234px; vertical-align: middle; border: 0px;" src="/upload/displayFile.do?fileName=${topReviewVO.fullName}">
 					</a>
 				</span>
 				</c:forEach>
@@ -222,7 +219,7 @@ h1, h2, h3, h4, h5, h6 {
 				<span style="display: inline-block; height: 152px; width: 280px; margin-bottom: 47.5px;">
 					<a style="color: #555; text-decoration: none; cursor: pointer;" href="/board/readBoard.do?post=${topReviewVO.postCategoryIdx}&boardIdx=${topReviewVO.idx}">
 					${topReviewVO.title}
-					<img style="width: 280px; height: 152px; vertical-align: middle; border: 0px;" src="C:\Users\JungHyeon\Desktop\1539942699-blz.jpg">
+					<img style="width: 280px; height: 152px; vertical-align: middle; border: 0px;" src="/upload/displayFile.do?fileName=${topReviewVO.fullName}">
 					</a>
 				</span>
 				</c:forEach>
@@ -236,6 +233,41 @@ h1, h2, h3, h4, h5, h6 {
         <a href="#">Back to top</a>
       </p>
     </footer>
-
+   <script>
+   var search = '<%=session.getAttribute("search")%>';
+	if(search != null) {
+		$.ajax({
+			type : "GET",
+			url : "/blogAPI/main.do",
+			dataType : "json",
+			data : $("#commentForm").serialize(),
+			success : function(data) {
+				var item = data.items;
+				console.log(data.items)
+				var html = "";
+				var cCnt = item.length;
+				console.log(cCnt)
+				if (cCnt > 0) {
+					for (i = 0; i < cCnt; i++) {
+						html += 
+							"<h4 class='blog-post-title'>"+item[i].title+"</h4>"
+							"<p class='blog-post-meta'>"+ item[i].description +
+								"<a href="+item[i].link+">Mark</a></p>";
+					}
+				} else {
+					html += 
+						"<h4 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h4>"
+						"<p class='blog-post-meta'><a>GAME</a></p>";
+				}
+				$("#cCnt").html(cCnt);
+				$("#blogReview").html(html);
+			},
+			error : function(request, status, error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+							
+		});
+	}
+   </script>
   </body>
 </html>

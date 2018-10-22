@@ -1,16 +1,13 @@
  package org.zerock.web;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -28,6 +25,7 @@ import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
 import org.zerock.domain.UserVO;
 import org.zerock.service.BoardService;
+import org.zerock.service.UserService;
 
 @RequestMapping("/board")
 @Controller
@@ -35,6 +33,9 @@ public class BoardController {
 	
 	@Inject
 	private BoardService boardService;
+	
+	@Inject
+	private UserService userService;
 	
 	//게시글 추천
 	@RequestMapping(value="/nomination", method=RequestMethod.POST, produces="application/json")
@@ -56,8 +57,6 @@ public class BoardController {
 			boardService.insertNomination(nominationVO);
 			check = 1;
 		}
-		BoardVO boardVO = boardService.readBoard(boardIdx);
-		int likeCount = boardVO.getLikeCount();
 
 		return check;
 	}
@@ -103,7 +102,7 @@ public class BoardController {
 	
 	//게시글 리스트
 	@RequestMapping(value="/listAll.do", method=RequestMethod.GET)
-	public void listAll(SearchVO cri, Model model, @RequestParam("post") int postCategoryIdx) throws Exception {
+	public void listAll(HttpSession session, SearchVO cri, Model model, @RequestParam("post") int postCategoryIdx) throws Exception {
 		
 		cri.setPostCategoryIdx(postCategoryIdx);
 		
@@ -116,14 +115,18 @@ public class BoardController {
 			pm.setTotalCount(boardService.listCountCriteria(cri));
 		//검색 키워드가 있을경우
 		}else {
+			session.setAttribute("search", cri.getKeyword());
 			model.addAttribute("post", postCategoryIdx);
 			model.addAttribute("boardVOs", boardService.listSearch(cri));
 			pm.setCri(cri);
 			pm.setTotalCount(boardService.listSearchCount(cri));
 		}
+		System.out.println("keyword =  " + session.getAttribute("search"));
+		
 		model.addAttribute("pm", pm);
 	}
-	
+
+
 	//상세 게시글
 	@RequestMapping(value="/readBoard.do", method=RequestMethod.GET)
 	public void readBoard(HttpServletRequest request, @RequestParam("boardIdx") int boardIdx, Model model, @RequestParam("post") int post) throws Exception {

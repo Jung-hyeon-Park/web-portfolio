@@ -27,7 +27,7 @@
 }
 	</style>
 </head>
-<body style="width: 1000px; margin: auto;">
+<body style="width: 880px; margin: 0 auto;">
 	<form role="form" method="POST" id="insertBoardForm" enctype="multipart/form-data">
 	<div style="width: 1000px; margin: auto;">
 		<h3>게시글 수정</h3>

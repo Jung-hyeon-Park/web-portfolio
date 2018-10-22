@@ -58,4 +58,5 @@ public class UserDAOImpl  implements UserDAO {
 	public List<UserVO> selectUsers() throws Exception {
 		return sqlSession.selectList(namespace+".selectUsers");
 	}
+	
 }
