@@ -143,7 +143,7 @@ h1, h2, h3, h4, h5, h6 {
         <div class="col-md-6">
         	<strong class="d-inline-block mb-2 text-primary">${newsVO.title}</strong>
           <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-          <img class="card-img-right flex-auto d-none d-lg-block" src="/upload/displayFile.do?fileName=${newsVO.fullName}" alt="Card image cap">
+          <img style="width: 380px;"class="card-img-right flex-auto d-none d-lg-block" src="/upload/displayFile.do?fileName=${newsVO.fullName}" alt="Card image cap">
           
         </div>
         </div>
@@ -188,9 +188,7 @@ h1, h2, h3, h4, h5, h6 {
 
         </div><!-- /.blog-main -->
 
-        <aside class="col-md-4 blog-sidebar">
-         
-
+        <aside class="col-md-4 blog-sidebar" style= "top: -113px;">
           <div class="p-3">
             <h4 class="font-italic">Elsewhere</h4>
             <ol class="list-unstyled">
@@ -249,24 +247,23 @@ h1, h2, h3, h4, h5, h6 {
 				console.log(cCnt)
 				if (cCnt > 0) {
 					for (i = 0; i < cCnt; i++) {
-						html += 
-							"<h4 class='blog-post-title'>"+item[i].title+"</h4>"
-							"<p class='blog-post-meta'>"+ item[i].description +
-								"<a href="+item[i].link+">Mark</a></p>";
+						html += "<a href="+item[i].link+"><h4 class='blog-post-title'>"+item[i].title+"</h4></a>"
+							+"<p class='blog-post-meta'>"+ item[i].description+"</p><hr>";
 					}
-				} else {
-					html += 
-						"<h4 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h4>"
-						"<p class='blog-post-meta'><a>GAME</a></p>";
 				}
-				$("#cCnt").html(cCnt);
-				$("#blogReview").html(html);
 			},
 			error : function(request, status, error) {
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				var html="<h4 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h4>"
+					 +"<p class='blog-post-meta'><a>GAME</a></p>";
+					$("#blogReview").html(html);
+
 			}
 							
 		});
+	}else{
+		var html="<h4 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h4>"
+			 +"<p class='blog-post-meta'><a>GAME</a></p>";
+			$("#blogReview").html(html);
 	}
    </script>
   </body>

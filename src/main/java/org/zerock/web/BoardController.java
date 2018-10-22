@@ -71,6 +71,8 @@ public class BoardController {
 			model.addAttribute("postVOs", boardService.selectPost());
 		}else if(post > 5 && post < 9) {
 			model.addAttribute("postVOs", boardService.selectPost2());
+		}else if(post > 8 && post < 11) {
+			model.addAttribute("postVOs", boardService.selectPost3());
 		}
 		
 	}
@@ -121,7 +123,6 @@ public class BoardController {
 			pm.setCri(cri);
 			pm.setTotalCount(boardService.listSearchCount(cri));
 		}
-		System.out.println("keyword =  " + session.getAttribute("search"));
 		
 		model.addAttribute("pm", pm);
 	}

@@ -78,7 +78,8 @@ public class HomeController {
 	@RequestMapping(value="/sideBar.do", method=RequestMethod.GET) 
 	public void sideBar(Model model) throws Exception{
 			
-		model.addAttribute("postVOs", boardService.selectPost2());
+		model.addAttribute("post2VOs", boardService.selectPost2());
+		model.addAttribute("post3VOs", boardService.selectPost3());
 	}
 	
 }

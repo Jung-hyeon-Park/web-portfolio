@@ -137,6 +137,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.selectPost2();
 	}
 	
+	//게시판 리스트3
+	@Override
+	public List<PostVO> selectPost3() throws Exception {
+		return boardDAO.selectPost3();
+	}
+	
 	//게시글 리스트
 	@Override
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception {

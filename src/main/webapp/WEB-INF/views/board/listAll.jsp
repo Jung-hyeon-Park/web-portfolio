@@ -93,6 +93,7 @@
 <a href="/main.do"><button>메인으로</button></a>
 <a href="/board/insertBoard.do?post=${post}"><button>게시글 작성</button></a>
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+
 <script type="text/javascript">
 	var result = '${msg}';
 	if(result == 'SUCCESS') {

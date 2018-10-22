@@ -48,6 +48,9 @@ public interface BoardService {
 	//게시판 리스트2
 	public List<PostVO> selectPost2() throws Exception;
 	
+	//게시판 리스트3
+	public List<PostVO> selectPost3() throws Exception;
+	
 	//게시글 리스트
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception;
 	

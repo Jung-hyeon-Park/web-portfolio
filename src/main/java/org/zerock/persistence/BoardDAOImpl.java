@@ -98,6 +98,12 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSession.selectList(namespace+".selectPost2");
 	}
 	
+	//게시판 리스트2
+	@Override
+	public List<PostVO> selectPost3() throws Exception {
+		return sqlSession.selectList(namespace+".selectPost3");
+	}
+	
 	//게시글 리스트
 	@Override
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception {

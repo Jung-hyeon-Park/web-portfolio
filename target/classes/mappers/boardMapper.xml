@@ -44,7 +44,16 @@
 	<select id="selectPost2" resultType="PostVO">
 		<![CDATA[
 		SELECT * FROM post_category
-		where idx > 5 and idx < 11
+		where idx > 5 and idx < 9
+		order by idx asc;
+		]]>
+	</select>
+	
+<!-- 게시판 리스트3 -->
+	<select id="selectPost3" resultType="PostVO">
+		<![CDATA[
+		SELECT * FROM post_category
+		where idx > 8 and idx < 11
 		order by idx asc;
 		]]>
 	</select>
