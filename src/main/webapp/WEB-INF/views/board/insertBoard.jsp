@@ -69,6 +69,8 @@
 		<ul class="mailbox-attachments clearfix uploadedList">
 		</ul>
 	</div>
+	
+	<div class="ListCV"></div>
 
 		<button type="submit" class="btn btn-primary">작성</button>
 	</form>
@@ -121,6 +123,36 @@ $(".fileDrop").on("drop", function(event) {
 			
 			$(".uploadedList").append(html);
 		}
+	});
+	//파이썬 연동
+	$.ajax({
+		  url: 'http://192.168.0.13:5000/user', /* 학원 */
+		  dataType:'json',
+		  type: 'GET',
+
+		  success: function(data){
+			  console.log(data)
+
+			  var str = "";
+			  var key
+			  var value
+			  
+			  str=data.status;
+			  
+			  /* 자바스크립트, 제이쿼리에서 json 키,값 구하기
+				https://gent.tistory.com/17 */
+			  $.each(data, function(key2, value2){
+				    alert('key:' + key2 + ' / ' + 'value:' + value2);
+				   //key=key2;
+				    //value=value2;
+
+			  });
+
+			  //{'status': 'cu1 success'} 파이썬 
+			  $(".ListCV").append(str);
+			  //$(".ListCV").append(key);
+			  //$(".List").append(value);
+		  }
 	});
 });
 
@@ -373,5 +405,11 @@ $("#postCategory").change(function() {
 });
 </script>
 	<a href="/main.do">메인으로</a>
+	
+<script></script>
+	
+	
+	
+	
 </body>
 </html>

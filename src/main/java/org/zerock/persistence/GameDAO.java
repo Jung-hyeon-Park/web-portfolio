@@ -2,11 +2,11 @@ package org.zerock.persistence;
 
 import java.util.List;
 
+import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.domain.GameCategory3VO;
-import org.zerock.domain.BoardVO;
-import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameVO;
+import org.zerock.domain.GenreVO;
 
 public interface GameDAO {
 
@@ -27,4 +27,10 @@ public interface GameDAO {
 	
 	//특정 게임 리스트2
 	public List<GameVO> selectGame2(int idx) throws Exception;
+	
+	//콘솔 게임 카테고리
+	public List<GameCategory2VO> selectConsoleCategory2() throws Exception;
+	
+	//장르 조회
+	public List<GenreVO> selectGenre() throws Exception;
 }

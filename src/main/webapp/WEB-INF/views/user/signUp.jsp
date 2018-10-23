@@ -567,11 +567,11 @@ body {
 			<div class="row">
 				<div class="col-md-8 order-md-1">
 					<h4 class="mb-3">가입 정보 입력</h4>
-					<form class="needs-validation" novalidate id="needs-validation">
+					<form role="form1" class="needs-validation" novalidate id="needs-validation" action="/user/signUp.do" method="POST">
 						<div class="row">
 							<div class="mb-3">
-								<label for="email">이메일<span class="text-muted"></span></label> <input
-									type="email" class="form-control" id="email" required>
+								<label for="email">이메일<span class="text-muted"></span></label>
+								<input type="email" class="form-control" id="email" name="email" required>
 								<div class="invalid-feedback">이메일 형식에 맞게 작성 해 주세요.</div>
 							</div>
 
@@ -579,7 +579,7 @@ body {
 							<hr>
 							<br>
 							<div class="mb-3">
-								<label for="password">비밀번호</label> <input type="text"
+								<label for="password">비밀번호</label> <input type="password" name="password"
 									class="form-control" id="password" required>
 								<div class="invalid-feedback">비밀번호를 입력 해 주세요.</div>
 							</div>
@@ -588,40 +588,7 @@ body {
 							<br>
 
 							<hr class="mb-4">
-							<button class="btn btn-primary btn-lg btn-block">다음으로</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-			aria-labelledby="pills-contact-tab">
-			<div class="row">
-				<div class="col-md-8 order-md-1">
-					<h4 class="mb-3">Billing address</h4>
-					<form class="needs-validation" novalidate id="needs-validation">
-						<div class="row check_in">
-							<div class="mb-3">
-								<label for="email">닉네임</label> <input type="text"
-									class="form-control" id="name" required>
-								<div class="invalid-feedback">중복된 닉네임이 있습니다.</div>
-							</div>
-
-							<br>
-							<hr>
-							<br>
-							<div class="mb-3">
-								<label for="password">나이</label> <input type="text"
-									class="form-control" id="age" required>
-								<div class="invalid-feedback">나이를 입력 해 주세요.</div>
-							</div>
-							<br>
-							<hr>
-							<br>
-
-							<hr class="mb-4">
-
-							<button class="btn btn-primary btn-lg btn-block" id="addUser">가입하기</button>
+							<button id="nextPg" type="submit" class="btn btn-primary btn-lg btn-block">다음으로</button>
 						</div>
 					</form>
 				</div>
@@ -633,9 +600,7 @@ body {
 	
 <script>
 $(document).ready(function() {
-	alert("1");
 	$("#addUser").bind('mousedown touch', function() {
-		alert("2");
 		$.ajax({
 			type : "POST",
 			url : "/user/insertUser.do",
@@ -702,7 +667,6 @@ $(document).ready(function() {
 <script>
  (function() {
        'use strict';
-	alert("what the f");
        window.addEventListener('load', function() {
          // Fetch all the forms we want to apply custom Bootstrap validation styles to
          var forms = document.getElementsByClassName('needs-validation');
@@ -713,8 +677,15 @@ $(document).ready(function() {
                event.preventDefault();
                event.stopPropagation();
              }else{
-				$("#pills-contact-tab").on('click');
-				$("#pills-contact-tab").trigger('click');
+            	 var formObj = $("form[role='form1']");
+				$("#nextPg").on('click', function() {
+					alert(formObj);
+	     			formObj.attr("action", "/user/signUp.do");
+	     			formObj.attr("method", "POST");
+	     			formObj.submit();
+				});
+				$("#nextPg").trigger('click');
+				
 				event.preventDefault();
                 event.stopPropagation();
 			}

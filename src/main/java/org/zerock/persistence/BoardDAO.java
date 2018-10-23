@@ -30,6 +30,9 @@ public interface BoardDAO {
 	//게임 수정
 	public void updateGame(GameVO gameVO) throws Exception;
 	
+	//게임 삭제
+	public void deleteGame(int boardIdx) throws Exception;
+	
 	// 게시글 추가
 	public void insertBoard(BoardVO boardVO) throws Exception;
 	
@@ -87,15 +90,20 @@ public interface BoardDAO {
 	//리뷰게시글 수정
 	public void updateReview(ReviewVO reviewVO) throws Exception;
 	
+	//리뷰게시글 삭제
+	public void deleteReview(int boardIdx) throws Exception;
+	
 	//게시글 추천
 	public void insertNomination(NominationVO nominationVO) throws Exception;
 	
 	//게시글 추천 조회 
 	public int selectNomination(NominationVO nominationVO) throws Exception;
 	
-	//게시글 추천 삭제
+	//개인 추천 삭제
 	public void deleteNomination(NominationVO nominationVO) throws Exception;
 	
+	//게시글 추천 삭제
+	public void deleteBoardNomination(int boardIdx) throws Exception;
 	//게시글 추천 수정
 	public void updateNomination(int boardIdx) throws Exception;
 }

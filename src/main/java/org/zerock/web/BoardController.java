@@ -1,11 +1,7 @@
  package org.zerock.web;
 
-import java.util.Date;
-
 import javax.inject.Inject;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -18,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
 import org.zerock.domain.PageMaker;
@@ -34,8 +31,6 @@ public class BoardController {
 	@Inject
 	private BoardService boardService;
 	
-	@Inject
-	private UserService userService;
 	
 	//게시글 추천
 	@RequestMapping(value="/nomination", method=RequestMethod.POST, produces="application/json")
@@ -130,7 +125,7 @@ public class BoardController {
 
 	//상세 게시글
 	@RequestMapping(value="/readBoard.do", method=RequestMethod.GET)
-	public void readBoard(HttpServletRequest request, @RequestParam("boardIdx") int boardIdx, Model model, @RequestParam("post") int post) throws Exception {
+	public void readBoard(HttpServletRequest request, @RequestParam("boardIdx") int boardIdx, Model model, @RequestParam("post") int post, @ModelAttribute("cri") Criteria cri) throws Exception {
 		
 		//게시글 읽기
 		model.addAttribute("post", post);
@@ -157,25 +152,38 @@ public class BoardController {
 	
 	//게시글 삭제
 	@RequestMapping(value="/deleteBoard.do", method=RequestMethod.POST)
-	public String deleteBoard(@RequestParam("boardIdx") int idx, RedirectAttributes rttr, @RequestParam("post") int postCategoryIdx) throws Exception {
+	public String deleteBoard(@RequestParam("boardIdx") int idx, RedirectAttributes rttr, @RequestParam("post") int post, @ModelAttribute("cri") Criteria cri) throws Exception {
+		
+		System.out.println("idx1234 = " + idx);
+		
+		if(post <= 4) {
+			boardService.deleteBoard(idx);
+		}else if(post == 5) {
+			boardService.deleteGame(idx);
+		}else if(post >= 6 && post <= 8) {
+			boardService.deleteReview(idx);
+		}
 		
 		//게시글 삭제 후 "SUCCESS메세지 보내기
-		boardService.deleteBoard(idx);
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
-		return "redirect:/board/listAll.do?post="+postCategoryIdx;
+		return "redirect:/board/listAll.do?post="+post;
 	}
 	
 	//게시글 수정
 	@RequestMapping(value="/updateBoard.do", method=RequestMethod.GET)
-	public void updateBoard(@RequestParam("boardIdx") int idx, Model model,  @ModelAttribute("post") int post) throws Exception {
-		
-		model.addAttribute("boardVO", boardService.readBoard(idx));
+	public void updateBoard(@RequestParam("boardIdx") int idx, Model model,  @ModelAttribute("post") int post, @ModelAttribute("cri") Criteria cri) throws Exception {
 		
 		if(post < 6) {
+			model.addAttribute("boardVO", boardService.readBoard(idx));
 			model.addAttribute("postVOs", boardService.selectPost());
+			if(post == 5) {
+				model.addAttribute("gameVO", boardService.selectGame(idx));
+			}
 		}else if(post > 5 && post < 9) {
+			model.addAttribute("boardVO", boardService.readBoard(idx));
 			model.addAttribute("postVOs", boardService.selectPost2());
+			model.addAttribute("reviewVO", boardService.selectReview(idx));
 		}
 		
 	}

@@ -6,12 +6,16 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.zerock.domain.LoginDTO;
+import org.zerock.domain.PlusUserVO;
 import org.zerock.domain.UserVO;
 
 public interface UserDAO {
 
 	//회원가입
-	public void insertUser(UserVO userVO) throws Exception;
+	public int insertUser(UserVO userVO) throws Exception;
+	
+	//회원 추가 정보
+	public void insertPlusUser(PlusUserVO plusUserVO) throws Exception;
 
 	//로그인 체크
 	public UserVO login(LoginDTO loginDTO) throws Exception;

@@ -7,8 +7,17 @@
 
 <!-- 회원가입 -->
 	<insert id="insertUser">
-		insert into user (email, pwd, name, age)
-		values (#{email}, #{password}, #{name}, #{age})
+		insert into user (email, pwd)
+		values (#{email}, #{password})
+		<selectKey resultType="int" keyProperty="idx" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+<!-- 회원 추가 정보 -->
+	<insert id="insertPlusUser">
+		insert into plus_user (age, user_idx, genre_idx, category2_idx)
+		values (#{age}, #{userIdx}, #{genreIdx}, #{category2Idx})
 	</insert>
 	
 <!-- 회원 로그인 체크 -->

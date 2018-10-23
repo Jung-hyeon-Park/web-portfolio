@@ -152,11 +152,11 @@ h1, h2, h3, h4, h5, h6 {
     </div>
 
     <main role="main" class="container">
-      <div class="row">
+    <!--   <div class="row">
         <div class="col-md-8 blog-main">
-          <h3 class="pb-3 mb-4 font-italic border-bottom">Game Review</h3>
+          <h3 class="pb-3 mb-4 font-italic border-bottom">Blog Review</h3>
 		
-          <div class="blog-post" id="blogReview"></div>
+          <div class="blog-post" id="blogReview"></div> -->
 
           <!-- <div class="blog-post">
             <h4 class="blog-post-title">유튜브 review</h4>
@@ -166,7 +166,6 @@ h1, h2, h3, h4, h5, h6 {
         </div><!-- /.blog-main -->
         
         
-        <hr><br><br><br><br><br><br><br>
         <div class="col-md-8 blog-main">
           <h3 class="pb-3 mb-4 font-italic border-bottom">정보 공유</h3>
 
@@ -187,7 +186,7 @@ h1, h2, h3, h4, h5, h6 {
           </nav>
 
         </div><!-- /.blog-main -->
-
+		<br><br><br><br><br><br>
         <aside class="col-md-4 blog-sidebar" style= "top: -113px;">
           <div class="p-3">
             <h4 class="font-italic">Elsewhere</h4>
@@ -231,25 +230,31 @@ h1, h2, h3, h4, h5, h6 {
         <a href="#">Back to top</a>
       </p>
     </footer>
-   <script>
+  <%--  <script>
    var search = '<%=session.getAttribute("search")%>';
 	if(search != null) {
 		$.ajax({
 			type : "GET",
 			url : "/blogAPI/main.do",
 			dataType : "json",
-			data : $("#commentForm").serialize(),
+			data : $(".container").serialize(),
 			success : function(data) {
-				var item = data.items;
 				console.log(data.items)
 				var html = "";
-				var cCnt = item.length;
-				console.log(cCnt)
+				var cCnt = data.items.length;
+				console.log("갯수 = " + cCnt);
 				if (cCnt > 0) {
 					for (i = 0; i < cCnt; i++) {
-						html += "<a href="+item[i].link+"><h4 class='blog-post-title'>"+item[i].title+"</h4></a>"
-							+"<p class='blog-post-meta'>"+ item[i].description+"</p><hr>";
+						
+						html += "<a href="+data.items[i].link+">"
+						+"<h4 class='blog-post-title'>"+data.items[i].title+"</h4></a>"
+						+"<p class='blog-post-meta'>"+data.items[i].description+"</p><hr>";
 					}
+					$("#blogReview").html(html);
+				}else{
+					html="<h4 class='blog-post-title'>입력하신 상품에 대한 블로그 글이 없습니다.</h4>"
+						 +"<p class='blog-post-meta'><a>GAME</a></p>";
+						$("#blogReview").html(html);
 				}
 			},
 			error : function(request, status, error) {
@@ -265,6 +270,6 @@ h1, h2, h3, h4, h5, h6 {
 			 +"<p class='blog-post-meta'><a>GAME</a></p>";
 			$("#blogReview").html(html);
 	}
-   </script>
+   </script> --%>
   </body>
 </html>

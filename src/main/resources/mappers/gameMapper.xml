@@ -56,4 +56,16 @@
 			group by g.title
 			order by g.idx desc;
 	</select>
+<!-- 콘솔게임 카테고리 -->
+	<select id="selectConsole2" resultType="GameCategory2VO">
+	<![CDATA[
+		select idx, name2 from category2
+		where category_idx < 4
+	]]>
+	</select>
+	
+<!-- 장르 조회 -->
+	<select id="selectGenre" resultType="GenreVO">
+		select * from genre
+	</select>
 </mapper>

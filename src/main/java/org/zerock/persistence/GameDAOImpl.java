@@ -11,6 +11,7 @@ import org.zerock.domain.GameCategory3VO;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameVO;
+import org.zerock.domain.GenreVO;
 
 @Repository
 public class GameDAOImpl implements GameDAO {
@@ -55,5 +56,17 @@ public class GameDAOImpl implements GameDAO {
 	@Override
 	public List<GameVO> selectGame2(int idx) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".selectGame2", idx);
+	}
+	
+	//콘솔 게임 카테고리
+	@Override
+	public List<GameCategory2VO> selectConsoleCategory2() throws Exception {
+		return sqlSession.selectList(NAMESPACE+".selectConsole2");
+	}
+	
+	//장르 조회
+	@Override
+	public List<GenreVO> selectGenre() throws Exception {
+		return sqlSession.selectList(NAMESPACE+".selectGenre");
 	}
 }

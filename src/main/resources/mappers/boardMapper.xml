@@ -30,6 +30,23 @@
 		select c2.name2, c3.name3, g.status, g.state, g.price from game g, category2 c2, category3 c3 
 		where board_idx = #{boardIdx} and g.category2_idx = c2.idx and g.category3_idx = c3.idx
 	</select>
+	
+<!-- 게임 추가 -->
+	<insert id="insertGame">
+		insert into game (title, price, board_idx, category3_idx, status, state, category2_idx)
+		values (#{title}, #{price}, LAST_INSERT_ID(), #{category3Idx}, #{status}, #{condition}, #{category2Idx})
+	</insert>
+	
+<!-- 게임 수정 -->
+	<update id="updateGame">
+		UPDATE game SET title = #{title}, price = #{price}, status = #{status}, state = #{condition}, category3_idx = #{category3Idx}, category2_idx = #{category2Idx}
+		WHERE board_idx = #{boardIdx}
+	</update>
+	
+<!-- 게임 삭제 -->
+	<delete id="deleteGame">
+		delete from game where board_idx = #{boardIdx}
+	</delete>
 
 <!-- 게시판 리스트 -->
 	<select id="selectPost" resultType="PostVO">
@@ -62,7 +79,7 @@
 	<insert id="insertBoard">
 		INSERT INTO board (title, content, user_idx, post_category_idx, user_id)
 		VALUES (#{title}, #{content}, #{userIdx}, #{postCategoryIdx}, #{userId})
-		<selectKey resultType="int" keyProperty="idx" order="AFTER">
+		<selectKey resultType="int">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
@@ -82,7 +99,7 @@
 
 <!-- 게시글 삭제 -->
 	<delete id="deleteBoard">
-		delete from board where idx = #{idx}
+		delete from board where idx = #{idx};
 	</delete>
 	
 <!-- 게시글 조회수 -->
@@ -123,19 +140,8 @@
 		SELECT count(b.idx)
 		from user u, board b
 		where u.idx = b.user_idx and b.post_category_idx = #{postCategoryIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')
-	</select>
+	</select>	
 	
-<!-- 게임 추가 -->
-	<insert id="insertGame">
-		insert into game (title, price, board_idx, category3_idx, status, state, category2_idx)
-		values (#{title}, #{price}, LAST_INSERT_ID(), #{category3Idx}, #{status}, #{condition}, #{category2Idx})
-	</insert>
-	
-<!-- 게임 수정 -->
-	<update id="updateGame">
-		UPDATE game SET title = #{title}, price = #{price}, status = #{status}, state = #{condition}, category3_idx = #{category3Idx}, category2_idx = #{category2Idx}
-		WHERE board_idx = #{boardIdx}
-	</update>	
 <!-- 파일 추가 -->
 	<insert id="addFiles">
 		insert into file_list(full_name, board_idx)
@@ -178,7 +184,11 @@
 		UPDATE review SET grade = #{grade}, category2_idx = #{category2Idx}
 		WHERE board_idx = #{boardIdx}
 	</update>
-
+	
+<!-- 리뷰 삭제 -->
+	<delete id="deleteReview">
+		delete from review where board_idx = #{boardIdx}
+	</delete>
 
 <!-- 게시글 추천 -->
 	<insert id="insertNomination">
@@ -192,11 +202,21 @@
 		where board_idx = #{boardIdx} AND user_idx = #{userIdx}
 	</select>
 	
-<!-- 추천 삭제 -->
+<!-- 개인 추천 삭제 -->
 	<delete id="deleteNomination">
 		DELETE FROM nomination
-		WHERE user_idx = #{userIdx} AND board_idx = #{boardIdx}
+		WHERE board_idx = #{boardIdx} 
+		<if test="userIdx != null">
+			AND user_idx = #{userIdx}
+		</if>
 	</delete>
+	
+<!-- 게시글 추천 삭제 -->
+	<delete id="deleteBoardNomination">
+		DELETE from nomination
+		where board_idx = #{idx}
+	</delete>
+	
 <!-- 추천 수정 -->
 	<update id="updateNomination">
 		UPDATE board SET like_count = (SELECT COUNT(*) FROM nomination

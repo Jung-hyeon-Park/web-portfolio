@@ -41,8 +41,17 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception {
 		boardDAO.insertBoard(boardVO);
-		boardDAO.insertGame(gameVO);
+		String[] files = boardVO.getFiles();
 		
+		if(files == null) {
+			return;
+		}
+		
+		for(String fileName : files) {
+			boardDAO.addFiles(fileName);
+		}
+		gameVO.setBoardIdx(boardVO.getIdx());
+		boardDAO.insertGame(gameVO);
 	}
 	
 	//게임 조회
@@ -70,6 +79,21 @@ public class BoardServiceImpl implements BoardService {
 		for(String fileName : files) {
 			boardDAO.replaceFiles(fileName, boardIdx);
 		}
+	}
+	
+	//게임 삭제
+	@Transactional
+	@Override
+	public void deleteGame(int boardIdx) throws Exception {
+		boardDAO.deleteGame(boardIdx);
+		if(boardDAO.getFiles(boardIdx) != null) {
+			boardDAO.deleteFiles(boardIdx);
+		}
+		
+		if(boardDAO.readBoard(boardIdx).getLikeCount() > 0) {
+			boardDAO.deleteBoardNomination(boardIdx);
+		}
+		boardDAO.deleteBoard(boardIdx);
 	}
 	
 	//게시글 추가
@@ -113,9 +137,17 @@ public class BoardServiceImpl implements BoardService {
 	//게시글 삭제
 	@Transactional
 	@Override
-	public void deleteBoard(int idx) throws Exception {
-		boardDAO.deleteFiles(idx);
-		boardDAO.deleteBoard(idx);
+	public void deleteBoard(int boardIdx) throws Exception {
+		
+		if(boardDAO.getFiles(boardIdx) != null) {
+			boardDAO.deleteFiles(boardIdx);
+		}
+		
+		if(boardDAO.readBoard(boardIdx).getLikeCount() > 0) {
+			boardDAO.deleteBoardNomination(boardIdx);
+		}
+		boardDAO.deleteBoard(boardIdx);
+		
 	}
 	
 	//게시글 조회
@@ -217,6 +249,22 @@ public class BoardServiceImpl implements BoardService {
 		for(String fileName : files) {
 			boardDAO.replaceFiles(fileName, boardIdx);
 		}
+	}
+	
+	//리뷰게시글 삭제
+	@Transactional
+	@Override
+	public void deleteReview(int boardIdx) throws Exception {
+		
+		boardDAO.deleteReview(boardIdx);
+		if(boardDAO.getFiles(boardIdx) != null) {
+			boardDAO.deleteFiles(boardIdx);
+		}
+		
+		if(boardDAO.readBoard(boardIdx).getLikeCount() > 0) {
+			boardDAO.deleteBoardNomination(boardIdx);
+		}
+		boardDAO.deleteBoard(boardIdx);
 	}
 	
 	//게시글 추천

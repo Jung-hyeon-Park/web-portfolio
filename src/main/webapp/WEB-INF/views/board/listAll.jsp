@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page session ="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +90,19 @@
 
 
 <a href="/main.do"><button>메인으로</button></a>
+
+
+
 <a href="/board/insertBoard.do?post=${post}"><button>게시글 작성</button></a>
+
+<c:if test="${post >= 6 && post <= 8}">
+	<div class="row">
+        <div class="col-md-8 blog-main">
+          <h3 class="pb-3 mb-4 font-italic border-bottom">Blog Review</h3>
+          <div class="blog-post" id="blogReview"></div></div>
+        </div>
+</c:if>
+
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 
 <script type="text/javascript">
@@ -115,6 +126,48 @@
 	}
 
 </script>
+
+ <script>
+   var search = '<%=session.getAttribute("search")%>';
+	if(search != null) {
+		$.ajax({
+			type : "GET",
+			url : "/blogAPI/main.do?post=${post}",
+			dataType : "json",
+			data : $(".container").serialize(),
+			success : function(data) {
+				console.log(data.items)
+				var html = "";
+				var cCnt = data.items.length;
+				console.log("갯수 = " + cCnt);
+				if (cCnt > 0) {
+					for (i = 0; i < cCnt; i++) {
+						
+						html += "<a href="+data.items[i].link+">"
+						+"<h4 class='blog-post-title'>"+data.items[i].title+"</h4></a>"
+						+"<p class='blog-post-meta'>"+data.items[i].description+"</p><hr>";
+					}
+					$("#blogReview").html(html);
+				}else{
+					html="<h4 class='blog-post-title'>입력하신 상품에 대한 블로그 글이 없습니다.</h4>"
+						 +"<p class='blog-post-meta'><a>GAME</a></p>";
+						$("#blogReview").html(html);
+				}
+			},
+			error : function(request, status, error) {
+				var html="<h4 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h4>"
+					 +"<p class='blog-post-meta'><a>GAME</a></p>";
+					$("#blogReview").html(html);
+
+			}
+							
+		});
+	}else{
+		var html="<h4 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h4>"
+			 +"<p class='blog-post-meta'><a>GAME</a></p>";
+			$("#blogReview").html(html);
+	}
+   </script>
 
 </body>
 </html>

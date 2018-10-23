@@ -137,6 +137,8 @@
 	    </div>
 	<input type="hidden" name="boardIdx" value="${boardVO.idx}">
 	<input type="hidden" name="post" value="${boardVO.postCategoryIdx}">
+	<input type="hidden" name="page" value="${cri.page}">
+	<input type="hidden" name="page" value="${cri.perPageNum}">
 </form>
 
 <div style="text-align: right;">
@@ -150,7 +152,7 @@
 <div id="popup_frount" class="popup front" style="display: none;">
 	 <img id="popup_img">
 </div>
-<form role="form1" action="/board/listAll.do?post=${post}" method="GET">
+<form role="form1" action="/board/listAll.do?post=${post}&page=${cri.page}&perPageNum=${cri.perPageNum}" method="GET">
 	<input type="hidden" name="post" value="${post}">
 	<input type="hidden" name="boardIdx" value="${boardVO.idx}">
 	<input type="hidden" name="page" value="${cri.page}">
@@ -210,10 +212,10 @@
 				var replyCnt = $("#cCnt").html().replace(/[^0-9]/g,"");
 				
 				
-				if(replyCnt > 0) {
+				/* if(replyCnt > 0) {
 					alert("댓글이 달린 게시물을 삭제할 수 없습니다.");
 					return;
-				}
+				} */
 				
 				var arr = [];
 				$(".uploadedList li").each(function(index) {
@@ -231,7 +233,7 @@
 				formObj.submit();
 			});
 			$(".btn-primary").on("click", function() {
-				self.location = "/board/listAll.do?post=${post}";
+				self.location = "/board/listAll.do?post=${post}&page=${cri.page}&perPageNum=${cri.perPageNum}";
 			});
 			
 			// 좋아요 체크
@@ -272,7 +274,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script id="templateAttach" type="text/x-handlebars-template">
 		<li style= "list-style: none;">
-			<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
+			<span class="mailbox-attachment-icon has-img"><img name="files" src="{{imgsrc}}" alt="Attachment"></span>
 		</li>
 	</script>
 	

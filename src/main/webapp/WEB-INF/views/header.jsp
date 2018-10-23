@@ -22,7 +22,7 @@
             	<a class="btn btn-sm btn-outline-secondary" href="/user/signUp.do?">회원가입</a>
             </c:if>
             <c:if test="${login.email != null}">
-            	<h5>${login.name}님 환영합니다.</h5>
+            	<h5>${login.email}님 환영합니다.</h5>
             	<a class="btn btn-sm btn-outline-secondary" href="/user/logout.do">로그아웃</a>
             </c:if>
           </div>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.zerock.domain.LoginDTO;
+import org.zerock.domain.PlusUserVO;
 import org.zerock.domain.UserVO;
 import org.zerock.persistence.UserDAO;
 
@@ -16,6 +17,17 @@ public class UserServiceImpl implements UserService {
 	
 	@Inject
 	UserDAO userDAO;
+	
+	//회원가입
+	@Override
+	public int insertUser(UserVO userVO) throws Exception {
+		return userDAO.insertUser(userVO);
+	}
+	
+	//회원 추가 정보
+	public void insertPlusUser(PlusUserVO plusUserVO) throws Exception {
+		userDAO.insertPlusUser(plusUserVO);
+	}
 	
 	//로그인 체크
 	@Override

@@ -285,7 +285,7 @@ if(category == '6') {
 		+"</div>"
 		+"<div class='form-group'>"
 		+"<label>가격</label>"
-		+"<input type='number' name='price'><strong>원</strong>"
+		+"<input type='number' name='price' value='${gameVO.price}'><strong>원</strong>"
 		+"</div>";
 	$(".inner").append(html);
 }

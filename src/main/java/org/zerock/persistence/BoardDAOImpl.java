@@ -57,6 +57,12 @@ public class BoardDAOImpl implements BoardDAO{
 		sqlSession.update(namespace+".updateGame", gameVO);
 	}
 	
+	//게임 삭제
+	@Override
+	public void deleteGame(int boardIdx) throws Exception {
+		sqlSession.delete(namespace+".deleteGame", boardIdx);
+	}
+	
 	// 게시글 추가
 	@Override
 	public void insertBoard(BoardVO boardVO) throws Exception {
@@ -176,6 +182,12 @@ public class BoardDAOImpl implements BoardDAO{
 		sqlSession.update(namespace+".updateReview", reviewVO);
 	}
 	
+	//리뷰게시글 삭제
+	@Override
+	public void deleteReview(int boardIdx) throws Exception {
+		sqlSession.delete(namespace+".deleteReview", boardIdx);
+	}
+	
 	//게시글 추천
 	@Override
 	public void insertNomination(NominationVO nominationVO) throws Exception {
@@ -188,10 +200,16 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSession.selectOne(namespace+".selectNomination", nominationVO);
 	}
 	
-	//게시글 추천 삭제
+	//개인 추천 삭제
 	@Override
 	public void deleteNomination(NominationVO nominationVO) throws Exception {
 		sqlSession.delete(namespace+".deleteNomination", nominationVO);
+	}
+	
+	//게시글 추천 삭제
+	@Override
+	public void deleteBoardNomination(int boardIdx) throws Exception {
+		sqlSession.delete(namespace+".deleteBoardNomination", boardIdx);
 	}
 	
 	//게시글 추천 수정

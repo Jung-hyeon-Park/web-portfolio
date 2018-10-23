@@ -12,21 +12,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
 import org.zerock.domain.LoginDTO;
+import org.zerock.domain.PlusUserVO;
 import org.zerock.domain.UserVO;
 import org.zerock.persistence.UserDAO;
+import org.zerock.service.GameService;
 import org.zerock.service.UserService;
 
 @RequestMapping("/user")
 @Controller
 public class UserController {
 	
-	@Inject
-	private UserDAO userDAO;
-	
 	@Inject 
 	private UserService userService;
+	
+	@Inject 
+	private GameService gameService;
 
 	//회원가입 페이지
 	@RequestMapping(value="/signUp.do", method=RequestMethod.GET)
@@ -36,10 +39,28 @@ public class UserController {
 	@RequestMapping(value="/signUp.do", method=RequestMethod.POST)
 	public String signUp(UserVO userVO) throws Exception {
 		
-		userDAO.insertUser(userVO);
+		userService.insertUser(userVO);
 		
-		//return "redirect:/user/login.do";
-		return "success";
+		return "redirect:/user/plusSignUp.do?user="+userVO.getIdx();
+	}
+	
+	//회원가입 페이지2
+	@RequestMapping(value="/plusSignUp.do", method=RequestMethod.GET)
+	public void plusSignUp(Model model) throws Exception {
+			
+		model.addAttribute("category2VOs", gameService.selectConsoleCategory2());
+		model.addAttribute("genreVOs", gameService.selectGenre());
+	}
+	
+	//회원가입 추가정보 
+	@RequestMapping(value="/plusSignUp.do", method=RequestMethod.POST)
+	public String plusSignUp(PlusUserVO plusUserVO, @RequestParam("user") int userIdx) throws Exception {
+		
+		System.out.println("user = " + userIdx);
+		plusUserVO.setUserIdx(userIdx);
+		userService.insertPlusUser(plusUserVO);
+		
+		return "redirect:/user/login.do";
 	}
 	
 	//로그인 페이지
