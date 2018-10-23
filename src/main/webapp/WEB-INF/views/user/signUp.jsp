@@ -598,7 +598,7 @@ body {
 
 	<br>
 	
-<script>
+<!-- <script>
 $(document).ready(function() {
 	$("#addUser").bind('mousedown touch', function() {
 		$.ajax({
@@ -617,7 +617,7 @@ $(document).ready(function() {
 		});		
 	});
 });
-</script>
+</script> -->
 
 
 	<!-- 모두 체크 -->
@@ -679,7 +679,7 @@ $(document).ready(function() {
              }else{
             	 var formObj = $("form[role='form1']");
 				$("#nextPg").on('click', function() {
-					alert(formObj);
+					
 	     			formObj.attr("action", "/user/signUp.do");
 	     			formObj.attr("method", "POST");
 	     			formObj.submit();

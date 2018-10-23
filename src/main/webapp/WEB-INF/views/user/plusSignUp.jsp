@@ -99,7 +99,7 @@ body {
 			<div class="row">
 				<div class="col-md-8 order-md-1">
 					<h4 class="mb-3">추가 정보 입력 <h6>(위 선택은 추천기능에 사용됩니다)</h6></h4>
-					<form action="/user/plusSignUp.do" method="POST">
+					<!-- <form action="/user/plusSignUp.do" method="POST"> -->
 						<div class="row check_in">
 							<div class="mb-3">
 								<label>보유(관심) 기기 선택</label><br>
@@ -129,8 +129,8 @@ body {
 							<hr class="mb-4">
 							<button class="btn btn-primary btn-lg btn-block" id="addUser">가입하기</button>
 						</div>
-						<input type="hidden" name="user" value="${user}">
-					</form>
+						<input type="hidden" name="userIdx" value="${user}">
+					<!-- </form> -->
 				</div>
 			</div>
 		</div>
@@ -146,5 +146,29 @@ body {
 		<li class="list-inline-item"><a href="#">Support</a></li>
 	</ul>
 </footer>
+
+<script>
+$(".btn-primary").on("click", function() {
+	var array1 = [];
+	var array2 = [];
+	var checkboxes1 = document.querySelectorAll('input[name=category2Idx]:checked');
+	var checkboxes2 = document.querySelectorAll('input[name=genreIdx]:checked');
+	console.log("box1 = " + checkboxes1.length);
+	console.log("box2 = " + checkboxes2.length);
+	
+	for(var i=0; i<checkboxes1.length; i++) {
+		console.log("value1 = " + checkboxes1[i].value);
+		array1.push(checkboxes1[i].value);
+	}
+	
+	for(var j=0; j<checkboxes2.length; j++) {
+		console.log("value2 = " + checkboxes2[j].value);
+		array2.push(checkboxes2[j].value);
+	}
+	
+	
+});
+	
+</script>
 </body>
 </html>

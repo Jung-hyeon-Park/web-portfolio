@@ -54,10 +54,8 @@ public class UserController {
 	
 	//회원가입 추가정보 
 	@RequestMapping(value="/plusSignUp.do", method=RequestMethod.POST)
-	public String plusSignUp(PlusUserVO plusUserVO, @RequestParam("user") int userIdx) throws Exception {
-		
-		System.out.println("user = " + userIdx);
-		plusUserVO.setUserIdx(userIdx);
+	public String plusSignUp(PlusUserVO plusUserVO) throws Exception {
+		System.out.println("user = " + plusUserVO.getUserIdx());
 		userService.insertPlusUser(plusUserVO);
 		
 		return "redirect:/user/login.do";

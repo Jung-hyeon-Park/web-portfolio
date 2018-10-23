@@ -3,7 +3,7 @@ package org.zerock.domain;
 public class PlusUserVO {
 
 	private int[] category2Idx;
-	private int[] Genre;
+	private int[] genreIdx;
 	private int userIdx;
 	private int age;
 
@@ -15,12 +15,12 @@ public class PlusUserVO {
 		this.category2Idx = category2Idx;
 	}
 
-	public int[] getGenre() {
-		return Genre;
+	public int[] getGenreIdx() {
+		return genreIdx;
 	}
 
-	public void setGenre(int[] genre) {
-		Genre = genre;
+	public void setGenreIdx(int[] genreIdx) {
+		this.genreIdx = genreIdx;
 	}
 
 	public int getUserIdx() {
