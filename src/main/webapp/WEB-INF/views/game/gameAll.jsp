@@ -6,15 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script type="text/javascript"
-	src="/resources/bootstrap/js/jquery.flexisel.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/resources/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" type="text/css"
-	href="/resources/bootstrap/css/style.css">
-
+<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/resources/bootstrap/js/jquery.flexisel.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/style.css">
+<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css">
 <style>
 .product-text {
 	height: 96px;
@@ -24,32 +21,34 @@
 <body style="width:880px; margin: 0 auto;">
 	<c:import url="/header.do"></c:import>
 	<c:import url="/nav.do"></c:import>
-	<div class="row">
-	<c:forEach var="consoleVO" items="${consoleVOs}">
-		<div>
-		<a href="/game/gameList.do?console=${consoleVO.idx}"><img style="width:200px; height: 100px;" src="/resources/uploadFile/image/${consoleVO.image}"></a>
-		</div>
+	<div style="float: center; margin-top: 30px;">
+		<c:forEach var="consoleVO" items="${consoleVOs}">
+			<div style= "display: inline-block; margin-left: 63px;">
+				<a href="/game/gameList.do?console=${consoleVO.idx}"><img style="width:200px; height: 100px;" src="/resources/uploadFile/image/${consoleVO.image}"></a>
+			</div>
 		&nbsp;&nbsp;
-	</c:forEach>
-		<ul id="flexiselDemo4">
+		</c:forEach>
+	</div>
+	<div class="row">
+		<ul id="flexiselDemo4" style= "width: 880px;">
 			<c:forEach var="gameVO" items="${gameVOs}">
-				<li>
 					<div class="col-md-3">
-						<%-- <p class="card-text">${gameVO.title}</p> --%>
-						<div class="card mb-3 shadow-sm">
-							<%-- <img class="card-img-top" src="/resources/uploadFile/image/${gameVO.image}" alt="${gameVO.image}"> --%>
+						<p class="card-text">${gameVO.email}</p>
+						<a href="#">
+						<div class="card mb-3 shadow-sm" style="width: 194.5px;">
+							<img class="card-img-top" src="/upload/displayFile.do?fileName=${gameVO.fullName}" alt="image">
 							<div class="card-body">
 								<div class="product-text">
 									<p class="card-text" style="line-height: 100%;">${gameVO.title}</p>
 								</div>
 								<div class="d-flex justify-content-between align-items-center">
-									<%-- <small class="text-muted">${gameVO.viewCount} mins</small> --%>
+									<small class="text-muted">${gameVO.likeCount} mins</small>
 									<p class="card-text">${gameVO.price}원</p>
 								</div>
 							</div>
 						</div>
+						</a>
 					</div>
-				</li>
 			</c:forEach>
 		</ul>
 	</div>
@@ -61,15 +60,15 @@
 			<c:forEach var="gameVO" items="${gameVOs}">
 				<li>
 					<div class="col-md-3">
-						<p class="card-text">${gameVO.name}</p>
+						<p class="card-text">${gameVO.email}</p>
 						<div class="card mb-3" style="width: 194.5px;">
-							<img class="card-img-top" alt="${gameVO.image}">
+							<img class="card-img-top" src="/upload/displayFile.do?fileName=${gameVO.fullName}" alt="image">
 							<div class="card-body">
 								<div class="product-text">
 									<p class="card-text" style="line-height: 100%;">${gameVO.title}</p>
 								</div>
 								<div class="d-flex justify-content-between align-items-center">
-									<small class="text-muted">${gameVO.viewCount} mins</small>
+									<small class="text-muted">${gameVO.likeCount} mins</small>
 									<p class="card-text">${gameVO.price}원</p>
 								</div>
 							</div>

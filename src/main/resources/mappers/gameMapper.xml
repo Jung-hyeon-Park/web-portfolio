@@ -15,8 +15,12 @@
 	
 <!-- 게임 리스트 조회 -->
 	<select id="selectGameList" resultType="GameListVO">
-		SELECT title, price, status, state, category2_idx, category3_idx, board_idx
-		FROM game
+		select g.title, g.price, g.board_idx, g.category3_idx, g.category2_idx, g.state, g.status, b.like_count, b.email, 
+	(select full_name from file_list
+    where board_idx = b.idx
+    limit 1) as full_name
+		from board b, game g
+		where b.idx = g.board_idx
 	</select>
 
 

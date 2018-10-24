@@ -230,46 +230,5 @@ h1, h2, h3, h4, h5, h6 {
         <a href="#">Back to top</a>
       </p>
     </footer>
-  <%--  <script>
-   var search = '<%=session.getAttribute("search")%>';
-	if(search != null) {
-		$.ajax({
-			type : "GET",
-			url : "/blogAPI/main.do",
-			dataType : "json",
-			data : $(".container").serialize(),
-			success : function(data) {
-				console.log(data.items)
-				var html = "";
-				var cCnt = data.items.length;
-				console.log("갯수 = " + cCnt);
-				if (cCnt > 0) {
-					for (i = 0; i < cCnt; i++) {
-						
-						html += "<a href="+data.items[i].link+">"
-						+"<h4 class='blog-post-title'>"+data.items[i].title+"</h4></a>"
-						+"<p class='blog-post-meta'>"+data.items[i].description+"</p><hr>";
-					}
-					$("#blogReview").html(html);
-				}else{
-					html="<h4 class='blog-post-title'>입력하신 상품에 대한 블로그 글이 없습니다.</h4>"
-						 +"<p class='blog-post-meta'><a>GAME</a></p>";
-						$("#blogReview").html(html);
-				}
-			},
-			error : function(request, status, error) {
-				var html="<h4 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h4>"
-					 +"<p class='blog-post-meta'><a>GAME</a></p>";
-					$("#blogReview").html(html);
-
-			}
-							
-		});
-	}else{
-		var html="<h4 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h4>"
-			 +"<p class='blog-post-meta'><a>GAME</a></p>";
-			$("#blogReview").html(html);
-	}
-   </script> --%>
   </body>
 </html>
