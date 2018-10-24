@@ -21,13 +21,21 @@ public class GameServiceImpl implements GameService {
 	
 	
 	//콘솔 게임 카테고리1
-	public List<GameCategory1VO> selectConsoleCategory1() throws Exception {
-		return gameDAO.selectConsoleCategory1();
+	@Override
+	public List<GameCategory1VO> selectConsoleCategory1(GameListVO gameListVO) throws Exception {
+		return gameDAO.selectConsoleCategory1(gameListVO);
 	}
 	
 	//게임 리스트 조회
-	public List<GameListVO> selectGameList() throws Exception {
-		return gameDAO.selectGameList();
+	@Override
+	public List<GameListVO> selectGameList(GameListVO gameListVO) throws Exception {
+		return gameDAO.selectGameList(gameListVO);
+	}
+	
+	//특정 콘솔 카테고리
+	@Override
+	public List<GameCategory2VO>selectCertainConsoleCategory(GameListVO gameListVO) throws Exception {
+		return gameDAO.selectCertainConsoleCategory(gameListVO);
 	}
 	
 	//콘솔 게임 카테고리2

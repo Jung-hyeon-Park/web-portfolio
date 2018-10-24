@@ -7,23 +7,55 @@
 
 <!-- 콘솔게임 카테고리1 -->
 	<select id="selectConsole1" resultType="GameCategory1VO">
+	<if test="categoryIdx == 0">
 	<![CDATA[
-		select * from category
+		select idx, name, image from category
 		where idx < 4
 	]]>
+	</if>
+	<if test="categoryIdx == 1">
+	<![CDATA[
+		select idx as category2_idx, name2, image from category2
+		where idx < 5
+	]]>
+	</if>
+	
+	<if test="categoryIdx == 2">
+	<![CDATA[
+		select idx as category2_idx, name2, image from category2
+		where idx > 4 and idx < 8
+	]]>
+	</if>
+	
+	<if test="categoryIdx == 3">
+	<![CDATA[
+		select idx as category2_idx, name2, image from category2
+		where idx > 7 and idx < 10
+	]]>
+	</if>
 	</select>
 	
 <!-- 게임 리스트 조회 -->
 	<select id="selectGameList" resultType="GameListVO">
-		select g.title, g.price, g.board_idx, g.category3_idx, g.category2_idx, g.state, g.status, b.like_count, b.email, 
-	(select full_name from file_list
-    where board_idx = b.idx
-    limit 1) as full_name
-		from board b, game g
-		where b.idx = g.board_idx
+		select g1.title, g1.price, g1.board_idx, g1.category3_idx, g1.category2_idx, g1.state, g1.status, b.like_count, b.email, 
+			(select full_name from file_list where board_idx = b.idx limit 1) as full_name
+	    <if test="categoryIdx == 0">
+			from board b, game g1
+			where b.idx = g1.board_idx
+		</if>
+		<if test="categoryIdx != 0">
+			from game g1, board b, category2 c2
+			where b.idx = g1.board_idx
+			and g1.category2_idx = c2.idx
+			and c2.category_idx = #{categoryIdx}
+		</if>
 	</select>
-
-
+	
+<!-- 특정 콘솔 카테고리 -->
+	<select id="selectCertainConsoleCategory" resultType="GameCategory2VO">
+		select * from category2
+		where category_idx = #{categoryIdx}
+	</select>
 <!-- 콘솔게임 카테고리2 -->
 	<select id="selectConsole2" resultType="GameCategory2VO">
 	<![CDATA[
@@ -36,4 +68,5 @@
 	<select id="selectGenre" resultType="GenreVO">
 		select * from genre
 	</select>
+	
 </mapper>

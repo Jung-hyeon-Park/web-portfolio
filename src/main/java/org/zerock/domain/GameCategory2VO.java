@@ -6,6 +6,7 @@ public class GameCategory2VO {
 	private String name2;
 	private String image;
 
+
 	public int getIdx() {
 		return idx;
 	}

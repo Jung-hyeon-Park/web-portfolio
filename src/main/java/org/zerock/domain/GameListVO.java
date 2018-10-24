@@ -1,6 +1,7 @@
 package org.zerock.domain;
 
 public class GameListVO {
+
 	private String title;
 	private int price;
 	private int boardIdx;
@@ -11,8 +12,15 @@ public class GameListVO {
 	private String email;
 	private String likeCount;
 	private String fullName;
-	
-	
+	private int categoryIdx;
+
+	public int getCategoryIdx() {
+		return categoryIdx;
+	}
+
+	public void setCategoryIdx(int categoryIdx) {
+		this.categoryIdx = categoryIdx;
+	}
 
 	public String getFullName() {
 		return fullName;

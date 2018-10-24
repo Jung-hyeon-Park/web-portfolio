@@ -12,10 +12,13 @@ import org.zerock.domain.GenreVO;
 public interface GameDAO {
 
 	//콘솔 게임 카테고리1
-	public List<GameCategory1VO> selectConsoleCategory1() throws Exception;
+	public List<GameCategory1VO> selectConsoleCategory1(GameListVO gameListVO) throws Exception;
 	
 	//게임 리스트 조회
-	public List<GameListVO> selectGameList() throws Exception;
+	public List<GameListVO> selectGameList(GameListVO gameListVO) throws Exception;
+	
+	//특정 콘솔 카테고리
+	public List<GameCategory2VO>selectCertainConsoleCategory(GameListVO gameListVO) throws Exception;
 	
 	//콘솔 게임 카테고리2
 	public List<GameCategory2VO> selectConsoleCategory2() throws Exception;

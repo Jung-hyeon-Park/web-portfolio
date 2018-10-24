@@ -17,9 +17,10 @@
 				<a class="p-2 text-muted" style= "justify-content: center; align-items: center;" href="/board/listAll.do?post=${postCategoryVO.idx}">${postCategoryVO.name}</a>
 			</c:if>
 			<c:if test="${postCategoryVO.idx == 5}">
-			<a class="p-2 text-muted" style= "justify-content: center; align-items: center;" href="/game/gameAll.do">${postCategoryVO.name}</a>
+			<a class="p-2 text-muted" style= "justify-content: center; align-items: center;" href="/game/gameAll.do?console=0">${postCategoryVO.name}</a>
 			</c:if>
 		</c:forEach>
+		<a class="p-2 text-muted" style= "justify-content: center; align-items: center; background-color: blue;" href="/board/insertBoard.do?post=5">중고상품 팔기</a>
 		</nav>
 	</div>
 </body>

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h4>test</h4>
+<%-- <h4>test</h4>
 	<c:forEach var="category2" items="${category2VOs}">
 		<div><a href="/game/gameList.do?category1=${idx}&category2=${category2.idx}">${category2.name}</a></div>
 	</c:forEach>
@@ -15,6 +15,6 @@
 	<c:forEach var="gameVO" items="${gameVOs}">
 		<div>${gameVO.title}</div>
 	</c:forEach>
-	<hr><hr><hr>
+	<hr><hr><hr> --%>
 </body>
 </html>

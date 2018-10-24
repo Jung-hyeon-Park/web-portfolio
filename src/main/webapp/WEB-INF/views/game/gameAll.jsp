@@ -24,7 +24,8 @@
 	<div style="float: center; margin-top: 30px;">
 		<c:forEach var="consoleVO" items="${consoleVOs}">
 			<div style= "display: inline-block; margin-left: 63px;">
-				<a href="/game/gameList.do?console=${consoleVO.idx}"><img style="width:200px; height: 100px;" src="/resources/uploadFile/image/${consoleVO.image}"></a>
+				<a href="/game/gameAll.do?console=${consoleVO.categoryIdx}">
+				<img style="width:200px; height: 100px;" src="/resources/uploadFile/image/${consoleVO.image}"></a>
 			</div>
 		&nbsp;&nbsp;
 		</c:forEach>
