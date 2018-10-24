@@ -99,18 +99,18 @@ body {
 			<div class="row">
 				<div class="col-md-8 order-md-1">
 					<h4 class="mb-3">추가 정보 입력 <h6>(위 선택은 추천기능에 사용됩니다)</h6></h4>
-					<!-- <form action="/user/plusSignUp.do" method="POST"> -->
+					<form id="checkUser" role="form2">
 						<div class="row check_in">
 							<div class="mb-3">
 								<label>보유(관심) 기기 선택</label><br>
 								<c:forEach var="category2VO" items="${category2VOs}">
-									<input type="checkbox" name="category2Idx" value="${category2VO.idx}"><h6>${category2VO.name2}</h6>
+									<input type="checkbox" name="category2" value="${category2VO.idx}"><h6>${category2VO.name2}</h6>
 								</c:forEach>
 							</div>
 							<div class="mb-3">
 								<label>관심 장르 선택</label><br>
 								<c:forEach var="genreVO" items="${genreVOs}">
-									<input type="checkbox" name="genreIdx" value="${genreVO.idx}"><h6>${genreVO.name}</h6>
+									<input type="checkbox" name="genre" value="${genreVO.idx}"><h6>${genreVO.name}</h6>
 								</c:forEach>
 							</div>
 
@@ -130,7 +130,8 @@ body {
 							<button class="btn btn-primary btn-lg btn-block" id="addUser">가입하기</button>
 						</div>
 						<input type="hidden" name="userIdx" value="${user}">
-					<!-- </form> -->
+						<div id="checked"></div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -151,21 +152,32 @@ body {
 $(".btn-primary").on("click", function() {
 	var array1 = [];
 	var array2 = [];
-	var checkboxes1 = document.querySelectorAll('input[name=category2Idx]:checked');
-	var checkboxes2 = document.querySelectorAll('input[name=genreIdx]:checked');
+	var checkboxes1 = document.querySelectorAll('input[name=category2]:checked');
+	var checkboxes2 = document.querySelectorAll('input[name=genre]:checked');
 	console.log("box1 = " + checkboxes1.length);
 	console.log("box2 = " + checkboxes2.length);
 	
+	var str = "";
+	console.log("user = " + ${user});
 	for(var i=0; i<checkboxes1.length; i++) {
 		console.log("value1 = " + checkboxes1[i].value);
+		str += "<input type='hidden' name='category2Idx["+i+"]' value='"+checkboxes1[i].value+"'>";
 		array1.push(checkboxes1[i].value);
 	}
 	
 	for(var j=0; j<checkboxes2.length; j++) {
 		console.log("value2 = " + checkboxes2[j].value);
+		str += "<input type='hidden' name='genreIdx["+j+"]' value='"+checkboxes2[j].value+"'>";
 		array2.push(checkboxes2[j].value);
 	}
+	console.log("str = " + str);
+	$("#checked").html(str);
 	
+	 var formObj = $("form[role='form2']");
+	 
+	 formObj.attr("action", "/user/plusSignUp.do");
+	 formObj.attr("method", "POST");
+	 formObj.submit();
 	
 });
 	

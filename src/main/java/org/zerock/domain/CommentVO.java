@@ -7,17 +7,17 @@ public class CommentVO {
 	private int idx;
 	private int userIdx;
 	private int boardIdx;
-	private String name;
+	private String email;
 	private String comment;
 	private Date writeDate;
 	private Date updateDate;
 
-	public String getName() {
-		return name;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getIdx() {

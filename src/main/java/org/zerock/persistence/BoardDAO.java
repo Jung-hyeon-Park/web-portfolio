@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.GameDTO;
+import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
@@ -25,7 +25,7 @@ public interface BoardDAO {
 	public void insertGame(GameVO gameVO) throws Exception;
 	
 	//게임 조회
-	public GameDTO selectGame(int boardIdx) throws Exception;
+	public GameListVO selectGame(int boardIdx) throws Exception;
 	
 	//게임 수정
 	public void updateGame(GameVO gameVO) throws Exception;

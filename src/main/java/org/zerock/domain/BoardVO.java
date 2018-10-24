@@ -6,11 +6,10 @@ public class BoardVO {
 
 	private int idx;
 	private String title;
-	private String userId;
+	private String email;
 	private String content;
 	private int viewCount;
 	private int userIdx;
-	private String name;
 	private Date writeDate;
 	private Date updateDate;
 	private int postCategoryIdx;
@@ -26,12 +25,12 @@ public class BoardVO {
 		this.likeCount = likeCount;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String[] getFiles() {
@@ -72,14 +71,6 @@ public class BoardVO {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public int getIdx() {

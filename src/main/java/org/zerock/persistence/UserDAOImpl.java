@@ -12,6 +12,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.zerock.domain.LoginDTO;
 import org.zerock.domain.PlusUserVO;
+import org.zerock.domain.UserGameVO;
+import org.zerock.domain.UserGenreVO;
 import org.zerock.domain.UserVO;
 
 @Repository
@@ -32,6 +34,18 @@ public class UserDAOImpl  implements UserDAO {
 	@Override
 	public void insertPlusUser(PlusUserVO plusUserVO) throws Exception {
 		sqlSession.insert(namespace+".insertPlusUser", plusUserVO);
+	}
+	
+	//회원 관심 장르
+	@Override
+	public void insertUserGenre(UserGenreVO userGenreVO) throws Exception {
+		sqlSession.insert(namespace+".insertUserGenre", userGenreVO);
+	}
+	
+	//회원 보유 기기
+	@Override
+	public void insertUserGame(UserGameVO userGameVO) throws Exception {
+		sqlSession.insert(namespace+".insertUserGame", userGameVO);
 	}
 	
 	//회원 로그인 체크

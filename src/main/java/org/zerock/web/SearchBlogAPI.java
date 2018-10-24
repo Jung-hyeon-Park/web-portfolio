@@ -32,7 +32,7 @@ public class SearchBlogAPI {
 	        	String search = (String) session.getAttribute("search");
 	        	try {
 	                String text = URLEncoder.encode(search,"UTF-8");
-	                String apiURL = "https://openapi.naver.com/v1/search/blog?query="+ text+"&display=2"; // json 결과
+	                String apiURL = "https://openapi.naver.com/v1/search/blog?query="+ text+"&display=5"; // json 결과
 	                
 	                URL url = new URL(apiURL);
 	                HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -52,7 +52,6 @@ public class SearchBlogAPI {
 	                    response.append(inputLine);
 	                }
 	                br.close();
-	                System.out.println("API = " + response.toString());
 	             
 	               return new ResponseEntity<>(response, HttpStatus.OK);
 	              

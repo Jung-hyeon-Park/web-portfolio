@@ -21,21 +21,29 @@
 }
 </style>
 </head>
-<body>
+<body style="width:880px; margin: 0 auto;">
+	<c:import url="/header.do"></c:import>
+	<c:import url="/nav.do"></c:import>
 	<div class="row">
+	<c:forEach var="consoleVO" items="${consoleVOs}">
+		<div>
+		<a href="/game/gameList.do?console=${consoleVO.idx}"><img style="width:200px; height: 100px;" src="/resources/uploadFile/image/${consoleVO.image}"></a>
+		</div>
+		&nbsp;&nbsp;
+	</c:forEach>
 		<ul id="flexiselDemo4">
 			<c:forEach var="gameVO" items="${gameVOs}">
 				<li>
 					<div class="col-md-3">
-						<p class="card-text">${gameVO.name}</p>
+						<%-- <p class="card-text">${gameVO.title}</p> --%>
 						<div class="card mb-3 shadow-sm">
-							<img class="card-img-top" src="/resources/uploadFile/image/${gameVO.image}" alt="${gameVO.image}">
+							<%-- <img class="card-img-top" src="/resources/uploadFile/image/${gameVO.image}" alt="${gameVO.image}"> --%>
 							<div class="card-body">
 								<div class="product-text">
 									<p class="card-text" style="line-height: 100%;">${gameVO.title}</p>
 								</div>
 								<div class="d-flex justify-content-between align-items-center">
-									<small class="text-muted">${gameVO.viewCount} mins</small>
+									<%-- <small class="text-muted">${gameVO.viewCount} mins</small> --%>
 									<p class="card-text">${gameVO.price}원</p>
 								</div>
 							</div>

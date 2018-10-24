@@ -66,7 +66,7 @@
 	        		</tr>
 	        		<tr>
 	            		<th class="success">작성자</th>
-	            		<td>${boardVO.name}</td>
+	            		<td>${boardVO.email}</td>
 	            		<th class="success">작성일</th>
 	            		<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.writeDate}" /></td>
 	        		</tr>
@@ -127,7 +127,7 @@
 	            		</td>
 	       		 	</tr>
 	       		 </table>
-	       		 <c:if test="${login.email == boardVO.userId}">
+	       		 <c:if test="${login.email == boardVO.email}">
 					<button type="button" class="btn-warning">수정</button>
 					<button type="button" class="btn-danger">삭제</button>
 				</c:if>
@@ -141,9 +141,15 @@
 	<input type="hidden" name="page" value="${cri.perPageNum}">
 </form>
 
+<script>
+$(".btn-primary").on("click", function() {
+	self.location = "/board/listAll.do?post=${post}&page=${cri.page}&perPageNum=${cri.perPageNum}";
+});
+</script>
+
 <div style="text-align: right;">
 	<a class="btn btn-outline-dark check">
-		<img id="check" style="width:20px; height: 20px;" src="">
+		<img id="check" style="width:20px; height: 20px;" src="/resources/uploadFile/image/OffCheck.png">
 	</a>
 	<p>${boardVO.likeCount}</p>
 </div>
@@ -211,12 +217,6 @@
 				
 				var replyCnt = $("#cCnt").html().replace(/[^0-9]/g,"");
 				
-				
-				/* if(replyCnt > 0) {
-					alert("댓글이 달린 게시물을 삭제할 수 없습니다.");
-					return;
-				} */
-				
 				var arr = [];
 				$(".uploadedList li").each(function(index) {
 					arr.push($(this).attr("data-src"));
@@ -232,42 +232,39 @@
 				formObj.attr("action", "/board/deleteBoard.do");
 				formObj.submit();
 			});
-			$(".btn-primary").on("click", function() {
-				self.location = "/board/listAll.do?post=${post}&page=${cri.page}&perPageNum=${cri.perPageNum}";
-			});
 			
 			// 좋아요 체크
 			var check = ${count};
-			
-			if(check > 0) {
-				$("#check").prop("src", "/resources/uploadFile/image/OnCheck.png");
-				$(".check").prop("name", check);
-			}else{
-				$("#check").prop("src", "/resources/uploadFile/image/OffCheck.png");
-				$(".check").prop("name", check);
-			}
-			
-			$(".check").on("click", function() {
-				var that = $(".check");
+			if(check != null) {
+				if(check > 0) {
+					$("#check").prop("src", "/resources/uploadFile/image/OnCheck.png");
+					$(".check").prop("name", check);
+				}else{
+					$("#check").prop("src", "/resources/uploadFile/image/OffCheck.png");
+					$(".check").prop("name", check);
+				}
 				
-				var sendData = {'boardIdx':'${boardVO.idx}', 'check':that.prop('name')}
-				
-				$.ajax({
-					url:"/board/nomination.do",
-					type:"post",
-					data: sendData,
-					success: function(data) {
-						that.prop('name', data);
-						
-						if(data == 1) {
-							$('#check').prop("src", "/resources/uploadFile/image/OnCheck.png");
-						}else{
-							$("#check").prop("src", "/resources/uploadFile/image/OffCheck.png");
+				$(".check").on("click", function() {
+					var that = $(".check");
+					
+					var sendData = {'boardIdx':'${boardVO.idx}', 'check':that.prop('name')}
+					
+					$.ajax({
+						url:"/board/nomination.do",
+						type:"post",
+						data: sendData,
+						success: function(data) {
+							that.prop('name', data);
+							
+							if(data == 1) {
+								$('#check').prop("src", "/resources/uploadFile/image/OnCheck.png");
+							}else{
+								$("#check").prop("src", "/resources/uploadFile/image/OffCheck.png");
+							}
 						}
-						/* $("#cCnt").html(cCnt); */
-					}
+					});
 				});
-			});
+			}
 			
 		});
 	</script>

@@ -10,14 +10,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
 import org.zerock.domain.LoginDTO;
 import org.zerock.domain.PlusUserVO;
 import org.zerock.domain.UserVO;
-import org.zerock.persistence.UserDAO;
 import org.zerock.service.GameService;
 import org.zerock.service.UserService;
 
@@ -46,7 +45,7 @@ public class UserController {
 	
 	//회원가입 페이지2
 	@RequestMapping(value="/plusSignUp.do", method=RequestMethod.GET)
-	public void plusSignUp(Model model) throws Exception {
+	public void plusSignUp(Model model, @ModelAttribute("user") int userIdx) throws Exception {
 			
 		model.addAttribute("category2VOs", gameService.selectConsoleCategory2());
 		model.addAttribute("genreVOs", gameService.selectGenre());
@@ -55,7 +54,7 @@ public class UserController {
 	//회원가입 추가정보 
 	@RequestMapping(value="/plusSignUp.do", method=RequestMethod.POST)
 	public String plusSignUp(PlusUserVO plusUserVO) throws Exception {
-		System.out.println("user = " + plusUserVO.getUserIdx());
+		
 		userService.insertPlusUser(plusUserVO);
 		
 		return "redirect:/user/login.do";

@@ -5,58 +5,22 @@
 
 <mapper namespace="org.zerock.mapper.GameMapper">
 
+<!-- 콘솔게임 카테고리1 -->
+	<select id="selectConsole1" resultType="GameCategory1VO">
+	<![CDATA[
+		select * from category
+		where idx < 4
+	]]>
+	</select>
+	
+<!-- 게임 리스트 조회 -->
+	<select id="selectGameList" resultType="GameListVO">
+		SELECT title, price, status, state, category2_idx, category3_idx, board_idx
+		FROM game
+	</select>
 
-<!-- 게임 카테고리1 -->
-	<select id="selectGameType" resultType="GameCategory1VO">
-		select * from category order by idx asc;
-	</select>
-	
-<!-- 게임 리스트 -->
-	<select id="selectAllGame" resultType="GameVO">
-		select g.title, g.price, b.content, b.view_count, b.image, u.name
-			from game g, game_type t, board b, user u
-			where g.idx = t.game_idx and b.idx = g.board_idx and u.idx = b.user_idx
-			group by g.title
-			order by g.idx desc;
-	</select>
-	
-<!-- 게임 카테고리2 -->
-	<select id="selectGameCategory2" resultType="GameCategory2VO">
-		select * from category2
-		where category_idx = #{idx}
-	</select>
-	
-<!-- 게임 카테고리3 -->
-	<select id="selectGameCategory3" resultType="GameCategory3VO">
-		select * from category3
-	</select>
-	
-<!-- 특정 게임 리스트 -->
-	<select id="selectGame" resultType="GameVO">
-		select g.title, g.price, b.content, b.view_count, b.image, u.name
-			from game g, game_type t, board b, user u, category2 c2
-			where g.idx = t.game_idx
-			and b.idx = g.board_idx
-			and u.idx = b.user_idx
-			and c2.category_idx = #{idx}
-			and t.category2_idx = c2.idx
-			group by g.title
-			order by g.idx desc;
-	</select>
-	
-<!-- 특정 게임 리스트2 -->
-	<select id="selectGame2" resultType="GameVO">
-		select g.title, g.price, b.content, b.view_count, b.image, u.name
-			from game g, game_type t, board b, user u, category2 c2
-			where g.idx = t.game_idx
-			and b.idx = g.board_idx
-			and u.idx = b.user_idx
-			and c2.idx = #{idx}
-			and t.category2_idx = c2.idx
-			group by g.title
-			order by g.idx desc;
-	</select>
-<!-- 콘솔게임 카테고리 -->
+
+<!-- 콘솔게임 카테고리2 -->
 	<select id="selectConsole2" resultType="GameCategory2VO">
 	<![CDATA[
 		select idx, name2 from category2

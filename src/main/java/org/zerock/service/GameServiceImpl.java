@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.domain.GameCategory3VO;
+import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.GenreVO;
 import org.zerock.persistence.GameDAO;
@@ -19,43 +20,17 @@ public class GameServiceImpl implements GameService {
 	private GameDAO gameDAO;
 	
 	
-	//게임 카테고리1
-	@Override
-	public List<GameCategory1VO> selectGameType() throws Exception {
-		return gameDAO.selectGameType();
-	}
-
-	//게임 리스트
-	@Override
-	public List<GameVO> selectAllGame() throws Exception {
-		return gameDAO.selectAllGame();
+	//콘솔 게임 카테고리1
+	public List<GameCategory1VO> selectConsoleCategory1() throws Exception {
+		return gameDAO.selectConsoleCategory1();
 	}
 	
-	//게임 카테고리2
-	@Override
-	public List<GameCategory2VO> selectGameCategory2(int idx) throws Exception {
-		return gameDAO.selectGameCategory2(idx);
+	//게임 리스트 조회
+	public List<GameListVO> selectGameList() throws Exception {
+		return gameDAO.selectGameList();
 	}
 	
-	//게임 카테고리3
-	@Override
-	public List<GameCategory3VO> selectGameCategory3() throws Exception {
-		return gameDAO.selectGameCategory3();
-	}
-	
-	//특정 게임 리스트
-	@Override
-	public List<GameVO> selectGame(int idx) throws Exception {
-		return gameDAO.selectGame(idx);
-	}
-	
-	//특정 게임 리스트2
-	@Override
-	public List<GameVO> selectGame2(int idx) throws Exception {
-		return gameDAO.selectGame2(idx);
-	}
-	
-	//콘솔 게임 카테고리
+	//콘솔 게임 카테고리2
 	@Override
 	public List<GameCategory2VO> selectConsoleCategory2() throws Exception {
 		return gameDAO.selectConsoleCategory2();

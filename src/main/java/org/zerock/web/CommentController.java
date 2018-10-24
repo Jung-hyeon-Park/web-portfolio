@@ -62,7 +62,7 @@ public class CommentController{
         		HashMap hm = new HashMap();
         		hm.put("idx", commentVO.get(i).getIdx());
         		hm.put("comment", commentVO.get(i).getComment());
-        		hm.put("name", commentVO.get(i).getName());
+        		hm.put("email", commentVO.get(i).getEmail());
         		
         		hmlist.add(hm);
         	}

@@ -77,8 +77,8 @@
 
 <!-- 게시글 작성 -->
 	<insert id="insertBoard">
-		INSERT INTO board (title, content, user_idx, post_category_idx, user_id)
-		VALUES (#{title}, #{content}, #{userIdx}, #{postCategoryIdx}, #{userId})
+		INSERT INTO board (title, content, user_idx, post_category_idx, email)
+		VALUES (#{title}, #{content}, #{userIdx}, #{postCategoryIdx}, #{email})
 		<selectKey resultType="int">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -86,7 +86,7 @@
 
 <!-- 게시글 세부내용 -->
 	<select id="readBoard" resultType="BoardVO">
-		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx, b.user_id, b.like_count
+		SELECT u.email, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx, b.email, b.like_count
 		from user u, board b
 		where u.idx = b.user_idx and b.idx = #{idx}
 	</select>
@@ -110,7 +110,7 @@
 	
 	<select id="listCriteria" resultType="BoardVO">
 		<![CDATA[
-		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx,
+		SELECT u.email, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx,
 			(SELECT COUNT(*) FROM comment where board_idx = b.idx) AS recnt
 		from user u, board b
 		where u.idx = b.user_idx and b.post_category_idx = #{postCategoryIdx} 
@@ -128,7 +128,7 @@
 	</select>
 	
 	<select id="listSearch" resultType="BoardVO">
-		SELECT u.name, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx,
+		SELECT u.email, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx,
 			(SELECT COUNT(*) FROM comment where board_idx = b.idx) AS recnt
 		from user u, board b
 		where u.idx = b.user_idx and b.post_category_idx = #{postCategoryIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')

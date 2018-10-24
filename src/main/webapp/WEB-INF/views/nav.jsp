@@ -13,7 +13,12 @@
 	<div class="nav-scroller py-1 mb-2" style="background:black;">
 		<nav class="nav d-flex justify-content-around">
 		<c:forEach var="postCategoryVO" items="${postCategoryVOs}">
-			<a class="p-2 text-muted" style= "justify-content: center; align-items: center;" href="/board/listAll.do?post=${postCategoryVO.idx}">${postCategoryVO.name}</a>
+			<c:if test="${postCategoryVO.idx != 5}">
+				<a class="p-2 text-muted" style= "justify-content: center; align-items: center;" href="/board/listAll.do?post=${postCategoryVO.idx}">${postCategoryVO.name}</a>
+			</c:if>
+			<c:if test="${postCategoryVO.idx == 5}">
+			<a class="p-2 text-muted" style= "justify-content: center; align-items: center;" href="/game/gameAll.do">${postCategoryVO.name}</a>
+			</c:if>
 		</c:forEach>
 		</nav>
 	</div>

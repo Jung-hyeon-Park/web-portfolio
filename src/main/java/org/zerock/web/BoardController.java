@@ -22,7 +22,6 @@ import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
 import org.zerock.domain.UserVO;
 import org.zerock.service.BoardService;
-import org.zerock.service.UserService;
 
 @RequestMapping("/board")
 @Controller
@@ -79,7 +78,7 @@ public class BoardController {
 		UserVO userVO = (UserVO)session.getAttribute("login");
 	
 		boardVO.setUserIdx(userVO.getIdx());
-		boardVO.setUserId(userVO.getEmail());
+		boardVO.setEmail(userVO.getEmail());
 		
 		if(boardVO.getPostCategoryIdx() == 5) {
 			
@@ -136,25 +135,24 @@ public class BoardController {
 		}else if(post > 5 && post < 9) {
 			model.addAttribute("reviewDTO", boardService.selectReview(boardIdx));
 		}
-		
-		int userIdx = ((UserVO)request.getSession().getAttribute("login")).getIdx();
-		
-		
-		NominationVO nominationVO = new NominationVO();
-		nominationVO.setBoardIdx(boardIdx);
-		nominationVO.setUserIdx(userIdx);
-		
-		
-		int count = boardService.selectNomination(nominationVO);
-		
-		model.addAttribute("count", count);
+		if(request.getSession().getAttribute("login") != null) {
+			int userIdx = ((UserVO)request.getSession().getAttribute("login")).getIdx();
+			
+			
+			NominationVO nominationVO = new NominationVO();
+			nominationVO.setBoardIdx(boardIdx);
+			nominationVO.setUserIdx(userIdx);
+			
+			
+			int count = boardService.selectNomination(nominationVO);
+			
+			model.addAttribute("count", count);
+		}
 	}
 	
 	//게시글 삭제
 	@RequestMapping(value="/deleteBoard.do", method=RequestMethod.POST)
 	public String deleteBoard(@RequestParam("boardIdx") int idx, RedirectAttributes rttr, @RequestParam("post") int post, @ModelAttribute("cri") Criteria cri) throws Exception {
-		
-		System.out.println("idx1234 = " + idx);
 		
 		if(post <= 4) {
 			boardService.deleteBoard(idx);

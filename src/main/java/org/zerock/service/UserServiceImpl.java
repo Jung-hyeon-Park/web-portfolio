@@ -7,8 +7,11 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.LoginDTO;
 import org.zerock.domain.PlusUserVO;
+import org.zerock.domain.UserGameVO;
+import org.zerock.domain.UserGenreVO;
 import org.zerock.domain.UserVO;
 import org.zerock.persistence.UserDAO;
 
@@ -25,8 +28,30 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	//회원 추가 정보
+	@Transactional
+	@Override
 	public void insertPlusUser(PlusUserVO plusUserVO) throws Exception {
-		userDAO.insertPlusUser(plusUserVO);
+		UserGenreVO userGenreVO = new UserGenreVO();
+		UserGameVO userGameVO = new UserGameVO();
+		
+		userGenreVO.setUserIdx(plusUserVO.getUserIdx());
+		userGenreVO.setGenreIdxes(plusUserVO.getGenreIdx());
+		userGenreVO.setAge(plusUserVO.getAge());
+		userGameVO.setUserIdx(plusUserVO.getUserIdx());
+		userGameVO.setCategory2Idxes(plusUserVO.getCategory2Idx());
+		userGameVO.setAge(plusUserVO.getAge());
+		
+		int[] genreIdxes = userGenreVO.getGenreIdxes();
+		for(int genreIdx : genreIdxes) {
+			userGenreVO.setGenreIdx(genreIdx);
+			userDAO.insertUserGenre(userGenreVO);
+		}
+		
+		int[] category2Idxes = userGameVO.getCategory2Idxes();
+		for(int category2Idx : category2Idxes) {
+			userGameVO.setCategory2Idx(category2Idx);;
+			userDAO.insertUserGame(userGameVO);;
+		}
 	}
 	
 	//로그인 체크

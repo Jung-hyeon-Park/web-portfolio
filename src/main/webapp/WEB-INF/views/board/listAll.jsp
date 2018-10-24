@@ -48,7 +48,7 @@
 		<tr>
 			<td>${boardVO.idx}</td>
 			<td><a href="/board/readBoard.do${pm.makeQuery(pm.cri.page)}&post=${post}&boardIdx=${boardVO.idx}">${boardVO.title}<c:if test="${boardVO.recnt > 0}"><span style="color:red;">(${boardVO.recnt})</span></c:if></a></td>
-			<td>${boardVO.name}</td>
+			<td>${boardVO.email}</td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.writeDate}" /></td>
 			<td>${boardVO.viewCount}</td>
 		</tr>
@@ -60,7 +60,7 @@
 	<select name="searchType">
 		<option value="b.title" <c:out value="${searchVO.searchType eq 'b.title' ? 'selected':''}"/>>제목</option>
 		<option value="b.content" <c:out value="${searchVO.searchType eq 'b.content' ? 'selected':''}"/>>내용</option>
-		<option value="u.name" <c:out value="${searchVO.searchType eq 'u.name' ? 'selected':''}"/>>작성자</option>
+		<option value="u.name" <c:out value="${searchVO.searchType eq 'u.email' ? 'selected':''}"/>>작성자</option>
 	</select>
 	<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}" >
 	<button type="button" class="searchBnt" onclick="searchBnt()">검색</button>

@@ -13,7 +13,7 @@
 
 <!-- 댓글 리스트 -->
 	<select id="selectComment" resultType="CommentVO">
-		SELECT u.name, c.comment, c.write_date
+		SELECT u.email, c.comment, c.write_date
 		from user u, comment c
 		where c.board_idx = #{boardIdx} and u.idx = c.user_idx
 		order by c.write_date desc;

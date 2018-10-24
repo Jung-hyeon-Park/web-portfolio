@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.zerock.domain.LoginDTO;
 import org.zerock.domain.PlusUserVO;
+import org.zerock.domain.UserGameVO;
+import org.zerock.domain.UserGenreVO;
 import org.zerock.domain.UserVO;
 
 public interface UserDAO {
@@ -16,6 +18,12 @@ public interface UserDAO {
 	
 	//회원 추가 정보
 	public void insertPlusUser(PlusUserVO plusUserVO) throws Exception;
+	
+	//회원 관심 장르
+	public void insertUserGenre(UserGenreVO userGenreVO) throws Exception;
+	
+	//회원 보유 기기
+	public void insertUserGame(UserGameVO userGameVO) throws Exception;
 
 	//로그인 체크
 	public UserVO login(LoginDTO loginDTO) throws Exception;

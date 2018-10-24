@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.GameDTO;
+import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
@@ -56,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	//게임 조회
 	@Override
-	public GameDTO selectGame(int boardIdx) throws Exception {
+	public GameListVO selectGame(int boardIdx) throws Exception {
 		return boardDAO.selectGame(boardIdx);
 	}
 	

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.zerock.domain.LoginDTO;
 import org.zerock.domain.PlusUserVO;
+import org.zerock.domain.UserGameVO;
+import org.zerock.domain.UserGenreVO;
 import org.zerock.domain.UserVO;
 
 public interface UserService {

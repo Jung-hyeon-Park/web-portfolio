@@ -14,10 +14,16 @@
 		</selectKey>
 	</insert>
 	
-<!-- 회원 추가 정보 -->
-	<insert id="insertPlusUser">
-		insert into plus_user (age, user_idx, genre_idx, category2_idx)
-		values (#{age}, #{userIdx}, #{genreIdx}, #{category2Idx})
+<!-- 회원 보유 기기 -->
+	<insert id="insertUserGame">
+		insert into user_game (age, user_idx, category2_idx)
+		values (#{age}, #{userIdx}, #{category2Idx})
+	</insert>
+
+<!-- 회원 관심 장르 -->
+	<insert id="insertUserGenre">
+		insert into user_genre (age, user_idx, genre_idx)
+		values (#{age}, #{userIdx}, #{genreIdx})
 	</insert>
 	
 <!-- 회원 로그인 체크 -->
