@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.zerock.domain.GameCategory2VO;
+import org.zerock.domain.GameCategory3VO;
 import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GenreVO;
@@ -22,8 +23,8 @@ public class GameDAOImpl implements GameDAO {
 	
 	//콘솔 게임 카테고리1
 	@Override
-	public List<GameCategory1VO> selectConsoleCategory1(GameListVO gameListVO) throws Exception {
-		return sqlSession.selectList(NAMESPACE+".selectConsole1", gameListVO);
+	public List<GameCategory1VO> selectConsoleCategory1(GameCategory1VO gameCategory1VO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".selectConsole1", gameCategory1VO);
 	}
 	
 	//게임 리스트 조회
@@ -49,5 +50,17 @@ public class GameDAOImpl implements GameDAO {
 	@Override
 	public List<GenreVO> selectGenre() throws Exception {
 		return sqlSession.selectList(NAMESPACE+".selectGenre");
+	}
+	
+	//모든 콘솔 필터 조회 
+	@Override
+	public List<GameCategory2VO> selectAllCategory2() throws Exception {
+		return sqlSession.selectList(NAMESPACE+".selectAllCategory2");
+	}
+	
+	//모든 부품 필터 조회 
+	@Override
+	public List<GameCategory3VO> selectAllCategory3() throws Exception {
+		return sqlSession.selectList(NAMESPACE+".selectAllCategory3");
 	}
 }

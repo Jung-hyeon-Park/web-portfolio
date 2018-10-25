@@ -2,24 +2,24 @@ package org.zerock.domain;
 
 public class GameCategory3VO {
 
-	private int idx;
-	private String name;
+	private int category3Idx;
+	private String name3;
 	private String image;
 
-	public int getIdx() {
-		return idx;
+	public int getCategory3Idx() {
+		return category3Idx;
 	}
 
-	public void setIdx(int idx) {
-		this.idx = idx;
+	public void setCategory3Idx(int category3Idx) {
+		this.category3Idx = category3Idx;
 	}
 
-	public String getName() {
-		return name;
+	public String getName3() {
+		return name3;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName3(String name3) {
+		this.name3 = name3;
 	}
 
 	public String getImage() {

@@ -9,27 +9,27 @@
 	<select id="selectConsole1" resultType="GameCategory1VO">
 	<if test="categoryIdx == 0">
 	<![CDATA[
-		select idx, name, image from category
+		select idx as category_idx, name, image from category
 		where idx < 4
 	]]>
 	</if>
 	<if test="categoryIdx == 1">
 	<![CDATA[
-		select idx as category2_idx, name2, image from category2
+		select idx as category2_idx, category_idx, name2, image from category2
 		where idx < 5
 	]]>
 	</if>
 	
 	<if test="categoryIdx == 2">
 	<![CDATA[
-		select idx as category2_idx, name2, image from category2
+		select idx as category2_idx, category_idx, name2, image from category2
 		where idx > 4 and idx < 8
 	]]>
 	</if>
 	
 	<if test="categoryIdx == 3">
 	<![CDATA[
-		select idx as category2_idx, name2, image from category2
+		select idx as category2_idx, category_idx, name2, image from category2
 		where idx > 7 and idx < 10
 	]]>
 	</if>
@@ -44,11 +44,21 @@
 			where b.idx = g1.board_idx
 		</if>
 		<if test="categoryIdx != 0">
-			from game g1, board b, category2 c2
-			where b.idx = g1.board_idx
-			and g1.category2_idx = c2.idx
-			and c2.category_idx = #{categoryIdx}
+			<if test="category2Idx == 0">
+				from game g1, board b, category2 c2
+				where b.idx = g1.board_idx
+				and g1.category2_idx = c2.idx
+				and c2.category_idx = #{categoryIdx}
+			</if>
+			<if test="category2Idx != 0">
+				from game g1, board b, category2 c2
+				where b.idx = g1.board_idx
+				and g1.category2_idx = c2.idx
+				and c2.category_idx = #{categoryIdx}
+				and c2.idx = #{category2Idx}
+			</if>
 		</if>
+		order by g1.idx desc
 	</select>
 	
 <!-- 특정 콘솔 카테고리 -->
@@ -67,6 +77,20 @@
 <!-- 장르 조회 -->
 	<select id="selectGenre" resultType="GenreVO">
 		select * from genre
+	</select>
+	
+<!-- 모든 콘솔 필터 조회 -->
+	<select id="selectAllCategory2" resultType="GameCategory2VO">
+	<![CDATA[
+		select idx as category2_idx, name2 from category2
+		where idx < 10;
+	]]>
+	</select>
+	
+<!-- 모든 분품 필터 조회 -->
+	<select id="selectAllCategory3" resultType="GameCategory3VO">
+		select idx as category3_idx, name3 from category3
+		order by idx asc
 	</select>
 	
 </mapper>

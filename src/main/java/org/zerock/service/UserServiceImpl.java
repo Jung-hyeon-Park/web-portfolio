@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
 		userGenreVO.setUserIdx(plusUserVO.getUserIdx());
 		userGenreVO.setGenreIdxes(plusUserVO.getGenreIdx());
 		userGenreVO.setAge(plusUserVO.getAge());
+		
 		userGameVO.setUserIdx(plusUserVO.getUserIdx());
 		userGameVO.setCategory2Idxes(plusUserVO.getCategory2Idx());
 		userGameVO.setAge(plusUserVO.getAge());
@@ -49,8 +50,8 @@ public class UserServiceImpl implements UserService {
 		
 		int[] category2Idxes = userGameVO.getCategory2Idxes();
 		for(int category2Idx : category2Idxes) {
-			userGameVO.setCategory2Idx(category2Idx);;
-			userDAO.insertUserGame(userGameVO);;
+			userGameVO.setCategory2Idx(category2Idx);
+			userDAO.insertUserGame(userGameVO);
 		}
 	}
 	

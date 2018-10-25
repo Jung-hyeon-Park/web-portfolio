@@ -13,7 +13,7 @@ import org.zerock.domain.GenreVO;
 public interface GameService {
 	
 	//콘솔 게임 카테고리1
-	public List<GameCategory1VO> selectConsoleCategory1(GameListVO gameListVO) throws Exception;
+	public List<GameCategory1VO> selectConsoleCategory1(GameCategory1VO gameCategory1VO) throws Exception;
 	
 	//게임 리스트 조회
 	public List<GameListVO> selectGameList(GameListVO gameListVO) throws Exception;
@@ -26,5 +26,12 @@ public interface GameService {
 	
 	//장르 조회
 	public List<GenreVO> selectGenre() throws Exception;
+	
+	//모든 콘솔 필터 조회 
+	public List<GameCategory2VO> selectAllCategory2() throws Exception;
+	
+	//모든 분류 필터 조회 
+	public List<GameCategory3VO> selectAllCategory3() throws Exception;
+	
 
 }

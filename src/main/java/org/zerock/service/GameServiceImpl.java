@@ -22,8 +22,8 @@ public class GameServiceImpl implements GameService {
 	
 	//콘솔 게임 카테고리1
 	@Override
-	public List<GameCategory1VO> selectConsoleCategory1(GameListVO gameListVO) throws Exception {
-		return gameDAO.selectConsoleCategory1(gameListVO);
+	public List<GameCategory1VO> selectConsoleCategory1(GameCategory1VO gameCategory1VO) throws Exception {
+		return gameDAO.selectConsoleCategory1(gameCategory1VO);
 	}
 	
 	//게임 리스트 조회
@@ -48,5 +48,15 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public List<GenreVO> selectGenre() throws Exception {
 		return gameDAO.selectGenre();
+	}
+	
+	//모든 콘솔 필터 조회 
+	public List<GameCategory2VO> selectAllCategory2() throws Exception {
+		return gameDAO.selectAllCategory2();
+	}
+	
+	//모든 분류 필터 조회 
+	public List<GameCategory3VO> selectAllCategory3() throws Exception {
+		return gameDAO.selectAllCategory3();
 	}
 }

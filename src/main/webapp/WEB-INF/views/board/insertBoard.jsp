@@ -406,7 +406,6 @@ $("#postCategory").change(function() {
 </script>
 	<a href="/main.do">메인으로</a>
 	
-<script></script>
 	
 	
 	

@@ -47,7 +47,7 @@ public class UserController {
 	@RequestMapping(value="/plusSignUp.do", method=RequestMethod.GET)
 	public void plusSignUp(Model model, @ModelAttribute("user") int userIdx) throws Exception {
 			
-		model.addAttribute("category2VOs", gameService.selectConsoleCategory2());
+		model.addAttribute("category2VOs", gameService.selectAllCategory2());
 		model.addAttribute("genreVOs", gameService.selectGenre());
 	}
 	

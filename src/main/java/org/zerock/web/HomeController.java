@@ -75,4 +75,9 @@ public class HomeController {
 		model.addAttribute("post3VOs", boardService.selectPost3());
 	}
 	
+	@RequestMapping(value="/test.do", method=RequestMethod.GET)
+	public void test() throws Exception {
+		
+	}
+	
 }

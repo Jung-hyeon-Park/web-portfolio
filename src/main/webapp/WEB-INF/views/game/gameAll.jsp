@@ -23,10 +23,18 @@
 	<c:import url="/nav.do"></c:import>
 	<div style="float: center; margin-top: 30px;">
 		<c:forEach var="consoleVO" items="${consoleVOs}">
+		<c:if test="${consoleVO.category2Idx eq 0 }">
 			<div style= "display: inline-block; margin-left: 63px;">
-				<a href="/game/gameAll.do?console=${consoleVO.categoryIdx}">
+				<a href="/game/gameAll.do?console=${consoleVO.categoryIdx}&console2=${consoleVO.category2Idx}">
 				<img style="width:200px; height: 100px;" src="/resources/uploadFile/image/${consoleVO.image}"></a>
 			</div>
+		</c:if>
+		<c:if test="${consoleVO.category2Idx ne 0 }">
+			<div style= "display: inline-block; margin-left: 63px;">
+				<a href="/game/gameList.do?console=${consoleVO.categoryIdx}&console2=${consoleVO.category2Idx}">
+				<img style="width:200px; height: 100px;" src="/resources/uploadFile/image/${consoleVO.image}"></a>
+			</div>
+		</c:if>
 		&nbsp;&nbsp;
 		</c:forEach>
 	</div>
@@ -35,7 +43,7 @@
 			<c:forEach var="gameVO" items="${gameVOs}">
 					<div class="col-md-3">
 						<p class="card-text">${gameVO.email}</p>
-						<a href="#">
+						<a href="#" style="text-decoration: none">
 						<div class="card mb-3 shadow-sm" style="width: 194.5px;">
 							<img class="card-img-top" src="/upload/displayFile.do?fileName=${gameVO.fullName}" alt="image">
 							<div class="card-body">
@@ -56,7 +64,7 @@
 	
 	<p>할인 상품</p>
 	
-	<div class="row">
+	<%-- <div class="row">
 		<ul id="flexiselDemo5">
 			<c:forEach var="gameVO" items="${gameVOs}">
 				<li>
@@ -78,7 +86,7 @@
 				</li>
 			</c:forEach>
 		</ul>
-	</div>
+	</div> --%>
 
 	<script type="text/javascript">
 		$(window).load(function() {

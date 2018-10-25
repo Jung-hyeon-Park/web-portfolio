@@ -104,7 +104,7 @@ body {
 							<div class="mb-3">
 								<label>보유(관심) 기기 선택</label><br>
 								<c:forEach var="category2VO" items="${category2VOs}">
-									<input type="checkbox" name="category2" value="${category2VO.idx}"><h6>${category2VO.name2}</h6>
+									<input type="checkbox" name="category2" value="${category2VO.category2Idx}"><h6>${category2VO.name2}</h6>
 								</c:forEach>
 							</div>
 							<div class="mb-3">
