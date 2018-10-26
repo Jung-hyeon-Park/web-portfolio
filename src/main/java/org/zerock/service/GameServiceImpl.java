@@ -51,12 +51,20 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	//모든 콘솔 필터 조회 
+	@Override
 	public List<GameCategory2VO> selectAllCategory2() throws Exception {
 		return gameDAO.selectAllCategory2();
 	}
 	
 	//모든 분류 필터 조회 
+	@Override
 	public List<GameCategory3VO> selectAllCategory3() throws Exception {
 		return gameDAO.selectAllCategory3();
+	}
+	
+	//ajax 게임 리스트
+	@Override
+	public List<GameListVO> ajaxGameList(GameCategory1VO gameCategory1VO) throws Exception {
+		return gameDAO.ajaxGameList(gameCategory1VO);
 	}
 }

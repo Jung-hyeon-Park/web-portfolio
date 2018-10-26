@@ -63,4 +63,10 @@ public class GameDAOImpl implements GameDAO {
 	public List<GameCategory3VO> selectAllCategory3() throws Exception {
 		return sqlSession.selectList(NAMESPACE+".selectAllCategory3");
 	}
+	
+	//ajax 게임 리스트
+	@Override
+	public List<GameListVO> ajaxGameList(GameCategory1VO gameCategory1VO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".ajaxGameList", gameCategory1VO);
+	}
 }

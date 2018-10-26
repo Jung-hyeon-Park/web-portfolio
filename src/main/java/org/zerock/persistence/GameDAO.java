@@ -31,4 +31,7 @@ public interface GameDAO {
 	
 	//모든 분류 필터 조회 
 	public List<GameCategory3VO> selectAllCategory3() throws Exception;
+	
+	//ajax 게임 리스트
+	public List<GameListVO> ajaxGameList(GameCategory1VO gameCategory1VO) throws Exception;
 }

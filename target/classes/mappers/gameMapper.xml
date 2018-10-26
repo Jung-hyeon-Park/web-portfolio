@@ -56,6 +56,7 @@
 				and g1.category2_idx = c2.idx
 				and c2.category_idx = #{categoryIdx}
 				and c2.idx = #{category2Idx}
+				and g1.category3_idx = #{category3Idx}
 			</if>
 		</if>
 		order by g1.idx desc
@@ -91,6 +92,18 @@
 	<select id="selectAllCategory3" resultType="GameCategory3VO">
 		select idx as category3_idx, name3 from category3
 		order by idx asc
+	</select>
+	
+<!-- ajax 게임 리스트 -->
+	<select id="ajaxGameList" resultType="GameListVO">
+		select g1.title, g1.price, g1.board_idx, g1.category3_idx, g1.category2_idx, g1.state, g1.status, b.like_count, b.email, 
+			(select full_name from file_list where board_idx = b.idx limit 1) as full_name
+		from game g1, board b, category2 c2
+		where b.idx = g1.board_idx
+		and g1.category2_idx = c2.idx
+		and c2.idx = #{category2Idx}
+		and g1.category3_idx = #{category3Idx}
+		order by g1.idx desc
 	</select>
 	
 </mapper>
