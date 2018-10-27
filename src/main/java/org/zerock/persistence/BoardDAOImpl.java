@@ -10,8 +10,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.GameListVO;
-import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
 import org.zerock.domain.ReviewDTO;
@@ -37,30 +35,6 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public List<SimpleBoardDTO> selectNews() throws Exception {
 		return sqlSession.selectList(namespace+".selectNews");
-	}
-	
-	//게임 추가
-	@Override
-	public void insertGame(GameVO gameVO) throws Exception {
-		sqlSession.insert(namespace+".insertGame", gameVO);
-	}
-	
-	//게임 조회
-	@Override
-	public GameListVO selectGame(int boardIdx) throws Exception {
-		return sqlSession.selectOne(namespace+".selectGame", boardIdx);
-	}
-	
-	//게임 수정
-	@Override
-	public void updateGame(GameVO gameVO) throws Exception {
-		sqlSession.update(namespace+".updateGame", gameVO);
-	}
-	
-	//게임 삭제
-	@Override
-	public void deleteGame(int boardIdx) throws Exception {
-		sqlSession.delete(namespace+".deleteGame", boardIdx);
 	}
 	
 	// 게시글 추가

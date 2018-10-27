@@ -5,12 +5,16 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.zerock.domain.BoardVO;
 import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.domain.GameCategory3VO;
+import org.zerock.domain.GameClassificationVO;
 import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.GenreVO;
+import org.zerock.persistence.BoardDAO;
 import org.zerock.persistence.GameDAO;
 
 @Service
@@ -19,6 +23,72 @@ public class GameServiceImpl implements GameService {
 	@Inject
 	private GameDAO gameDAO;
 	
+	@Inject
+	private BoardDAO boardDAO;
+	
+	
+	//게임 추가
+	@Transactional
+	@Override
+	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception {
+		boardDAO.insertBoard(boardVO);
+		String[] files = boardVO.getFiles();
+		
+		if(files == null) {
+			return;
+		}
+		
+		for(String fileName : files) {
+			boardDAO.addFiles(fileName);
+		}
+		int gameClassificationIdx = gameDAO.selectGameClassificationIdx(boardVO.getTitle());
+		System.out.println("class = " + gameClassificationIdx);
+		gameVO.setGameClassificationIdx(gameClassificationIdx);
+		gameVO.setBoardIdx(boardVO.getIdx());
+		gameDAO.insertGame(gameVO);
+	}
+	
+	//게임 조회
+	@Override
+	public GameListVO selectGame(int boardIdx) throws Exception {
+		return gameDAO.selectGame(boardIdx);
+	}
+	
+	//게임 수정
+	@Transactional
+	@Override
+	public void updateGame(GameVO gameVO, BoardVO boardVO) throws Exception {
+		boardDAO.updateBoard(boardVO);
+		gameDAO.updateGame(gameVO);
+		
+		int boardIdx = boardVO.getIdx();
+		boardDAO.deleteFiles(boardIdx);
+		
+		String[] files = boardVO.getFiles();
+		
+		if(files == null) {
+			return;
+		} 
+		
+		for(String fileName : files) {
+			boardDAO.replaceFiles(fileName, boardIdx);
+		}
+	}
+	
+	//게임 삭제
+	@Transactional
+	@Override
+	public void deleteGame(int boardIdx) throws Exception {
+		gameDAO.deleteGame(boardIdx);
+		if(boardDAO.getFiles(boardIdx) != null) {
+			boardDAO.deleteFiles(boardIdx);
+		}
+		
+		if(boardDAO.readBoard(boardIdx).getLikeCount() > 0) {
+			boardDAO.deleteBoardNomination(boardIdx);
+		}
+		boardDAO.deleteBoard(boardIdx);
+	}
 	
 	//콘솔 게임 카테고리1
 	@Override
@@ -66,5 +136,17 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public List<GameListVO> ajaxGameList(GameCategory1VO gameCategory1VO) throws Exception {
 		return gameDAO.ajaxGameList(gameCategory1VO);
+	}
+	
+	//ajax 게임 제목
+	@Override
+	public List<String> ajaxGameTitle(String title) throws Exception {
+		return gameDAO.ajaxGameTitle(title);
+	}
+	
+	//모든 게임 이름 조회
+	@Override
+	public List<GameClassificationVO> selectGameTitle() throws Exception {
+		return gameDAO.selectGameTitle();
 	}
 }

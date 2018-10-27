@@ -13,12 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.domain.GameCategory1VO;
+import org.zerock.domain.GameClassificationVO;
 import org.zerock.domain.GameListVO;
 import org.zerock.service.GameService;
 
@@ -49,9 +49,6 @@ public class GameController {
 		model.addAttribute("gameVOs", gameService.selectGameList(gameListVO));
 		
 	}
-	
-	
-	
 	
 	//최종 필터링 게임 리스트(브랜드)
 	@RequestMapping(value="/gameList.do", method=RequestMethod.GET)
@@ -99,6 +96,31 @@ public class GameController {
         		hm.put("likeCount", gameVOs.get(i).getLikeCount());
         		hm.put("title", gameVOs.get(i).getTitle());
         		
+        		hmlist.add(hm);
+        	}
+        }
+        JSONArray json = new JSONArray(hmlist);
+        return new ResponseEntity(json.toString(), responseHeaders, HttpStatus.CREATED);
+	}
+	
+	//상품 실시간 검색
+	@RequestMapping(value="/ajaxInsertGame.do", method=RequestMethod.POST, produces="application/json; charset=utf8")
+	@ResponseBody
+	public ResponseEntity ajaxInsertGame(HttpServletRequest request) throws Exception {
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+        ArrayList<HashMap> hmlist = new ArrayList<HashMap>();
+		
+		
+		List<GameClassificationVO> titleVOs = gameService.selectGameTitle();
+		for(GameClassificationVO a : titleVOs) {
+			System.out.println("game = " + a.getTitle());
+		}
+		if(titleVOs.size() > 0) {
+        	for(int i=0; i<titleVOs.size(); i++) {
+        		HashMap hm = new HashMap();
+        		hm.put("title", titleVOs.get(i).getTitle());
+        		hm.put("gameClassficationIdx", titleVOs.get(i).getIdx());
         		hmlist.add(hm);
         	}
         }

@@ -5,6 +5,29 @@
 
 <mapper namespace="org.zerock.mapper.GameMapper">
 
+<!-- 게임 조회 -->
+	<!-- <select id="selectGame" resultType="GameDTO">
+		select c2.name2, c3.name3, g.status, g.state, g.price from game g, category2 c2, category3 c3 
+		where board_idx = #{boardIdx} and g.category2_idx = c2.idx and g.category3_idx = c3.idx
+	</select> -->
+	
+<!-- 게임 추가 -->
+	<insert id="insertGame">
+		insert into game (price, board_idx, status, state, game_classification_idx)
+		values (#{price}, LAST_INSERT_ID(), #{status}, #{condition}, #{gameClassificationIdx})
+	</insert>
+	
+<!-- 게임 수정 -->
+	<update id="updateGame">
+		UPDATE game SET title = #{title}, price = #{price}, status = #{status}, state = #{condition}, category3_idx = #{category3Idx}, category2_idx = #{category2Idx}
+		WHERE board_idx = #{boardIdx}
+	</update>
+	
+<!-- 게임 삭제 -->
+	<delete id="deleteGame">
+		delete from game where board_idx = #{boardIdx}
+	</delete>
+
 <!-- 콘솔게임 카테고리1 -->
 	<select id="selectConsole1" resultType="GameCategory1VO">
 	<if test="categoryIdx == 0">
@@ -37,26 +60,28 @@
 	
 <!-- 게임 리스트 조회 -->
 	<select id="selectGameList" resultType="GameListVO">
-		select g1.title, g1.price, g1.board_idx, g1.category3_idx, g1.category2_idx, g1.state, g1.status, b.like_count, b.email, 
+		select gc.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, b.like_count, b.email, 
 			(select full_name from file_list where board_idx = b.idx limit 1) as full_name
 	    <if test="categoryIdx == 0">
-			from board b, game g1
+			from board b, game g1, game_classification gc
 			where b.idx = g1.board_idx
 		</if>
 		<if test="categoryIdx != 0">
 			<if test="category2Idx == 0">
-				from game g1, board b, category2 c2
+				from game g1, board b, category2 c2, game_classification gc
 				where b.idx = g1.board_idx
-				and g1.category2_idx = c2.idx
+				and gc.category2_idx = c2.idx
 				and c2.category_idx = #{categoryIdx}
+				and gc.idx = g1.game_classification_idx
 			</if>
 			<if test="category2Idx != 0">
-				from game g1, board b, category2 c2
+				from game g1, board b, category2 c2, game_classification gc
 				where b.idx = g1.board_idx
-				and g1.category2_idx = c2.idx
+				and gc.category2_idx = c2.idx
 				and c2.category_idx = #{categoryIdx}
 				and c2.idx = #{category2Idx}
-				and g1.category3_idx = #{category3Idx}
+				and gc.category3_idx = #{category3Idx}
+    			and gc.idx = g1.game_classification_idx
 			</if>
 		</if>
 		order by g1.idx desc
@@ -96,14 +121,33 @@
 	
 <!-- ajax 게임 리스트 -->
 	<select id="ajaxGameList" resultType="GameListVO">
-		select g1.title, g1.price, g1.board_idx, g1.category3_idx, g1.category2_idx, g1.state, g1.status, b.like_count, b.email, 
+		select gc.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, b.like_count, b.email, 
 			(select full_name from file_list where board_idx = b.idx limit 1) as full_name
-		from game g1, board b, category2 c2
+		from game g1, board b, category2 c2, game_classification gc
 		where b.idx = g1.board_idx
-		and g1.category2_idx = c2.idx
+		and gc.category2_idx = c2.idx
+		and c2.category_idx = #{categoryIdx}
 		and c2.idx = #{category2Idx}
-		and g1.category3_idx = #{category3Idx}
+		and gc.category3_idx = #{category3Idx}
+		and gc.idx = g1.game_classification_idx
 		order by g1.idx desc
 	</select>
 	
+<!-- ajax 게임 제목 -->
+	<select id="ajaxGameTitle" resultType="String">
+		SELECT title FROM game_classification
+		where title like CONCAT('%', #{title}, '%')
+	</select>
+	
+<!-- 모든 게임 제목 조회 -->
+	<select id="selectGameTitle" resultType="GameClassificationVO">
+		select * from game_classification
+	</select>
+	
+<!-- GameClassificationIdx 조회 -->
+	<select id="selectGameClassificationIdx" resultType="int">
+		select idx from game_classification
+		where title = #{title}
+	</select>
+
 </mapper>

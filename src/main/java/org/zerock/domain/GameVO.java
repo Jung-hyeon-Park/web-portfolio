@@ -7,24 +7,15 @@ public class GameVO {
 	private int price;
 	private String status;
 	private String condition;
-	private int category3Idx;
 	private int boardIdx;
-	private int category2Idx;
+	private int gameClassificationIdx;
 
-	public int getCategory2Idx() {
-		return category2Idx;
+	public int getGameClassificationIdx() {
+		return gameClassificationIdx;
 	}
 
-	public void setCategory2Idx(int category2Idx) {
-		this.category2Idx = category2Idx;
-	}
-
-	public int getCategory3Idx() {
-		return category3Idx;
-	}
-
-	public void setCategory3Idx(int category3Idx) {
-		this.category3Idx = category3Idx;
+	public void setGameClassificationIdx(int gameClassificationIdx) {
+		this.gameClassificationIdx = gameClassificationIdx;
 	}
 
 	public String getStatus() {

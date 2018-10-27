@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.GameListVO;
-import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
 import org.zerock.domain.ReviewDTO;
@@ -20,18 +18,6 @@ public interface BoardService {
 	
 	//파일 조회
 	public List<SimpleBoardDTO> selectNews() throws Exception;
-	
-	//게임 추가
-	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception;
-	
-	//게임 조회
-	public GameListVO selectGame(int boardIdx) throws Exception;
-	
-	//게임 수정
-	public void updateGame(GameVO gameVO, BoardVO boardVO) throws Exception;
-	
-	//게임 삭제
-	public void deleteGame(int boardIdx) throws Exception;
 	
 	//게시글 추가
 	public void insertBoard(BoardVO boardVO) throws Exception;

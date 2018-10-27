@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.GameListVO;
-import org.zerock.domain.GameVO;
 import org.zerock.domain.NominationVO;
 import org.zerock.domain.PostVO;
 import org.zerock.domain.ReviewDTO;
@@ -34,66 +32,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<SimpleBoardDTO> selectNews() throws Exception {
 		return boardDAO.selectNews();
-	}
-	
-	//게임 추가
-	@Transactional
-	@Override
-	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception {
-		boardDAO.insertBoard(boardVO);
-		String[] files = boardVO.getFiles();
-		
-		if(files == null) {
-			return;
-		}
-		
-		for(String fileName : files) {
-			boardDAO.addFiles(fileName);
-		}
-		gameVO.setBoardIdx(boardVO.getIdx());
-		boardDAO.insertGame(gameVO);
-	}
-	
-	//게임 조회
-	@Override
-	public GameListVO selectGame(int boardIdx) throws Exception {
-		return boardDAO.selectGame(boardIdx);
-	}
-	
-	//게임 수정
-	@Transactional
-	@Override
-	public void updateGame(GameVO gameVO, BoardVO boardVO) throws Exception {
-		boardDAO.updateBoard(boardVO);
-		boardDAO.updateGame(gameVO);
-		
-		int boardIdx = boardVO.getIdx();
-		boardDAO.deleteFiles(boardIdx);
-		
-		String[] files = boardVO.getFiles();
-		
-		if(files == null) {
-			return;
-		} 
-		
-		for(String fileName : files) {
-			boardDAO.replaceFiles(fileName, boardIdx);
-		}
-	}
-	
-	//게임 삭제
-	@Transactional
-	@Override
-	public void deleteGame(int boardIdx) throws Exception {
-		boardDAO.deleteGame(boardIdx);
-		if(boardDAO.getFiles(boardIdx) != null) {
-			boardDAO.deleteFiles(boardIdx);
-		}
-		
-		if(boardDAO.readBoard(boardIdx).getLikeCount() > 0) {
-			boardDAO.deleteBoardNomination(boardIdx);
-		}
-		boardDAO.deleteBoard(boardIdx);
 	}
 	
 	//게시글 추가

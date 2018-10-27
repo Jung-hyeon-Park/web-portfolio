@@ -22,6 +22,7 @@ import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
 import org.zerock.domain.UserVO;
 import org.zerock.service.BoardService;
+import org.zerock.service.GameService;
 
 @RequestMapping("/board")
 @Controller
@@ -29,6 +30,9 @@ public class BoardController {
 
 	@Inject
 	private BoardService boardService;
+	
+	@Inject
+	private GameService gameService;
 
 	// 게시글 추천
 	@RequestMapping(value = "/nomination", method = RequestMethod.POST, produces = "application/json")
@@ -61,6 +65,9 @@ public class BoardController {
 		// 게시판 목록 생성
 		if (post < 6) {
 			model.addAttribute("postVOs", boardService.selectPost());
+			/*if(post == 5) {
+				model.addAttribute("gameVOs", gameService.selectGameTitle());
+			}*/
 		} else if (post > 5 && post < 9) {
 			model.addAttribute("postVOs", boardService.selectPost2());
 		} else if (post > 8 && post < 11) {
@@ -81,11 +88,9 @@ public class BoardController {
 
 		if (boardVO.getPostCategoryIdx() == 5) {
 
-			boardService.insertGame(gameVO, boardVO);
+			gameService.insertGame(gameVO, boardVO);
 
 		} else if (boardVO.getPostCategoryIdx() > 5 && boardVO.getPostCategoryIdx() < 9) {
-
-			reviewVO.setCategory2Idx(gameVO.getCategory2Idx());
 
 			boardService.insertReview(reviewVO, boardVO);
 		} else {
@@ -131,7 +136,7 @@ public class BoardController {
 		model.addAttribute("boardVO", boardService.readBoard(boardIdx));
 
 		if (post == 5) {
-			model.addAttribute("gameDTO", boardService.selectGame(boardIdx));
+			model.addAttribute("gameDTO", gameService.selectGame(boardIdx));
 		} else if (post > 5 && post < 9) {
 			model.addAttribute("reviewDTO", boardService.selectReview(boardIdx));
 		}
@@ -156,7 +161,7 @@ public class BoardController {
 		if (post <= 4) {
 			boardService.deleteBoard(idx);
 		} else if (post == 5) {
-			boardService.deleteGame(idx);
+			gameService.deleteGame(idx);
 		} else if (post >= 6 && post <= 8) {
 			boardService.deleteReview(idx);
 		}
@@ -176,7 +181,7 @@ public class BoardController {
 			model.addAttribute("boardVO", boardService.readBoard(idx));
 			model.addAttribute("postVOs", boardService.selectPost());
 			if (post == 5) {
-				model.addAttribute("gameVO", boardService.selectGame(idx));
+				model.addAttribute("gameVO", gameService.selectGame(idx));
 			}
 		} else if (post > 5 && post < 9) {
 			model.addAttribute("boardVO", boardService.readBoard(idx));
@@ -194,7 +199,7 @@ public class BoardController {
 
 		if (boardVO.getPostCategoryIdx() == 5) {
 
-			boardService.updateGame(gameVO, boardVO);
+			gameService.updateGame(gameVO, boardVO);
 
 		} else if (boardVO.getPostCategoryIdx() > 5 && boardVO.getPostCategoryIdx() < 9) {
 

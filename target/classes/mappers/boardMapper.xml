@@ -25,28 +25,6 @@
 		order by f.date desc limit 2
 	</select>
 
-<!-- 게임 조회 -->
-	<select id="selectGame" resultType="GameDTO">
-		select c2.name2, c3.name3, g.status, g.state, g.price from game g, category2 c2, category3 c3 
-		where board_idx = #{boardIdx} and g.category2_idx = c2.idx and g.category3_idx = c3.idx
-	</select>
-	
-<!-- 게임 추가 -->
-	<insert id="insertGame">
-		insert into game (title, price, board_idx, category3_idx, status, state, category2_idx)
-		values (#{title}, #{price}, LAST_INSERT_ID(), #{category3Idx}, #{status}, #{condition}, #{category2Idx})
-	</insert>
-	
-<!-- 게임 수정 -->
-	<update id="updateGame">
-		UPDATE game SET title = #{title}, price = #{price}, status = #{status}, state = #{condition}, category3_idx = #{category3Idx}, category2_idx = #{category2Idx}
-		WHERE board_idx = #{boardIdx}
-	</update>
-	
-<!-- 게임 삭제 -->
-	<delete id="deleteGame">
-		delete from game where board_idx = #{boardIdx}
-	</delete>
 
 <!-- 게시판 리스트 -->
 	<select id="selectPost" resultType="PostVO">
@@ -131,7 +109,9 @@
 		SELECT u.email, b.idx, b.title, b.write_date, b.view_count, b.content, b.post_category_idx,
 			(SELECT COUNT(*) FROM comment where board_idx = b.idx) AS recnt
 		from user u, board b
-		where u.idx = b.user_idx and b.post_category_idx = #{postCategoryIdx} and ${searchType} like CONCAT('%', #{keyword}, '%')
+		where u.idx = b.user_idx
+		and b.post_category_idx = #{postCategoryIdx}
+		and ${searchType} like CONCAT('%', #{keyword}, '%')
 		order by b.idx desc
 		limit #{pageStart}, #{perPageNum}
 	</select>
