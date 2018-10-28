@@ -2,20 +2,29 @@ package org.zerock.domain;
 
 public class GameDTO {
 
-	private String title;
 	private int price;
 	private int boardIdx;
 	private int category2Idx;
 	private int category3Idx;
 	private String status;
 	private String state;
+	private String name2;
+	private String name3;
 
-	public String getTitle() {
-		return title;
+	public String getName2() {
+		return name2;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName2(String name2) {
+		this.name2 = name2;
+	}
+
+	public String getName3() {
+		return name3;
+	}
+
+	public void setName3(String name3) {
+		this.name3 = name3;
 	}
 
 	public int getPrice() {

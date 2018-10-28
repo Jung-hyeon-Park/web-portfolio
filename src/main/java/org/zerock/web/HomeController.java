@@ -76,8 +76,6 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/test.do", method=RequestMethod.GET)
-	public void test() throws Exception {
-		
-	}
+	public void test() throws Exception {}
 	
 }

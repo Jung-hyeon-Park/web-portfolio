@@ -10,6 +10,7 @@ import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.domain.GameCategory3VO;
 import org.zerock.domain.GameClassificationVO;
+import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.GenreVO;
@@ -31,7 +32,7 @@ public class GameDAOImpl implements GameDAO {
 	
 	//게임 조회
 	@Override
-	public GameListVO selectGame(int boardIdx) throws Exception {
+	public GameDTO selectGame(int boardIdx) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+".selectGame", boardIdx);
 	}
 	

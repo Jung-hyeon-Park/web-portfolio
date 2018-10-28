@@ -7,6 +7,7 @@ import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.domain.GameCategory3VO;
 import org.zerock.domain.GameClassificationVO;
+import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.GenreVO;
@@ -17,7 +18,7 @@ public interface GameService {
 	public void insertGame(GameVO gameVO, BoardVO boardVO) throws Exception;
 	
 	//게임 조회
-	public GameListVO selectGame(int boardIdx) throws Exception;
+	public GameDTO selectGame(int boardIdx) throws Exception;
 	
 	//게임 수정
 	public void updateGame(GameVO gameVO, BoardVO boardVO) throws Exception;

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameClassificationVO;
 import org.zerock.domain.GameListVO;
+import org.zerock.service.BoardService;
 import org.zerock.service.GameService;
 
 
@@ -30,9 +32,12 @@ public class GameController {
 	@Inject
 	private GameService gameService;
 	
+	@Inject
+	private BoardService boardService;
+	
 	//최신 게임 상품
 	@RequestMapping(value="/gameAll.do", method=RequestMethod.GET)
-	public void gameAll(Model model, @RequestParam("console") int categoryIdx, @RequestParam("console2") int category2Idx) throws Exception {
+	public void gameAll(Model model, @ModelAttribute("console") int categoryIdx, @ModelAttribute("console2") int category2Idx) throws Exception {
 		
 		GameCategory1VO gameCategory1VO = new GameCategory1VO();
 		gameCategory1VO.setCategoryIdx(categoryIdx);
@@ -52,7 +57,7 @@ public class GameController {
 	
 	//최종 필터링 게임 리스트(브랜드)
 	@RequestMapping(value="/gameList.do", method=RequestMethod.GET)
-	public void gameList(Model model, @RequestParam("console") int categoryIdx, @RequestParam("console2") int category2Idx) throws Exception {
+	public void gameList(Model model, @ModelAttribute("console") int categoryIdx, @ModelAttribute("console2") int category2Idx) throws Exception {
 	
 		model.addAttribute("console2VOs", gameService.selectAllCategory2());
 		model.addAttribute("console3VOs", gameService.selectAllCategory3());
@@ -61,8 +66,7 @@ public class GameController {
 		gameListVO.setCategoryIdx(categoryIdx);
 		gameListVO.setCategory2Idx(category2Idx);
 		gameListVO.setCategory3Idx(2);
-	
-		model.addAttribute("ct2Idx", category2Idx);
+		
 		model.addAttribute("gameVOs", gameService.selectGameList(gameListVO));
 	
 	}
@@ -95,6 +99,8 @@ public class GameController {
         		hm.put("status", gameVOs.get(i).getStatus());
         		hm.put("likeCount", gameVOs.get(i).getLikeCount());
         		hm.put("title", gameVOs.get(i).getTitle());
+        		hm.put("category2Idx", gameVOs.get(i).getCategory2Idx());
+        		hm.put("category3Idx", gameVOs.get(i).getCategory3Idx());
         		
         		hmlist.add(hm);
         	}
@@ -113,9 +119,7 @@ public class GameController {
 		
 		
 		List<GameClassificationVO> titleVOs = gameService.selectGameTitle();
-		for(GameClassificationVO a : titleVOs) {
-			System.out.println("game = " + a.getTitle());
-		}
+		
 		if(titleVOs.size() > 0) {
         	for(int i=0; i<titleVOs.size(); i++) {
         		HashMap hm = new HashMap();
@@ -126,6 +130,14 @@ public class GameController {
         }
         JSONArray json = new JSONArray(hmlist);
         return new ResponseEntity(json.toString(), responseHeaders, HttpStatus.CREATED);
+	}
+	
+	//상세 게임 페이지
+	@RequestMapping(value="/readGame.do", method=RequestMethod.GET)
+	public void readGame(@RequestParam("boardIdx") int boardIdx, Model model, @ModelAttribute("console") int categoryIdx, @ModelAttribute("console2") int category2Idx) throws Exception {
+		
+		model.addAttribute("boardVO", boardService.readBoard(boardIdx));
+		model.addAttribute("gameDTO", gameService.selectGame(boardIdx));
 	}
 	
 }

@@ -11,6 +11,7 @@ import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameCategory2VO;
 import org.zerock.domain.GameCategory3VO;
 import org.zerock.domain.GameClassificationVO;
+import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.GenreVO;
@@ -42,7 +43,7 @@ public class GameServiceImpl implements GameService {
 			boardDAO.addFiles(fileName);
 		}
 		int gameClassificationIdx = gameDAO.selectGameClassificationIdx(boardVO.getTitle());
-		System.out.println("class = " + gameClassificationIdx);
+	
 		gameVO.setGameClassificationIdx(gameClassificationIdx);
 		gameVO.setBoardIdx(boardVO.getIdx());
 		gameDAO.insertGame(gameVO);
@@ -50,7 +51,7 @@ public class GameServiceImpl implements GameService {
 	
 	//게임 조회
 	@Override
-	public GameListVO selectGame(int boardIdx) throws Exception {
+	public GameDTO selectGame(int boardIdx) throws Exception {
 		return gameDAO.selectGame(boardIdx);
 	}
 	

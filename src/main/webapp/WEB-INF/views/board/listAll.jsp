@@ -136,10 +136,10 @@
 			dataType : "json",
 			data : $(".container").serialize(),
 			success : function(data) {
-				console.log(data.items)
+				
 				var html = "";
 				var cCnt = data.items.length;
-				console.log("갯수 = " + cCnt);
+				
 				if (cCnt > 0) {
 					for (i = 0; i < cCnt; i++) {
 						

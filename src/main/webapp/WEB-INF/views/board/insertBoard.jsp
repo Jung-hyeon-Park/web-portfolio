@@ -465,8 +465,6 @@ function getAutoComplete() {
 	var title = $('input:text[name="title"]').val();
 	var sendData = {'title': title}
 	var titles = new Array();
-	console.log(title);
-	console.log(sendData);
 	
 	$.ajax({
 		url: "/game/ajaxInsertGame.do",
@@ -480,20 +478,20 @@ function getAutoComplete() {
 	
 	        $("#search").autocomplete({
 	        	source: titles,
-	        	change: function (event, ui) {
+	        	/* change: function (event, ui) {
 	                 if (ui.item == null || ui.item == undefined) {
 	                     $("#search").val("");
 	                     $("#search").attr("disabled", false);
 	                 } else {
 	                     $("#search").attr("disabled", true);
 	                 }
-	             }
+	             } */
 	         });
 
-	         $('#changeSearch').click(function (e) {
+	         /* $('#changeSearch').click(function (e) {
 	             e.preventDefault();
 	             $("#search").attr("disabled", false);
-	         });
+	         }); */
 		}
 	});
 }

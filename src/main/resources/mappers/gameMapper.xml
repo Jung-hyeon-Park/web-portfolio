@@ -6,10 +6,14 @@
 <mapper namespace="org.zerock.mapper.GameMapper">
 
 <!-- 게임 조회 -->
-	<!-- <select id="selectGame" resultType="GameDTO">
-		select c2.name2, c3.name3, g.status, g.state, g.price from game g, category2 c2, category3 c3 
-		where board_idx = #{boardIdx} and g.category2_idx = c2.idx and g.category3_idx = c3.idx
-	</select> -->
+	<select id="selectGame" resultType="GameDTO">
+		select c2.name2, c3.name3, g.status, g.state, g.price
+		from game g, category2 c2, category3 c3, game_classification gc
+		where board_idx = #{boardIdx}
+        and gc.category2_idx = c2.idx
+        and gc.category3_idx = c3.idx
+        and g.game_classification_idx = gc.idx
+	</select>
 	
 <!-- 게임 추가 -->
 	<insert id="insertGame">
@@ -60,11 +64,12 @@
 	
 <!-- 게임 리스트 조회 -->
 	<select id="selectGameList" resultType="GameListVO">
-		select gc.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, b.like_count, b.email, 
+		select b.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, b.like_count, b.email, 
 			(select full_name from file_list where board_idx = b.idx limit 1) as full_name
 	    <if test="categoryIdx == 0">
 			from board b, game g1, game_classification gc
 			where b.idx = g1.board_idx
+			and g1.game_classification_idx = gc.idx
 		</if>
 		<if test="categoryIdx != 0">
 			<if test="category2Idx == 0">
@@ -121,15 +126,14 @@
 	
 <!-- ajax 게임 리스트 -->
 	<select id="ajaxGameList" resultType="GameListVO">
-		select gc.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, b.like_count, b.email, 
+		select b.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, b.like_count, b.email, 
 			(select full_name from file_list where board_idx = b.idx limit 1) as full_name
 		from game g1, board b, category2 c2, game_classification gc
 		where b.idx = g1.board_idx
 		and gc.category2_idx = c2.idx
-		and c2.category_idx = #{categoryIdx}
 		and c2.idx = #{category2Idx}
 		and gc.category3_idx = #{category3Idx}
-		and gc.idx = g1.game_classification_idx
+    	and gc.idx = g1.game_classification_idx
 		order by g1.idx desc
 	</select>
 	

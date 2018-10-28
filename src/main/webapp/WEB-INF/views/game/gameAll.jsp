@@ -43,7 +43,7 @@
 			<c:forEach var="gameVO" items="${gameVOs}">
 					<div class="col-md-3">
 						<p class="card-text">${gameVO.email}</p>
-						<a href="#" style="text-decoration: none">
+						<a href="/game/readGame.do?console=${console}&console2=${console2}&boardIdx=${gameVO.boardIdx}" style="text-decoration: none">
 						<div class="card mb-3 shadow-sm" style="width: 194.5px;">
 							<img class="card-img-top" src="/upload/displayFile.do?fileName=${gameVO.fullName}" alt="image">
 							<div class="card-body">

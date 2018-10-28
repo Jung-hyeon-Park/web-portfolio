@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -43,7 +42,7 @@
 			<div class="dlk-radio btn-group">
 				<c:forEach var="console2VO" items="${console2VOs}">
 					<label class="btn btn-info">
-						<input name="choices[1]" class="form-control" type="radio" <c:if test="${console2VO.category2Idx eq ct2Idx}">checked</c:if> value="${console2VO.category2Idx}" defaultchecked="checked">
+						<input name="choices[1]" class="form-control" type="radio" <c:if test="${console2VO.category2Idx eq console2}">checked</c:if> value="${console2VO.category2Idx}" defaultchecked="checked">
 						<i class="fa fa-check glyphicon glyphicon-ok"></i>${console2VO.name2}
 					</label>
 				</c:forEach>
@@ -67,7 +66,7 @@
 			<c:forEach var="gameVO" items="${gameVOs}">
 				<div class="col-md-3">
 					<p class="card-text">${gameVO.email}</p>
-					<a href="#" style="text-decoration: none">
+					<a href="/game/readGame.do?console=${console}&console2=${console2}&boardIdx=${gameVO.boardIdx}" style="text-decoration: none;" id="linkGame">
 						<div class="card mb-3 shadow-sm" style="width: 194.5px;">
 							<img class="card-img-top"
 								src="/upload/displayFile.do?fileName=${gameVO.fullName}"
@@ -89,6 +88,48 @@
 	</div>
 
 	<script>
+		$(document).ready(function() {
+			
+			var category2Idx = $('input:radio[name="choices[1]"]:checked').val();
+			var category3Idx = $('input:radio[name="choices[2]"]:checked').val();
+			
+			var sendData = {'category2Idx':category2Idx, 'category3Idx':category3Idx}
+			
+			$.ajax({
+				url: "/game/ajaxGameList.do",
+				type: "GET",
+				data: sendData,
+				success: function(data) {
+					
+					var html = "";
+					var cCnt = data.length;
+					for (i = 0; i < data.length; i++) {
+						html += '<div class="col-md-3">';
+						html += '<p class="card-text">'+data[i].email+'</p>';
+						html += '<a href="/game/readGame.do?console=1'
+							+"&console2="
+							+data[i].category2Idx+
+							"&boardIdx="
+							+data[i].boardIdx+'"'+
+							'style="text-decoration: none">';
+						html += '<div class="card mb-3 shadow-sm" style="width: 194.5px;">';
+						html += '<img class="card-img-top" src="/upload/displayFile.do?fileName='+data[i].fullName+ '" alt="image">';
+						html += '<div class="card-body">';
+						html += '<div class="product-text">';
+						html += '<p class="card-text" style="line-height: 100%;">'+data[i].title+'</p></div>';
+						html += '<div class="d-flex justify-content-between align-items-center">';
+						html += '<small class="text-muted">'+data[i].likeCount+'mins</small>';
+						html += '<p class="card-text">'+data[i].price+'원</p>';
+						html += '</div></div></div></a></div>'
+					}
+					$("#cCnt").html(cCnt);
+					$("#flexiselDemo4").html(html);
+				},
+				error : function(request, status, error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+			});	
+		});
 		$('input[name="choices[1]"]').change(function() {
 			
 			var category2Idx = $('input:radio[name="choices[1]"]:checked').val();
@@ -107,7 +148,7 @@
 					for (i = 0; i < data.length; i++) {
 						html += '<div class="col-md-3">';
 						html += '<p class="card-text">'+data[i].email+'</p>';
-						html += '<a href="#" style="text-decoration: none">';
+						html += '<a href="/game/readGame.do?console=1'+"&console2="+data[i].category2Idx+"&boardIdx="+data[i].boardIdx+'"'+'style="text-decoration: none">';
 						html += '<div class="card mb-3 shadow-sm" style="width: 194.5px;">';
 						html += '<img class="card-img-top" src="/upload/displayFile.do?fileName='+data[i].fullName+ '" alt="image">';
 						html += '<div class="card-body">';
@@ -145,7 +186,7 @@
 					for (i = 0; i < data.length; i++) {
 						html += '<div class="col-md-3">';
 						html += '<p class="card-text">'+data[i].email+'</p>';
-						html += '<a href="#" style="text-decoration: none">';
+						html += '<a href="/game/readGame.do?console=1'+"&console2="+data[i].category2Idx+"&boardIdx="+data[i].boardIdx+'"'+'style="text-decoration: none">';
 						html += '<div class="card mb-3 shadow-sm" style="width: 194.5px;">';
 						html += '<img class="card-img-top" src="/upload/displayFile.do?fileName='+data[i].fullName+ '" alt="image">';
 						html += '<div class="card-body">';

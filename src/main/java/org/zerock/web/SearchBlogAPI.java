@@ -24,7 +24,7 @@ public class SearchBlogAPI {
 	@RequestMapping(value="/main.do", method=RequestMethod.GET, produces="application/json; charset=utf8")
 	@ResponseBody
 	public ResponseEntity<StringBuffer> searchBlog(Model model, HttpSession session, @RequestParam("post") int post) throws Exception {
-		System.out.println("post = " + post);
+	
 		if(post >= 6 && post <= 8) {
 			String clientId = "_S8mDutWf6NvnOFD4SFQ"; //애플리케이션 클라이언트 아이디값";
 	        String clientSecret = "UotiTobcdi"; //애플리케이션 클라이언트 시크릿값";
@@ -32,7 +32,7 @@ public class SearchBlogAPI {
 	        	String search = (String) session.getAttribute("search");
 	        	try {
 	                String text = URLEncoder.encode(search,"UTF-8");
-	                System.out.println("tsetse = " + text);
+	               
 	                String apiURL = "https://openapi.naver.com/v1/search/blog?query="+ text+"&display=5"; // json 결과
 	                
 	                URL url = new URL(apiURL);
