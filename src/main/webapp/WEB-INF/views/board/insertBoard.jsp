@@ -53,7 +53,7 @@
 				</select>
 			</div>
 			<div class="inner"></div>
-			<div class="checkTitle"></div>
+			<div class="checkTitle form-group"></div>
 
 			<div class="form-group">
 				<label for="exampleInputEmail1">파일을 당겨 주세요.</label>
@@ -478,20 +478,20 @@ function getAutoComplete() {
 	
 	        $("#search").autocomplete({
 	        	source: titles,
-	        	/* change: function (event, ui) {
+	        	change: function (event, ui) {
 	                 if (ui.item == null || ui.item == undefined) {
 	                     $("#search").val("");
-	                     $("#search").attr("disabled", false);
+	                     $("#search").attr("readonly", false);
 	                 } else {
-	                     $("#search").attr("disabled", true);
+	                     $("#search").attr("readonly", true);
 	                 }
-	             } */
+	             }
 	         });
 
-	         /* $('#changeSearch').click(function (e) {
+	         $('#changeSearch').click(function (e) {
 	             e.preventDefault();
-	             $("#search").attr("disabled", false);
-	         }); */
+	             $("#search").attr("readonly", false);
+	         });
 		}
 	});
 }

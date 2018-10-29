@@ -23,7 +23,7 @@
 	
 <!-- 게임 수정 -->
 	<update id="updateGame">
-		UPDATE game SET title = #{title}, price = #{price}, status = #{status}, state = #{condition}, category3_idx = #{category3Idx}, category2_idx = #{category2Idx}
+		UPDATE game SET price = #{price}, status = #{status}, state = #{condition}, game_classification_idx = #{gameClassificationIdx}
 		WHERE board_idx = #{boardIdx}
 	</update>
 	

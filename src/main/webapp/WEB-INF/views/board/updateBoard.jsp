@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
@@ -16,6 +15,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
 .fileDrop {
@@ -41,10 +43,7 @@
 		</div>
 		<div class="inner">
 		</div>
-		<div class="form-group">
-			<label>제목</label>
-			<input type="text" placeholder="제목을 입력하세요." name="title" class="form-control" value="${boardVO.title}"/>
-		</div>
+		<div class="checkTitle form-group"></div>
 		
 		<div class="form-group">
 			<label for="exampleInputEmail1">파일을 당겨 주세요.</label>
@@ -190,8 +189,48 @@ $(".uploadedList").on("click"," .delbtn", function(event) {
 
 var category = $("#postCategory option:selected").val();
 var html = "";
+var html2 = "";
 
-if(category == '6') {
+if(category < '5' || category > '8') {
+	
+	html2 = '<div class="form-group">'
+		+'<label>제목</label>'
+		+'<input placeholder="제목을 입력해주세요." name="title" class="form-control" value="${boardVO.title}">'
+		+'</div>';
+	$(".checkTitle").append(html2);
+	
+}else if(category == '5') {
+	
+	html = "<div class='form-group'>"
+		+"<label>사용여부</label>"
+		+"<select name='status'>"
+		+"<option value='미사용/미개봉'>미사용/미개봉</option>"
+		+"<option value='사용품'>사용품</option>"
+		+"</select>"
+		+"<label>상태</label>"
+		+"<select name='condition'>"
+		+"<option value='A+'>A+</option>"
+		+"<option value='A'>A</option>"
+		+"<option value='B'>B</option>"
+		+"<option value='C'>C</option>"
+		+"</select>"
+		+"</div>"
+		+"<div class='form-group'>"
+		+"<label>가격</label>"
+		+"<input type='number' name='price' value='${gameVO.price}'><strong>원</strong>"
+		+"</div>";
+	$(".inner").append(html);
+	
+	html2 = '<div class="form-group ui-widget">'
+		+'<label>상품명</label>'
+		+'<input placeholder="상품명을 입력해주세요." name="title" id="search" class="form-control" value="${boardVO.title}">'
+		+'<a href="#" id="changeSearch">상품이름 바꾸기</a>'
+		+'</div>';
+	$(".checkTitle").append(html2);
+	
+	getAutoComplete();
+
+}else if(category == '6') {
 	html = "<div class='form-group'>"
 		+"<label>평점</label>"
 		+"<select name='grade'>"
@@ -215,6 +254,13 @@ if(category == '6') {
 		+"</select>"
 		+"</div>";
 	$(".inner").append(html);
+	
+	html2 = '<div class="form-group">'
+		+'<label>제목</label>'
+		+'<input placeholder="제목을 입력해주세요." name="title" class="form-control" value="${boardVO.title}">'
+		+'</div>';
+	$(".checkTitle").append(html2);
+	
 }else if(category == '7') {
 	html = "<div class='form-group'>"
 		+"<label>평점</label>"
@@ -233,6 +279,13 @@ if(category == '6') {
 		+"</select>"
 		+"</div>";
 	$(".inner").append(html);
+	
+	html2 = '<div class="form-group">'
+		+'<label>제목</label>'
+		+'<input placeholder="제목을 입력해주세요." name="title" class="form-control" value="${boardVO.title}">'
+		+'</div>';
+	$(".checkTitle").append(html2);
+	
 }else if(category == '8') {
 	html = "<div class='form-group'>"
 		+"<label>평점</label>"
@@ -250,50 +303,31 @@ if(category == '6') {
 		+"</select>"
 		+"</div>";
 	$(".inner").append(html);
-}else if(category == '5') {
-	html = "<div class='form-group'>"
-		+"<label>사용여부</label>"
-		+"<select name='status'>"
-		+"<option value='미사용/미개봉'>미사용/미개봉</option>"
-		+"<option value='사용품'>사용품</option>"
-		+"</select>"
-		+"<label>상태</label>"
-		+"<select name='condition'>"
-		+"<option value='A+'>A+</option>"
-		+"<option value='A'>A</option>"
-		+"<option value='B'>B</option>"
-		+"<option value='C'>C</option>"
-		+"</select>"
-		+"<label>기기선택</label>"
-		+"<select name='category2Idx'>"
-		+"<option value=1>PSVR</option>"
-		+"<option value=2>PS4</option>"
-		+"<option value=3>PS3</option>"
-		+"<option value=4>PSVITA</option>"
-		+"<option value=5>닌텐도 SWITCH</option>"
-		+"<option value=6>닌텐도 3DS</option>"
-		+"<option value=7>닌텐도 Wii</option>"
-		+"<option value=8>XBOX ONE</option>"
-		+"<option value=9>XBOX X360</option>"
-		+"</select>"
-		+"<label>분류2</label>"
-		+"<select name='category3Idx'>"
-		+"<option value=1>본체/패키지</option>"
-		+"<option value=2>게임 타이틀</option>"
-		+"<option value=3>주변 기기</option>"
-		+"</select>"
-		+"</div>"
-		+"<div class='form-group'>"
-		+"<label>가격</label>"
-		+"<input type='number' name='price' value='${gameVO.price}'><strong>원</strong>"
-		+"</div>";
-	$(".inner").append(html);
+	
+	html2 = '<div class="form-group">'
+		+'<label>제목</label>'
+		+'<input placeholder="제목을 입력해주세요." name="title" class="form-control" value="${boardVO.title}">'
+		+'</div>';
+	$(".checkTitle").append(html2);
+	
 }
 
 $("#postCategory").change(function() {
 	category = $(this).val();
 	var html = "";
-	if(category == '5') {
+	var html2 = "";
+	if(category < '5'|| category > '8') {
+		$(".inner > div").remove();
+		$(".checkTitle > div").remove();
+		html2 = '<div class="form-group">'
+			+'<label>제목</label>'
+			+'<input placeholder="제목을 입력해주세요." name="title" class="form-control" value="${boardVO.title}">'
+			+'</div>';
+		$(".checkTitle").append(html2);
+		
+	}else if(category == '5') {
+		$(".inner > div").remove();
+		$(".checkTitle > div").remove();
 		html = "<div class='form-group'>"
 			+"<label>사용여부</label>"
 			+"<select name='status'>"
@@ -307,32 +341,25 @@ $("#postCategory").change(function() {
 			+"<option value=3>B</option>"
 			+"<option value=4>C</option>"
 			+"</select>"
-			+"<label>분류1</label>"
-			+"<select name='category2Idx'>"
-			+"<option value=1>PSVR</option>"
-			+"<option value=2>PS4</option>"
-			+"<option value=3>PS3</option>"
-			+"<option value=4>PSVITA</option>"
-			+"<option value=5>닌텐도 SWITCH</option>"
-			+"<option value=6>닌텐도 3DS</option>"
-			+"<option value=7>닌텐도 Wii</option>"
-			+"<option value=8>XBOX ONE</option>"
-			+"<option value=9>XBOX X360</option>"
-			+"</select>"
-			+"<label>분류2</label>"
-			+"<select name='category3Idx'>"
-			+"<option value=1>본체/패키지</option>"
-			+"<option value=2>게임 타이틀</option>"
-			+"<option value=3>주변 기기</option>"
-			+"</select>"
 			+"</div>"
 			+"<div class='form-group'>"
 			+"<label>가격</label>"
 			+"<input type='number' name='price'><strong>원</strong>"
 			+"</div>";
 		$(".inner").append(html);
+		
+		html2 = '<div class="form-group ui-widget">'
+			+'<label>상품명</label>'
+			+'<input placeholder="상품명을 입력해주세요." name="title" id="search" class="form-control" value="${boardVO.title}">'
+			+'<a href="#" id="changeSearch">상품이름 바꾸기</a>'
+			+'</div>';
+		$(".checkTitle").append(html2);
+		
+		getAutoComplete();
+
 	}else if(category == '6') {
 		$(".inner > div").remove();
+		$(".checkTitle > div").remove();
 		html = "<div class='form-group'>"
 			+"<label>평점</label>"
 			+"<select name='grade'>"
@@ -355,10 +382,17 @@ $("#postCategory").change(function() {
 			+"<option value=9>XBOX X360</option>"
 			+"</select>"
 			+"</div>";
-		
 		$(".inner").append(html);
+		
+		html2 = '<div class="form-group">'
+			+'<label>제목</label>'
+			+'<input placeholder="제목을 입력해주세요." name="title" class="form-control" value="${boardVO.title}">'
+			+'</div>';
+		$(".checkTitle").append(html2);
+		
 	}else if(category == '7') {
 		$(".inner > div").remove();
+		$(".checkTitle > div").remove();
 		html = "<div class='form-group'>"
 			+"<label>평점</label>"
 			+"<select name='grade'>"
@@ -376,8 +410,16 @@ $("#postCategory").change(function() {
 			+"</select>"
 			+"</div>";
 		$(".inner").append(html);
+		
+		html2 = '<div class="form-group">'
+			+'<label>제목</label>'
+			+'<input placeholder="제목을 입력해주세요." name="title" class="form-control" value="${boardVO.title}">'
+			+'</div>';
+		$(".checkTitle").append(html2);
+		
 	}else if(category == '8') {
 		$(".inner > div").remove();
+		$(".checkTitle > div").remove();
 		html = "<div class='form-group'>"
 			+"<label>평점</label>"
 			+"<select name='grade'>"
@@ -394,10 +436,54 @@ $("#postCategory").change(function() {
 			+"</select>"
 			+"</div>";
 		$(".inner").append(html);
+		
+		html2 = '<div class="form-group">'
+			+'<label>제목</label>'
+			+'<input placeholder="제목을 입력해주세요." name="title" class="form-control" value="${boardVO.title}">'
+			+'</div>';
+		$(".checkTitle").append(html2);
+		
 	}else{
 		$(".inner > div").remove();
+		$(".checkTitle > div").remove();
 	}
 });
+
+function getAutoComplete() {
+
+	var title = $('input:text[name="title"]').val();
+	var sendData = {'title': title}
+	var titles = new Array();
+	
+	$.ajax({
+		url: "/game/ajaxInsertGame.do",
+		type: "post",
+		data: sendData,
+		success: function(data) {
+		 
+			for(i = 0; i < data.length; i++) {
+				titles.push(data[i].title);
+			}
+	
+	        $("#search").autocomplete({
+	        	source: titles,
+	        	change: function (event, ui) {
+	                 if (ui.item == null || ui.item == undefined) {
+	                     $("#search").val("");
+	                     $("#search").attr("readonly", false);
+	                 } else {
+	                     $("#search").attr("readonly", true);
+	                 }
+	             }
+	         });
+
+	         $('#changeSearch').click(function (e) {
+	             e.preventDefault();
+	             $("#search").attr("readonly", false);
+	         });
+		}
+	});
+}
 </script>
 	<a href="/main.do">메인으로</a>
 </body>

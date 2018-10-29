@@ -125,9 +125,7 @@
 					$("#cCnt").html(cCnt);
 					$("#flexiselDemo4").html(html);
 				},
-				error : function(request, status, error) {
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
+				error : function(request, status, error) {}
 			});	
 		});
 		$('input[name="choices[1]"]').change(function() {

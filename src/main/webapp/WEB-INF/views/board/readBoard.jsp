@@ -76,13 +76,6 @@
 	            		<td colspan="3">${boardVO.title}</td>
 	        		</tr>
 	        		<c:if test="${post eq 5}">
-		        		<tr>
-			        		<th class="success">기기</th>
-		            		<td>${gameDTO.name2}</td>
-		            		
-		            		<th class="success">분류</th>
-		            		<td>${gameDTO.name3}</td>
-		            	</tr>
 		            	<tr>
 		            		<th class="success">사용여부</th>
 		            		<td>${gameDTO.status}</td>

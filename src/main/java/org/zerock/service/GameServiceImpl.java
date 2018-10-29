@@ -60,6 +60,8 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public void updateGame(GameVO gameVO, BoardVO boardVO) throws Exception {
 		boardDAO.updateBoard(boardVO);
+		int gameClassificationIdx = gameDAO.selectGameClassificationIdx(boardVO.getTitle());
+		gameVO.setGameClassificationIdx(gameClassificationIdx);
 		gameDAO.updateGame(gameVO);
 		
 		int boardIdx = boardVO.getIdx();

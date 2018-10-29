@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameClassificationVO;
 import org.zerock.domain.GameListVO;
+import org.zerock.domain.NominationVO;
+import org.zerock.domain.UserVO;
 import org.zerock.service.BoardService;
 import org.zerock.service.GameService;
 
@@ -134,10 +136,20 @@ public class GameController {
 	
 	//상세 게임 페이지
 	@RequestMapping(value="/readGame.do", method=RequestMethod.GET)
-	public void readGame(@RequestParam("boardIdx") int boardIdx, Model model, @ModelAttribute("console") int categoryIdx, @ModelAttribute("console2") int category2Idx) throws Exception {
+	public void readGame(HttpServletRequest request, @RequestParam("boardIdx") int boardIdx, Model model, @ModelAttribute("console") int categoryIdx, @ModelAttribute("console2") int category2Idx) throws Exception {
 		
 		model.addAttribute("boardVO", boardService.readBoard(boardIdx));
 		model.addAttribute("gameDTO", gameService.selectGame(boardIdx));
+		
+		if (request.getSession().getAttribute("login") != null) {
+			int userIdx = ((UserVO) request.getSession().getAttribute("login")).getIdx();
+
+			NominationVO nominationVO = new NominationVO();
+			nominationVO.setBoardIdx(boardIdx);
+			nominationVO.setUserIdx(userIdx);
+
+			model.addAttribute("count", boardService.selectNomination(nominationVO));
+		}
 	}
 	
 }

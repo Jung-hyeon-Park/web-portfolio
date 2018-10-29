@@ -115,6 +115,9 @@
 	<input type="hidden" name="boardIdx" value="${boardVO.idx}">
 	<input type="hidden" name="console" value="${console}">
 	<input type="hidden" name="console2" value="${console2}">
+	<input type="hidden" name="post" value=5>
+	<input type="hidden" name="page" value=0>
+	<input type="hidden" name="perPageNum" value=0>
 </form>
 
 <script>
@@ -134,12 +137,6 @@ $(".btn-primary").on("click", function() {
 <div id="popup_frount" class="popup front" style="display: none;">
 	 <img id="popup_img">
 </div>
-<form role="form1" action="/board/listAll.do?post=${post}&page=${cri.page}&perPageNum=${cri.perPageNum}" method="GET">
-	<input type="hidden" name="post" value="${post}">
-	<input type="hidden" name="boardIdx" value="${boardVO.idx}">
-	<input type="hidden" name="page" value="${cri.page}">
-	<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
-</form>
 
 <div>
 	<%@include file="../comment/comment.jsp" %>

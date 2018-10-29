@@ -89,6 +89,8 @@ public class BoardController {
 		if (boardVO.getPostCategoryIdx() == 5) {
 
 			gameService.insertGame(gameVO, boardVO);
+			
+			return "redirect:/game/gameAll.do?console=0&console2=0";
 
 		} else if (boardVO.getPostCategoryIdx() > 5 && boardVO.getPostCategoryIdx() < 9) {
 
@@ -147,9 +149,7 @@ public class BoardController {
 			nominationVO.setBoardIdx(boardIdx);
 			nominationVO.setUserIdx(userIdx);
 
-			int count = boardService.selectNomination(nominationVO);
-
-			model.addAttribute("count", count);
+			model.addAttribute("count", boardService.selectNomination(nominationVO));
 		}
 	}
 
@@ -168,6 +168,9 @@ public class BoardController {
 
 		// 게시글 삭제 후 "SUCCESS메세지 보내기
 		rttr.addFlashAttribute("msg", "SUCCESS");
+		if(post == 5) {
+			return "redirect:/game/gameAll.do?console=0&console2=0";
+		}
 
 		return "redirect:/board/listAll.do?post=" + post;
 	}
@@ -176,6 +179,8 @@ public class BoardController {
 	@RequestMapping(value = "/updateBoard.do", method = RequestMethod.GET)
 	public void updateBoard(@RequestParam("boardIdx") int idx, Model model, @ModelAttribute("post") int post,
 			@ModelAttribute("cri") Criteria cri) throws Exception {
+		
+		System.out.println("BI = " + idx);
 
 		if (post < 6) {
 			model.addAttribute("boardVO", boardService.readBoard(idx));
@@ -210,6 +215,10 @@ public class BoardController {
 		}
 
 		rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		if(postCategoryIdx == 5) {
+			return "redirect:/game/gameAll.do?console=0&console2=0";
+		}
 
 		return "redirect:/board/listAll.do?post=" + postCategoryIdx;
 	}
