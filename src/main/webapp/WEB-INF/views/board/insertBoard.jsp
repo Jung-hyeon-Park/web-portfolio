@@ -130,9 +130,11 @@ $(".fileDrop").on("drop", function(event) {
 			
 			//파이썬 연동
 			$.ajax({
-				  url: 'http://192.168.0.13:5000/user', /* 학원 */
+				  //url: 'http://192.168.0.13:5000/user', /* 학원 */
+				  url: 'http://172.30.1.11:5000/user', /* 카페 */
 				  dataType:'json',
 				  type: 'GET',
+				  data: fileInfo,
 				  success: function(data){
 					  console.log(data)
 

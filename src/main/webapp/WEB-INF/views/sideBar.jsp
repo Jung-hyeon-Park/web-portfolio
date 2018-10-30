@@ -43,9 +43,9 @@
   margin: 0px;
   line-height: 35px;
   cursor: pointer;
-  /*    
-    .collapsed{
-       .arrow:before{
+     
+/* .collapsed{
+  .arrow:before{
                  font-family: FontAwesome;
                  content: "\f053";
                  display: inline-block;
@@ -54,8 +54,7 @@
                  vertical-align: middle;
                  float:right;
             }
-     }
-*/
+     } */
 }
 .nav-side-menu ul :not(collapsed) .arrow:before,
 .nav-side-menu li :not(collapsed) .arrow:before {
