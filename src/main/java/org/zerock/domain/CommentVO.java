@@ -11,6 +11,15 @@ public class CommentVO {
 	private String comment;
 	private Date writeDate;
 	private Date updateDate;
+	private String boardEmail;
+
+	public String getBoardEmail() {
+		return boardEmail;
+	}
+
+	public void setBoardEmail(String boardEmail) {
+		this.boardEmail = boardEmail;
+	}
 
 	public String getEmail() {
 		return email;

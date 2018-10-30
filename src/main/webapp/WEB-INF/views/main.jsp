@@ -199,8 +199,8 @@ h1, h2, h3, h4, h5, h6 {
         </aside><!-- /.blog-sidebar -->
 
       </div><!-- /.row -->
-
 		<div class="ad8" style="width: 830px; clear: both; background-color: sliver;">
+		<h3 class="pb-3 mb-4 font-italic border-bottom">인기 리뷰</h3>
 			<p class="ty1" style="width: 540px; float: left; margin-top: 25px;">
 			<c:forEach var="topReviewVO" items="${topReviewVOs}" begin="0" end="2">
 				<span style="display: inline-block; height: 234px; width: 540px; margin-bottom: 25px;">

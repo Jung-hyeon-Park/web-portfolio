@@ -127,37 +127,37 @@ $(".fileDrop").on("drop", function(event) {
 			var html = template(fileInfo);
 			
 			$(".uploadedList").append(html);
+			
+			//파이썬 연동
+			$.ajax({
+				  url: 'http://192.168.0.13:5000/user', /* 학원 */
+				  dataType:'json',
+				  type: 'GET',
+				  success: function(data){
+					  console.log(data)
+
+					  var str = "";
+					  var key
+					  var value
+					  
+					  str=data.status;
+					  
+					  /* 자바스크립트, 제이쿼리에서 json 키,값 구하기
+						https://gent.tistory.com/17 */
+					  $.each(data, function(key2, value2){
+						    alert('key:' + key2 + ' / ' + 'value:' + value2);
+						   //key=key2;
+						    //value=value2;
+
+					  });
+
+					  //{'status': 'cu1 success'} 파이썬 
+					  $(".ListCV").append(str);
+					  //$(".ListCV").append(key);
+					  //$(".List").append(value);
+				  }
+			});
 		}
-	});
-	//파이썬 연동
-	$.ajax({
-		  url: 'http://192.168.0.13:5000/user', /* 학원 */
-		  dataType:'json',
-		  type: 'GET',
-
-		  success: function(data){
-			  console.log(data)
-
-			  var str = "";
-			  var key
-			  var value
-			  
-			  str=data.status;
-			  
-			  /* 자바스크립트, 제이쿼리에서 json 키,값 구하기
-				https://gent.tistory.com/17 */
-			  $.each(data, function(key2, value2){
-				    alert('key:' + key2 + ' / ' + 'value:' + value2);
-				   //key=key2;
-				    //value=value2;
-
-			  });
-
-			  //{'status': 'cu1 success'} 파이썬 
-			  $(".ListCV").append(str);
-			  //$(".ListCV").append(key);
-			  //$(".List").append(value);
-		  }
 	});
 });
 
@@ -197,8 +197,7 @@ $(".uploadedList").on("click"," .delbtn", function(event) {
 
 
 
-	<script>
-
+<script>
 var category = $("#postCategory option:selected").val();
 var html = "";
 var html2 = "";
@@ -460,6 +459,7 @@ $("#postCategory").change(function() {
 	}
 });
 
+//상품명 자동 완성
 function getAutoComplete() {
 
 	var title = $('input:text[name="title"]').val();

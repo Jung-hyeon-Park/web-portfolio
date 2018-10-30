@@ -47,7 +47,7 @@
 	<c:forEach var="boardVO" items="${boardVOs}">
 		<tr>
 			<td>${boardVO.idx}</td>
-			<td><a href="/board/readBoard.do${pm.makeQuery(pm.cri.page)}&post=${post}&boardIdx=${boardVO.idx}">${boardVO.title}<c:if test="${boardVO.recnt > 0}"><span style="color:red;">(${boardVO.recnt})</span></c:if></a></td>
+			<td><a href="/board/readBoard.do${pm.makeSearch(pm.cri.page)}&post=${post}&boardIdx=${boardVO.idx}">${boardVO.title}<c:if test="${boardVO.recnt > 0}"><span style="color:red;">(${boardVO.recnt})</span></c:if></a></td>
 			<td>${boardVO.email}</td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.writeDate}" /></td>
 			<td>${boardVO.viewCount}</td>
@@ -60,10 +60,10 @@
 	<select name="searchType">
 		<option value="b.title" <c:out value="${searchVO.searchType eq 'b.title' ? 'selected':''}"/>>제목</option>
 		<option value="b.content" <c:out value="${searchVO.searchType eq 'b.content' ? 'selected':''}"/>>내용</option>
-		<option value="u.name" <c:out value="${searchVO.searchType eq 'u.email' ? 'selected':''}"/>>작성자</option>
+		<option value="u.email" <c:out value="${searchVO.searchType eq 'u.email' ? 'selected':''}"/>>작성자</option>
 	</select>
 	<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}" >
-	<button type="button" class="searchBnt" onclick="searchBnt()">검색</button>
+	<button type="button" id="searchBnt">검색</button>
 </div>
 
 
@@ -71,17 +71,17 @@
 <div class="text-center">
 	<ul class="pagination">
 		<c:if test="${pm.prev}">
-			<li class="page-item"><a class="page-link" href="/board/listAll.do${pm.makeQuery(pm.startPage - 1)}">&laquo</a></li>
+			<li class="page-item"><a class="page-link" href="/board/listAll.do${pm.makeSearch(pm.startPage - 1)}&post=${post}">&laquo</a></li>
 		</c:if>
 		
 		<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="idx">
 			<li class="page-item"<c:out value="${pm.cri.page == idx?'class=active':''}" />>
-				<a class="page-link" href="${pm.makeQuery(idx)}&post=${post}">${idx}</a>
+				<a class="page-link" href="${pm.makeSearch(idx)}&post=${post}">${idx}</a>
 			</li>
 		</c:forEach>
 		
 		<c:if test="${pm.next && pm.endPage > 0 }">
-			<li class="page-item"><a class="page-link" href="/board/listAll.do${pm.makeQuery(pm.endPage + 1)}">&raquo</a></li>
+			<li class="page-item"><a class="page-link" href="/board/listAll.do${pm.makeSearch(pm.endPage + 1)}&post=${post}">&raquo</a></li>
 		</c:if>
 	</ul>
 </div>
@@ -113,17 +113,18 @@
 	
 </script>
 <script type="text/javascript">
-
-	function searchBnt() {
+$(document).ready(function() {
+	$("#searchBnt").on("click", function(event) {
+		
 		self.location = "/board/listAll.do"
 			+ '${pm.makeQuery(1)}'
 			+ '&post='
 			+ $('#post').val()
 			+ '&searchType='
 			+ $("select option:selected").val()
-			+ "&keyword="
-			+ encodeURIComponent($('#keywordInput').val());
-	}
+			+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
+	});
+});
 
 </script>
 

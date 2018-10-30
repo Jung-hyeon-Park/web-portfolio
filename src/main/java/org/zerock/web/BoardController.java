@@ -104,11 +104,10 @@ public class BoardController {
 
 	// 게시글 리스트
 	@RequestMapping(value = "/listAll.do", method = RequestMethod.GET)
-	public void listAll(HttpSession session, SearchVO cri, Model model, @RequestParam("post") int postCategoryIdx)
-			throws Exception {
+	public void listAll(HttpSession session, @ModelAttribute("cri")SearchVO cri, Model model, @RequestParam("post") int postCategoryIdx) throws Exception {
 
 		cri.setPostCategoryIdx(postCategoryIdx);
-
+		
 		PageMaker pm = new PageMaker();
 		// 검색 키워드가 없을경우
 		if (StringUtils.isEmpty(cri.getKeyword())) {
@@ -118,7 +117,9 @@ public class BoardController {
 			pm.setTotalCount(boardService.listCountCriteria(cri));
 			// 검색 키워드가 있을경우
 		} else {
-			session.setAttribute("search", cri.getKeyword());
+			if(postCategoryIdx >= 6 || postCategoryIdx <= 8) {
+				session.setAttribute("search", cri.getKeyword());
+			}
 			model.addAttribute("post", postCategoryIdx);
 			model.addAttribute("boardVOs", boardService.listSearch(cri));
 			pm.setCri(cri);
@@ -179,8 +180,6 @@ public class BoardController {
 	@RequestMapping(value = "/updateBoard.do", method = RequestMethod.GET)
 	public void updateBoard(@RequestParam("boardIdx") int idx, Model model, @ModelAttribute("post") int post,
 			@ModelAttribute("cri") Criteria cri) throws Exception {
-		
-		System.out.println("BI = " + idx);
 
 		if (post < 6) {
 			model.addAttribute("boardVO", boardService.readBoard(idx));

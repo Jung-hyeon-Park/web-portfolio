@@ -61,32 +61,6 @@
 			</c:forEach>
 		</ul>
 	</div>
-	
-	<p>할인 상품</p>
-	
-	<%-- <div class="row">
-		<ul id="flexiselDemo5">
-			<c:forEach var="gameVO" items="${gameVOs}">
-				<li>
-					<div class="col-md-3">
-						<p class="card-text">${gameVO.email}</p>
-						<div class="card mb-3" style="width: 194.5px;">
-							<img class="card-img-top" src="/upload/displayFile.do?fileName=${gameVO.fullName}" alt="image">
-							<div class="card-body">
-								<div class="product-text">
-									<p class="card-text" style="line-height: 100%;">${gameVO.title}</p>
-								</div>
-								<div class="d-flex justify-content-between align-items-center">
-									<small class="text-muted">${gameVO.likeCount} mins</small>
-									<p class="card-text">${gameVO.price}원</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
-			</c:forEach>
-		</ul>
-	</div> --%>
 
 	<script type="text/javascript">
 		$(window).load(function() {

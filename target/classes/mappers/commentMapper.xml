@@ -13,9 +13,11 @@
 
 <!-- 댓글 리스트 -->
 	<select id="selectComment" resultType="CommentVO">
-		SELECT u.email, c.comment, c.write_date
-		from user u, comment c
-		where c.board_idx = #{boardIdx} and u.idx = c.user_idx
+		SELECT u.email, c.comment, c.write_date, b.email as board_email
+		from user u, comment c, board b
+		where c.board_idx = #{boardIdx}
+		and u.idx = c.user_idx
+		and b.idx = c.board_idx
 		order by c.write_date desc;
 	</select>
 </mapper>
