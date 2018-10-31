@@ -44,7 +44,7 @@
       <c:import url="/nav.do"></c:import>
 	<form role="form" method="POST" id="insertBoardForm"
 		enctype="multipart/form-data">
-		<div style="width: 1000px; margin: auto;">
+		<div>
 			<h3>게시글 작성</h3>
 			<div class="form-group">
 				<label>게시판 선택</label> <select name="postCategoryIdx"

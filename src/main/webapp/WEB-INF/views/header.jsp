@@ -18,9 +18,15 @@
             	<a class="btn btn-sm btn-outline-secondary" href="/user/signUp.do?">회원가입</a>
             </c:if>
             <c:if test="${login.email != null}">
-            	<h5>${login.email}님 환영합니다.</h5>
+            	<h5 id="email">${login.email}</h5><h4>님 환영합니다.</h4>
             	<a class="btn btn-sm btn-outline-secondary" href="/user/logout.do">로그아웃</a>
             </c:if>
           </div>
         </div>
       </header>
+      
+      <script>
+      	var email = $("#email").html();
+      	var email2 = email.split('@');
+      	$("#email").html(email2[0]);
+      </script>

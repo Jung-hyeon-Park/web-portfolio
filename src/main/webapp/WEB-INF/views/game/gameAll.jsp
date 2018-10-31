@@ -44,7 +44,7 @@
 		<ul id="flexiselDemo4" style= "width: 880px;">
 			<c:forEach var="gameVO" items="${gameVOs}">
 					<div class="col-md-3">
-						<p class="card-text">${gameVO.email}</p>
+						<p class="card-text" id="email">${gameVO.email}</p>
 						<a href="/game/readGame.do?console=${console}&console2=${console2}&boardIdx=${gameVO.boardIdx}" style="text-decoration: none">
 						<div class="card mb-3 shadow-sm" style="width: 194.5px;">
 							<img class="card-img-top" src="/upload/displayFile.do?fileName=${gameVO.fullName}" alt="image">
@@ -63,19 +63,12 @@
 			</c:forEach>
 		</ul>
 	</div>
-
-	<script type="text/javascript">
-		$(window).load(function() {
-
-			$("#flexiselDemo4").flexisel({
-				infinite : false
-			});
-			
-			$("#flexiselDemo5").flexisel({
-				infinite : false
-			});
-
-		});
+	
+	<script>
+	var email = $("#email").html();
+  	var email2 = email.split('@');
+  	alert("email = " + email2[0]);
+  	$("#email").html(email2[0]);
 	</script>
 </body>
 </html>
