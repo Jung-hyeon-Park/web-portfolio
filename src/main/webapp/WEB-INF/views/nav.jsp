@@ -6,23 +6,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css"> -->
 </head>
 <style>
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300);
+ @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300);
 @import url(https://fonts.googleapis.com/css?family=Squada+One);
 body {
   /* padding: 20px 80px; */
   background: #eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png);
 }
 #menu {
-  width: 800px;
+  width: 880px;
   height: 42px;
   list-style: none;
-  margin: 15px; padding: 6px 10px;
+  margin: 0px auto;
+  padding: 6px 10px;
   border-top: 4px double #AAA;
   border-bottom: 4px double #AAA;
   position: relative;
@@ -97,9 +98,9 @@ body {
 }
 
 </style>
-<body style="width: 1000px;">
+<body>
 
-<div id="header" style="width: 800px;">
+<div id="header" style="width: 880px; margin: 0px auto;">
   <ul id="menu">
   <c:forEach var="postCategoryVO" items="${postCategoryVOs}">
   <c:if test="${postCategoryVO.idx != 5}">

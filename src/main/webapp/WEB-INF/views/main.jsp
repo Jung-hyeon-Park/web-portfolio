@@ -8,13 +8,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Blog Template for Bootstrap</title>
-    <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   
-  <style>
+<style>
+body {
+	width: 880px;
+	margin: 0px auto;
+}
   .blog-header {
   line-height: 1;
   border-bottom: 1px solid #e5e5e5;
@@ -132,11 +136,11 @@ h1, h2, h3, h4, h5, h6 {
 </style>
   
   </head>
-  <body style="width:880px; margin: 0 auto;">
+  <body style="width: 880px; margin: 0px auto;">
     <div class="container">
-      <c:import url="/header.do"></c:import>
+      <div><c:import url="/header.do"></c:import></div>
 
-      <c:import url="/nav.do"></c:import>
+      <div><c:import url="/nav.do"></c:import></div>
 
       <div class="row mb-2">
       <c:forEach var="newsVO" items="${newsVOs}"> 
@@ -152,19 +156,7 @@ h1, h2, h3, h4, h5, h6 {
     </div>
 
     <main role="main" class="container">
-    <!--   <div class="row">
-        <div class="col-md-8 blog-main">
-          <h3 class="pb-3 mb-4 font-italic border-bottom">Blog Review</h3>
-		
-          <div class="blog-post" id="blogReview"></div> -->
 
-          <!-- <div class="blog-post">
-            <h4 class="blog-post-title">유튜브 review</h4>
-            <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
-          </div>/.blog-post
- -->
-        </div><!-- /.blog-main -->
-        
         
         <div class="col-md-8 blog-main">
           <h3 class="pb-3 mb-4 font-italic border-bottom">정보 공유</h3>

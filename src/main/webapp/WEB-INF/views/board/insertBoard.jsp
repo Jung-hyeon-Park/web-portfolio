@@ -39,6 +39,9 @@
 </style>
 </head>
 <body style="width: 880px; margin: 0 auto;">
+<c:import url="/header.do"></c:import>
+
+      <c:import url="/nav.do"></c:import>
 	<form role="form" method="POST" id="insertBoardForm"
 		enctype="multipart/form-data">
 		<div style="width: 1000px; margin: auto;">
@@ -130,8 +133,8 @@ $(".fileDrop").on("drop", function(event) {
 			
 			//파이썬 연동
 			$.ajax({
-				  //url: 'http://192.168.0.13:5000/user', /* 학원 */
-				  url: 'http://172.30.1.11:5000/user', /* 카페 */
+				  url: 'http://192.168.0.13:5000/user', /* 학원 */
+				  //url: 'http://172.30.1.11:5000/user', /* 카페 */
 				  dataType:'json',
 				  type: 'GET',
 				  data: fileInfo,

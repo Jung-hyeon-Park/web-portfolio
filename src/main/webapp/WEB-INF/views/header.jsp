@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
+<div>
 <c:import url="/sideBar.do"></c:import>
-<body>
-	<header class="blog-header py-3">
+</div>
+	<header class="blog-header py-3" style="width: 880px;">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
             <a class="text-muted" href="#"><h3>LOGO Image</h3></a>
@@ -28,5 +24,3 @@
           </div>
         </div>
       </header>
-</body>
-</html>
