@@ -133,33 +133,15 @@ $(".fileDrop").on("drop", function(event) {
 			
 			//파이썬 연동
 			$.ajax({
-				  url: 'http://192.168.0.13:5000/user', /* 학원 */
-				  //url: 'http://172.30.1.11:5000/user', /* 카페 */
-				  dataType:'json',
+				  url: 'http://127.0.0.1:5000/user',
+				  //url: 'http://172.30.1.11:5000/user',
+				  dataType:'text',
 				  type: 'GET',
 				  data: fileInfo,
-				  success: function(data){
-					  console.log(data)
-
-					  var str = "";
-					  var key
-					  var value
+				  success: function(data1) {
+					  console.log(data1);
 					  
-					  str=data.status;
-					  
-					  /* 자바스크립트, 제이쿼리에서 json 키,값 구하기
-						https://gent.tistory.com/17 */
-					  $.each(data, function(key2, value2){
-						    alert('key:' + key2 + ' / ' + 'value:' + value2);
-						   //key=key2;
-						    //value=value2;
-
-					  });
-
-					  //{'status': 'cu1 success'} 파이썬 
-					  $(".ListCV").append(str);
-					  //$(".ListCV").append(key);
-					  //$(".List").append(value);
+					  $("#search").val(data1);
 				  }
 			});
 		}

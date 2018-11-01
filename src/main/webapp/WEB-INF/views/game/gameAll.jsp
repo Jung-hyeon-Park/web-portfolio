@@ -65,10 +65,11 @@
 	</div>
 	
 	<script>
-	var email = $("#email").html();
-  	var email2 = email.split('@');
-  	alert("email = " + email2[0]);
-  	$("#email").html(email2[0]);
+	$.each("#email", function(i, email) {
+		var email = $("#email").html();
+	  	var email2 = email.split('@');
+	  	$("#email").html(email2[0]);
+	});
 	</script>
 </body>
 </html>

@@ -124,6 +124,19 @@ $(document).ready(function() {
 			+ $("select option:selected").val()
 			+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
 	});
+	
+	$("#keywordInput").keypress(function(e) {
+		
+		if(e.which == 13) {
+			self.location = "/board/listAll.do"
+				+ '${pm.makeQuery(1)}'
+				+ '&post='
+				+ $('#post').val()
+				+ '&searchType='
+				+ $("select option:selected").val()
+				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
+		}
+	});
 });
 
 </script>

@@ -5,22 +5,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css">
+<!-- <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css"> -->
 <title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css"> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 <script type="text/javascript" src="/resources/bootstrap/js/upload.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<script>
-	var str = document.getElementById("content").value;
-	str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
-	document.getElementById("content").value = str;
-</script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+<!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
 <style type="text/css">
 .popup {
@@ -49,12 +48,14 @@
 </style>
 </head>
 <body style="width: 880px; margin: 0 auto;">
+<c:import url="/header.do"></c:import>
+
+<c:import url="/nav.do"></c:import>
 
 <form role="form" method="POST">
 	<div class="row">
-    	<div class="col-xs-2 col-md-2"></div>
    		<div class="col-xs-8 col-md-8">
-    		<h2 class="text-center">게시글 보기</h2>
+    		<h4 class="text-center">상세 게시글</h4>
     		<p>&nbsp;</p>
     		<div class="table table-responsive">
        			<table class="table">
@@ -73,7 +74,8 @@
 	         
 	        		<tr>
 	            		<th class="success">제목</th>
-	            		<td colspan="3">${boardVO.title}</td>
+	            		<td>${boardVO.title}</td>
+	            		<th class="success" colspan="2"></th>
 	        		</tr>
 	        		<c:if test="${post eq 5}">
 		            	<tr>
@@ -111,9 +113,8 @@
 	         
 	        		<tr>
 	            		<th class="success">글 내용</th>
-	            		<td class="content" id="content" style="word-break:break-all;">${boardVO.content}<br><br>
+	            		<td class="content" id="content" colspan="4" style= "white-space:pre-line; word-break:break-all;">${boardVO.content}<br><br>
 	            		<div class="box-footer">
-	            			<div><hr></div>
 							<ul class="mailbox-attachments clearfix uploadedList">
 							</ul>
 						</div>
@@ -261,7 +262,7 @@ $(".btn-primary").on("click", function() {
 			
 		});
 	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
 	<script id="templateAttach" type="text/x-handlebars-template">
 		<li style= "list-style: none;">
 			<span class="mailbox-attachment-icon has-img"><img name="files" src="{{imgsrc}}" alt="Attachment"></span>

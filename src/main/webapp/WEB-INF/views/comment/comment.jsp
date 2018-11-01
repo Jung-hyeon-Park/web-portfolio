@@ -32,7 +32,6 @@ ul {
 
 body {
 	font-family: 'Roboto', Arial, Helvetica, Sans-serif, Verdana;
-	background: #dee1e3;
 }
 
 .comments-container {

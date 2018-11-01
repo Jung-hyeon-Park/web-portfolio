@@ -24,14 +24,17 @@
 	width: 80%;
 	height: 100px;
 	border: 1px dotted gray;
-	background: lightslategray;
+	background: blue;
 	margin: auto;
 }
 	</style>
 </head>
 <body style="width: 880px; margin: 0 auto;">
+<c:import url="/header.do"></c:import>
+
+      <c:import url="/nav.do"></c:import>
 	<form role="form" method="POST" id="insertBoardForm" enctype="multipart/form-data">
-	<div style="width: 1000px; margin: auto;">
+	<div style="width: 880px; margin: auto;">
 		<h3>게시글 수정</h3>
 		<div class="form-group">
 			<label>게시판 선택</label>
