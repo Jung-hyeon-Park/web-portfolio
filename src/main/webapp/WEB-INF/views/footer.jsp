@@ -10,7 +10,7 @@
 	href="/resources/bootstrap/css/bootstrap.css">
 </head>
 <body>
-	<div style="margin: auto; width: 1000px;">
+	<div style="margin:0 auto; width: 880px;">
 		<div class="ft-header">
 			<a class="ft-header-text-item" href="/termsofuse">이용약관</a>
 			<a class="ft-header-text-item" href="/privacypolicy">개인정보 취급방침</a>

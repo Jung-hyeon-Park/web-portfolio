@@ -133,8 +133,8 @@ $(".fileDrop").on("drop", function(event) {
 			
 			//파이썬 연동
 			$.ajax({
-				  url: 'http://127.0.0.1:5000/user',
-				  //url: 'http://172.30.1.11:5000/user',
+				  url: 'http://localhost:8084/imageDeep',
+				  //url: 'http://172.30.1.11:5000/imageDeep',
 				  dataType:'text',
 				  type: 'GET',
 				  data: fileInfo,

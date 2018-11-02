@@ -49,7 +49,9 @@
 </style>
 </head>
 <body style="width: 880px; margin: 0 auto;">
+<c:import url="/header.do"></c:import>
 
+      <c:import url="/nav.do"></c:import>
 <form role="form" method="POST">
 	<div class="row">
     	<div class="col-xs-2 col-md-2"></div>

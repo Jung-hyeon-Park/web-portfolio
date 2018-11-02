@@ -101,6 +101,9 @@
           <h3 class="pb-3 mb-4 font-italic border-bottom">Blog Review</h3>
           <div class="blog-post" id="blogReview"></div></div>
         </div>
+        
+  		
+  		<div id="ytplayer"></div> 
 </c:if>
 
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
@@ -114,6 +117,7 @@
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
+	
 	$("#searchBnt").on("click", function(event) {
 		
 		self.location = "/board/listAll.do"
@@ -142,8 +146,34 @@ $(document).ready(function() {
 </script>
 
  <script>
-   var search = '<%=session.getAttribute("search")%>';
-	if(search != null) {
+ 	let test = <%=session.getAttribute("search")%>
+    var search = (test !== null) ? '<%=session.getAttribute("search")%>' : null ;
+	if(search !== null ) {
+		
+		$.ajax({
+			type : "GET",
+			url : "https://www.googleapis.com/youtube/v3/search?key=AIzaSyDMJwx7YPFWlHnC-7B7ch3ub41FvU_66KU&part=id&q="+search,
+			dataType : "json",
+			success : function(data) {
+				var items = data.items;
+				var html = "";
+				for(var i=0, length=2; i<length; i++) {
+					var item = items[i].id
+					console.log(item.videoId);
+					
+					
+					html += '<iframe id="ytplayer" type="text/html" width="640" height="360"'
+				  		+'src="http://www.youtube.com/embed/'+item.videoId+'?autoplay=1&origin=http://example.com"'
+				  		+'frameborder="0"/>'
+
+				}
+				$("#ytplayer").html(html);
+			}
+				
+							
+		});
+		
+		
 		$.ajax({
 			type : "GET",
 			url : "/blogAPI/main.do?post=${post}",
@@ -176,11 +206,11 @@ $(document).ready(function() {
 			}
 							
 		});
-	}else{
-		var html="<h4 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h4>"
-			 +"<p class='blog-post-meta'><a>GAME</a></p>";
-			$("#blogReview").html(html);
+		
+
+
 	}
+
    </script>
 
 </body>
