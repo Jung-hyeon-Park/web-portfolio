@@ -131,7 +131,7 @@ $(".fileDrop").on("drop", function(event) {
 			
 			$(".uploadedList").append(html);
 			
-			//파이썬 연동
+			//파이썬 연동(CORS 주의)
 			$.ajax({
 				  url: 'http://localhost:8084/imageDeep',
 				  //url: 'http://172.30.1.11:5000/imageDeep',

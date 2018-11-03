@@ -12,21 +12,34 @@
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css">
 
 <style>
-	.abc1 {
+.abc1 {
 	width: 100px;
-	}
-	.abc2 {
+}
+
+.abc2 {
 	width: 400px;
-	}
-	.abc3 {
+}
+
+.abc3 {
 	width: 150px;
-	}
-	.abc4 {
+}
+
+.abc4 {
 	width: 250px;
-	}
-	.abc5 {
+}
+
+.abc5 {
 	width: 100px;
-	}
+}
+
+.row2 {
+	display: inline-block;
+	float: left;
+	width: 400px;
+}
+.buttons {
+	float:left;
+}
 </style>
 </head>
 <body style="width:880px; margin: auto;">
@@ -84,29 +97,35 @@
 			<li class="page-item"><a class="page-link" href="/board/listAll.do${pm.makeSearch(pm.endPage + 1)}&post=${post}">&raquo</a></li>
 		</c:if>
 	</ul>
+	<div class="buttons">
+		<a href="/main.do"><button>메인으로</button></a>
+		<a href="/board/insertBoard.do?post=${post}"><button>게시글 작성</button></a>
+	</div>
 </div>
+<br><br><br>
 
 <input type="hidden" id="post" value="${post}">
 
+	<c:if test="${post >= 6 && post <= 8}">
+	
+		<!-- 블로그 리뷰 -->
+		<div class="row2">
+			<div class="col-md-8 blog-main">
+				<h3 class="pb-3 mb-4 font-italic border-bottom">블로그 Review</h3>
+				<div class="blog-post" id="blogReview"></div>
+			</div>
+		</div>
+		
+		<!-- 유튜브 영상 -->
+		<div class="row2">
+			<div class="col-md-8 blog-main">
+				<h3 class="pb-3 mb-4 font-italic border-bottom">유튜브 Review</h3>
+				<div id="ytplayer"></div>
+			</div>
+		</div>
+	</c:if>
 
-<a href="/main.do"><button>메인으로</button></a>
-
-
-
-<a href="/board/insertBoard.do?post=${post}"><button>게시글 작성</button></a>
-
-<c:if test="${post >= 6 && post <= 8}">
-	<div class="row">
-        <div class="col-md-8 blog-main">
-          <h3 class="pb-3 mb-4 font-italic border-bottom">Blog Review</h3>
-          <div class="blog-post" id="blogReview"></div></div>
-        </div>
-        
-  		
-  		<div id="ytplayer"></div> 
-</c:if>
-
-<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 
 <script type="text/javascript">
 	var result = '${msg}';
@@ -146,13 +165,13 @@ $(document).ready(function() {
 </script>
 
  <script>
- 	let test = <%=session.getAttribute("search")%>
+ 	let test = '<%=session.getAttribute("search")%>';
     var search = (test !== null) ? '<%=session.getAttribute("search")%>' : null ;
 	if(search !== null ) {
-		
+		//유튜브 영상 api(CORS 주의)
 		$.ajax({
 			type : "GET",
-			url : "https://www.googleapis.com/youtube/v3/search?key=AIzaSyDMJwx7YPFWlHnC-7B7ch3ub41FvU_66KU&part=id&q="+search,
+			url : "https://www.googleapis.com/youtube/v3/search?key=AIzaSyDMJwx7YPFWlHnC-7B7ch3ub41FvU_66KU&type=video&part=id&q="+search,
 			dataType : "json",
 			success : function(data) {
 				var items = data.items;
@@ -163,8 +182,8 @@ $(document).ready(function() {
 					
 					
 					html += '<iframe id="ytplayer" type="text/html" width="640" height="360"'
-				  		+'src="http://www.youtube.com/embed/'+item.videoId+'?autoplay=1&origin=http://example.com"'
-				  		+'frameborder="0"/>'
+				  		+'src="http://www.youtube.com/embed/'+item.videoId+'?autoplay=1'
+				  		+'frameborder="0"/>';
 
 				}
 				$("#ytplayer").html(html);
