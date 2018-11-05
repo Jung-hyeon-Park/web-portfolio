@@ -191,4 +191,10 @@ public class BoardDAOImpl implements BoardDAO{
 	public void updateNomination(int boardIdx) throws Exception {
 		sqlSession.update(namespace+".updateNomination", boardIdx);
 	}
+	
+	//특정 게시글 리스트
+	@Override
+	public int countBoard(int postCategoryIdx) throws Exception {
+		return sqlSession.selectOne(namespace+".countBoard", postCategoryIdx);
+	}
 }

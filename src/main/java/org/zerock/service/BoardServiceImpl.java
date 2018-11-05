@@ -227,4 +227,10 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.updateNomination(nominationVO.getBoardIdx());
 	}
 	
+	//특정 게시글 리스트
+	@Override
+	public int countBoard(int postCategoryIdx) throws Exception {
+		return boardDAO.countBoard(postCategoryIdx);
+	}
+	
 }

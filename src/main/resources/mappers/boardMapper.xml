@@ -204,4 +204,10 @@
 		WHERE idx = #{boardIdx}
 	</update>
 	
+<!-- 특정 게시글 리스트 카운트 -->
+	<select id="countBoard" resultType="int">
+		select count(*) from board
+		where post_category_idx = #{postCategoryIdx} 
+	</select>
+	
 </mapper>

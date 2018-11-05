@@ -19,7 +19,6 @@ public interface BoardDAO {
 	//뉴스 조회
 	public List<SimpleBoardDTO> selectNews() throws Exception;
 	
-	
 	// 게시글 추가
 	public void insertBoard(BoardVO boardVO) throws Exception;
 	
@@ -91,6 +90,10 @@ public interface BoardDAO {
 	
 	//게시글 추천 삭제
 	public void deleteBoardNomination(int boardIdx) throws Exception;
+	
 	//게시글 추천 수정
 	public void updateNomination(int boardIdx) throws Exception;
+	
+	//특정 게시글 리스트
+	public int countBoard(int postCategoryIdx) throws Exception;
 }

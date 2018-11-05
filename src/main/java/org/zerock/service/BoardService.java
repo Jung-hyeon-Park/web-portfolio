@@ -76,5 +76,8 @@ public interface BoardService {
 	//개인 추천 삭제
 	public void deleteNomination(NominationVO nominationVO) throws Exception;
 	
+	//특정 게시글 리스트
+	public int countBoard(int postCategoryIdx) throws Exception;
+	
 	
 }

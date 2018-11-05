@@ -45,6 +45,7 @@ p {
 }
 
 body {
+	font-size: 1rem;
 	margin: 0 auto;
 }
 

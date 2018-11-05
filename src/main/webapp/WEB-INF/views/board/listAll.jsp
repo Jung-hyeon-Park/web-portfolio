@@ -57,14 +57,16 @@
 		</tr>
 	</thead>
 	<tbody>
+	<c:set var="count2" value="${count - (pm.cri.page - 1)*pm.cri.perPageNum}" />
 	<c:forEach var="boardVO" items="${boardVOs}">
 		<tr>
-			<td>${boardVO.idx}</td>
+			<td>${count2}</td>
 			<td><a href="/board/readBoard.do${pm.makeSearch(pm.cri.page)}&post=${post}&boardIdx=${boardVO.idx}">${boardVO.title}<c:if test="${boardVO.recnt > 0}"><span style="color:red;">(${boardVO.recnt})</span></c:if></a></td>
 			<td>${boardVO.email}</td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.writeDate}" /></td>
 			<td>${boardVO.viewCount}</td>
 		</tr>
+		<c:set var="count2" value="${count2 - 1}" />
 	</c:forEach>
 	</tbody>
 </table>

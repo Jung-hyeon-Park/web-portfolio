@@ -108,10 +108,13 @@ public class BoardController {
 
 		cri.setPostCategoryIdx(postCategoryIdx);
 		
+		int count  = boardService.countBoard(postCategoryIdx);
+		
 		PageMaker pm = new PageMaker();
 		// 검색 키워드가 없을경우
 		if (StringUtils.isEmpty(cri.getKeyword())) {
 			model.addAttribute("post", postCategoryIdx);
+			
 			model.addAttribute("boardVOs", boardService.listCriteria(cri));
 			pm.setCri(cri);
 			pm.setTotalCount(boardService.listCountCriteria(cri));
@@ -125,7 +128,8 @@ public class BoardController {
 			pm.setCri(cri);
 			pm.setTotalCount(boardService.listSearchCount(cri));
 		}
-
+		
+		model.addAttribute("count", count);
 		model.addAttribute("pm", pm);
 	}
 
