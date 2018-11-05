@@ -55,6 +55,8 @@ public class UserController {
 	@RequestMapping(value="/plusSignUp.do", method=RequestMethod.POST)
 	public String plusSignUp(PlusUserVO plusUserVO) throws Exception {
 		
+		System.out.println("plus = " + plusUserVO);
+		
 		userService.insertPlusUser(plusUserVO);
 		
 		return "redirect:/user/login.do";

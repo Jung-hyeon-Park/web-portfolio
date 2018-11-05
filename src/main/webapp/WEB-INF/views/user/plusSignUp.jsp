@@ -155,28 +155,36 @@ $(".btn-primary").on("click", function() {
 	var checkboxes1 = document.querySelectorAll('input[name=category2]:checked');
 	var checkboxes2 = document.querySelectorAll('input[name=genre]:checked');
 	
-	
 	var str = "";
-	
-	for(var i=0; i<checkboxes1.length; i++) {
+	if(checkboxes1.length == 0 && checkboxes2.length == 0) {
+		alert("회원가입을 축하드립니다.");
+		self.location.href = "/user/login.do";
+	}else {
+		if(checkboxes1.legnth != 0) {
+			for(var i=0; i<checkboxes1.length; i++) {
+				str += "<input type='hidden' name='category2Idx["+i+"]' value='"+checkboxes1[i].value+"'>";
+				array1.push(checkboxes1[i].value);
+			}
+		}
 		
-		str += "<input type='hidden' name='category2Idx["+i+"]' value='"+checkboxes1[i].value+"'>";
-		array1.push(checkboxes1[i].value);
-	}
-	
-	for(var j=0; j<checkboxes2.length; j++) {
+		if(checkboxes2.length != 0) {
+			for(var j=0; j<checkboxes2.length; j++) {
+				
+				str += "<input type='hidden' name='genreIdx["+j+"]' value='"+checkboxes2[j].value+"'>";
+				array2.push(checkboxes2[j].value);
+			}
+		}
 		
-		str += "<input type='hidden' name='genreIdx["+j+"]' value='"+checkboxes2[j].value+"'>";
-		array2.push(checkboxes2[j].value);
+		$("#checked").html(str);
+		
+		 var formObj = $("form[role='form2']");
+		 
+		 formObj.attr("action", "/user/plusSignUp.do");
+		 formObj.attr("method", "POST");
+		 console.log(checkbox1[0].value);
+		 console.log(checkbox2[0].value);
+		 formObj.submit();
 	}
-	
-	$("#checked").html(str);
-	
-	 var formObj = $("form[role='form2']");
-	 
-	 formObj.attr("action", "/user/plusSignUp.do");
-	 formObj.attr("method", "POST");
-	 formObj.submit();
 	
 });
 	
