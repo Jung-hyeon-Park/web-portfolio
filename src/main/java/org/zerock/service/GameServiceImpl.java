@@ -15,6 +15,7 @@ import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.GenreVO;
+import org.zerock.domain.SearchVO;
 import org.zerock.persistence.BoardDAO;
 import org.zerock.persistence.GameDAO;
 
@@ -151,5 +152,11 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public List<GameClassificationVO> selectGameTitle() throws Exception {
 		return gameDAO.selectGameTitle();
+	}
+	
+	//키워드 검색 게임 리스트
+	@Override
+	public List<GameListVO> selectSearchGameList(SearchVO cri) throws Exception {
+		return gameDAO.selectSearchGameList(cri);
 	}
 }

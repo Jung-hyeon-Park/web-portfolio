@@ -141,11 +141,12 @@ h1, h2, h3, h4, h5, h6 {
       <div class="row mb-2">
       <c:forEach var="newsVO" items="${newsVOs}"> 
         <div class="col-md-6">
+        <a href="/board/readBoard.do?post=4&boardIdx=${newsVO.idx}">
         	<strong class="d-inline-block mb-2 text-primary">${newsVO.title}</strong>
           <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-          <img style="width: 380px;"class="card-img-right flex-auto d-none d-lg-block" src="/upload/displayFile.do?fileName=${newsVO.fullName}" alt="Card image cap">
-          
+          	<img style="width: 380px;"class="card-img-right flex-auto d-none d-lg-block" src="/upload/displayFile.do?fileName=${newsVO.fullName}" alt="Card image cap">
         </div>
+        </a>
         </div>
        </c:forEach>
       </div>

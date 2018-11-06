@@ -23,6 +23,13 @@
 <body style="width:880px; margin: 0 auto;">
 	<c:import url="/header.do"></c:import>
 	<c:import url="/nav.do"></c:import>
+	<select name="searchType">
+		<option value="b.title" <c:out value="${searchVO.searchType eq 'b.title' ? 'selected':''}"/>>제목</option>
+		<option value="b.content" <c:out value="${searchVO.searchType eq 'b.content' ? 'selected':''}"/>>내용</option>
+		<option value="u.email" <c:out value="${searchVO.searchType eq 'u.email' ? 'selected':''}"/>>작성자</option>
+	</select>
+	<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}">
+	<button type="button" id="searchBnt">검색</button>
 	<div style="float: center; margin-top: 30px;">
 		<c:forEach var="consoleVO" items="${consoleVOs}">
 		<c:if test="${consoleVO.category2Idx eq 0 }">
@@ -63,7 +70,19 @@
 			</c:forEach>
 		</ul>
 	</div>
-	
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#searchBnt").on("click", function(event) {
+			self.location = "/game/gameAll.do"
+				+ '?console=0&console2=0'
+				+ '&searchType='
+				+ $("select option:selected").val()
+				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
+		});
+	});
+	</script>
+
 </body>
 <c:import url="/footer.do"></c:import>
 </html>

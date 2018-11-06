@@ -7,7 +7,7 @@
 
 <!-- 게임 조회 -->
 	<select id="selectGame" resultType="GameDTO">
-		select c2.name2, c3.name3, g.status, g.state, g.price
+		select c2.name2, c3.name3, g.status, g.state, g.price, g.sale_complete
 		from game g, category2 c2, category3 c3, game_classification gc
 		where board_idx = #{boardIdx}
         and gc.category2_idx = c2.idx
@@ -23,7 +23,7 @@
 	
 <!-- 게임 수정 -->
 	<update id="updateGame">
-		UPDATE game SET price = #{price}, status = #{status}, state = #{condition}, game_classification_idx = #{gameClassificationIdx}
+		UPDATE game SET price = #{price}, status = #{status}, state = #{condition}, game_classification_idx = #{gameClassificationIdx}, sale_complete = #{saleComplete}
 		WHERE board_idx = #{boardIdx}
 	</update>
 	
@@ -64,7 +64,7 @@
 	
 <!-- 게임 리스트 조회 -->
 	<select id="selectGameList" resultType="GameListVO">
-		select b.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, b.like_count, b.email, 
+		select b.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, g1.sale_complete, b.like_count, b.email, 
 			(select full_name from file_list where board_idx = b.idx limit 1) as full_name
 	    <if test="categoryIdx == 0">
 			from board b, game g1, game_classification gc
@@ -126,7 +126,7 @@
 	
 <!-- ajax 게임 리스트 -->
 	<select id="ajaxGameList" resultType="GameListVO">
-		select b.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, b.like_count, b.email, 
+		select b.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, g1.sale_complete, b.like_count, b.email, 
 			(select full_name from file_list where board_idx = b.idx limit 1) as full_name
 		from game g1, board b, category2 c2, game_classification gc
 		where b.idx = g1.board_idx
@@ -153,5 +153,15 @@
 		select idx from game_classification
 		where title = #{title}
 	</select>
-
+	
+<!-- 키워드 검색 게임 리스트 -->
+	<select id="selectSearchGameList" resultType="GameListVO">
+		select b.title, g1.price, g1.board_idx, gc.category3_idx, gc.category2_idx, g1.state, g1.status, g1.sale_complete, b.like_count, b.email, 
+			(select full_name from file_list where board_idx = b.idx limit 1) as full_name
+			from board b, game g1, game_classification gc, user u
+			where b.idx = g1.board_idx
+			and u.idx = b.user_idx
+			and g1.game_classification_idx = gc.idx
+            and ${searchType} like CONCAT('%', #{keyword}, '%')
+	</select>
 </mapper>

@@ -19,7 +19,7 @@
 
 <!-- 뉴스 이미지 -->
 	<select id="selectNews" resultType="SimpleBoardDTO">
-		select f.full_name, b.title
+		select f.full_name, b.title, b.idx
 		from file_list f, board b
 		where b.post_category_idx = 4 and f.board_idx = b.idx
 		order by f.date desc limit 2

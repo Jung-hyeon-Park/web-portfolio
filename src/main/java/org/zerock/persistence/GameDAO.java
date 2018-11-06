@@ -10,6 +10,7 @@ import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.GenreVO;
+import org.zerock.domain.SearchVO;
 
 public interface GameDAO {
 	
@@ -57,4 +58,7 @@ public interface GameDAO {
 	
 	//gameClassification idx 조회
 	public int selectGameClassificationIdx(String title) throws Exception;
+	
+	//키워드 검색 게임 리스트
+	public List<GameListVO> selectSearchGameList(SearchVO cri) throws Exception;
 }

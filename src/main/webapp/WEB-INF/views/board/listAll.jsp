@@ -115,7 +115,7 @@
 		<div class="row2">
 			<div class="col-md-8 blog-main">
 				<h3 class="pb-3 mb-4 font-italic border-bottom">블로그 Review</h3>
-				<div class="blog-post" id="blogReview"></div>
+				<div class="blog-post" id="blogReview"><h5>검색창에 원하는 게임을 입력하세요.</h5></div>
 			</div>
 		</div>
 		
@@ -123,7 +123,7 @@
 		<div class="row2">
 			<div class="col-md-8 blog-main">
 				<h3 class="pb-3 mb-4 font-italic border-bottom">유튜브 Review</h3>
-				<div id="ytplayer"></div>
+				<div id="ytplayer"><h5>검색창에 원하는 게임을 입력하세요.</h5></div>
 			</div>
 		</div>
 	</c:if>
@@ -229,5 +229,6 @@ $(document).ready(function() {
    </script>
 
 </body>
+<br><br><br>
 <c:import url="/footer.do"></c:import>
 </html>

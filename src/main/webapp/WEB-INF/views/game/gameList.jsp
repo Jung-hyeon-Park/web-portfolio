@@ -39,6 +39,13 @@
 	<c:import url="/nav.do"></c:import>
 
 	<div class="container">
+		<select name="searchType">
+		<option value="b.title" <c:out value="${searchVO.searchType eq 'b.title' ? 'selected':''}"/>>제목</option>
+		<option value="b.content" <c:out value="${searchVO.searchType eq 'b.content' ? 'selected':''}"/>>내용</option>
+		<option value="u.email" <c:out value="${searchVO.searchType eq 'u.email' ? 'selected':''}"/>>작성자</option>
+	</select>
+	<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}">
+	<button type="button" id="searchBnt">검색</button>
 		<div class="well well-sm text-center" style="margin: 0 auto; margin-top: 30px;">
 			<div class="dlk-radio btn-group">
 				<c:forEach var="console2VO" items="${console2VOs}">
@@ -90,6 +97,14 @@
 
 	<script>
 		$(document).ready(function() {
+			
+			$("#searchBnt").on("click", function(event) {
+				self.location = "/game/gameAll.do"
+					+ '?console=0&console2=0'
+					+ '&searchType='
+					+ $("select option:selected").val()
+					+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
+			});
 			
 			var category2Idx = $('input:radio[name="choices[1]"]:checked').val();
 			var category3Idx = $('input:radio[name="choices[2]"]:checked').val();

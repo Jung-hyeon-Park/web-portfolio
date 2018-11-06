@@ -13,6 +13,15 @@ public class GameListVO {
 	private String likeCount;
 	private String fullName;
 	private int categoryIdx;
+	private int saleComplete;
+
+	public int getSaleComplete() {
+		return saleComplete;
+	}
+
+	public void setSaleComplete(int saleComplete) {
+		this.saleComplete = saleComplete;
+	}
 
 	public int getCategoryIdx() {
 		return categoryIdx;

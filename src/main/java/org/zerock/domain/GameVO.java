@@ -9,6 +9,15 @@ public class GameVO {
 	private String condition;
 	private int boardIdx;
 	private int gameClassificationIdx;
+	private int saleComplete;
+
+	public int getSaleComplete() {
+		return saleComplete;
+	}
+
+	public void setSaleComplete(int saleComplete) {
+		this.saleComplete = saleComplete;
+	}
 
 	public int getGameClassificationIdx() {
 		return gameClassificationIdx;

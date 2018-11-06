@@ -45,8 +45,8 @@ public class HomeController {
 	}
 	
 	//메인 페이지
-	@RequestMapping(value="/main.do", method=RequestMethod.GET, produces="application/json; charset=utf8")
-	public void main(Model model, HttpSession session) throws Exception {
+	@RequestMapping(value="/main.do", method=RequestMethod.GET)
+	public void main(Model model) throws Exception {
 		
 		model.addAttribute("topReviewVOs", boardService.selectTopReview());
 		model.addAttribute("newsVOs", boardService.selectNews());

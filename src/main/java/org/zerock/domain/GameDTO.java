@@ -10,6 +10,15 @@ public class GameDTO {
 	private String state;
 	private String name2;
 	private String name3;
+	private int saleComplete;
+
+	public int getSaleComplete() {
+		return saleComplete;
+	}
+
+	public void setSaleComplete(int saleComplete) {
+		this.saleComplete = saleComplete;
+	}
 
 	public String getName2() {
 		return name2;

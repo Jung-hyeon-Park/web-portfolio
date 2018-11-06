@@ -11,6 +11,7 @@ import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.GenreVO;
+import org.zerock.domain.SearchVO;
 
 public interface GameService {
 	
@@ -56,4 +57,6 @@ public interface GameService {
 	//모든 게임 이름 조회
 	public List<GameClassificationVO> selectGameTitle() throws Exception;
 	
+	//키워드 검색 게임 리스트
+	public List<GameListVO> selectSearchGameList(SearchVO cri) throws Exception;
 }

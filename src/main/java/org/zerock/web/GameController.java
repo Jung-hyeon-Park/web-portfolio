@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameClassificationVO;
 import org.zerock.domain.GameListVO;
 import org.zerock.domain.NominationVO;
+import org.zerock.domain.SearchVO;
 import org.zerock.domain.UserVO;
 import org.zerock.service.BoardService;
 import org.zerock.service.GameService;
@@ -39,22 +41,25 @@ public class GameController {
 	
 	//최신 게임 상품
 	@RequestMapping(value="/gameAll.do", method=RequestMethod.GET)
-	public void gameAll(Model model, @ModelAttribute("console") int categoryIdx, @ModelAttribute("console2") int category2Idx) throws Exception {
+	public void gameAll(Model model, @ModelAttribute("cri") SearchVO cri, @ModelAttribute("console") int categoryIdx, @ModelAttribute("console2") int category2Idx) throws Exception {
 		
 		GameCategory1VO gameCategory1VO = new GameCategory1VO();
 		gameCategory1VO.setCategoryIdx(categoryIdx);
 		gameCategory1VO.setCategory2Idx(category2Idx);
-			
-		model.addAttribute("consoleVOs", gameService.selectConsoleCategory1(gameCategory1VO));
-		
 		
 		GameListVO gameListVO = new GameListVO();
 		gameListVO.setCategoryIdx(categoryIdx);
 		gameListVO.setCategory2Idx(category2Idx);
 		
-		
-		model.addAttribute("gameVOs", gameService.selectGameList(gameListVO));
-		
+		model.addAttribute("consoleVOs", gameService.selectConsoleCategory1(gameCategory1VO));
+		//검색 키워드가 없을 경우
+		if (StringUtils.isEmpty(cri.getKeyword())) {
+			model.addAttribute("gameVOs", gameService.selectGameList(gameListVO));
+			
+		//검색 키워드가 있을 경우
+		}else {
+			model.addAttribute("gameVOs", gameService.selectSearchGameList(cri));
+		}
 	}
 	
 	//최종 필터링 게임 리스트(브랜드)

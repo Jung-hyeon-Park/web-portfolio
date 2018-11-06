@@ -219,6 +219,11 @@ if(category < '5' || category > '8') {
 		+"</select>"
 		+"</div>"
 		+"<div class='form-group'>"
+		+"<label>판매상태</label>"
+		+"<input type='radio' name='saleComplete' value=0>판매중"
+		+"<input type='radio' name='saleComplete' value=1>판매완료"
+		+"</div>"
+		+"<div class='form-group'>"
 		+"<label>가격</label>"
 		+"<input type='number' name='price' value='${gameVO.price}'><strong>원</strong>"
 		+"</div>";
