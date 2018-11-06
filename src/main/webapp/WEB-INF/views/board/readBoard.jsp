@@ -148,7 +148,7 @@
 
 <script>
 $(".btn-primary").on("click", function() {
-	self.location = "/board/listAll.do?post=${post}&page=${cri.page}&perPageNum=${cri.perPageNum}";
+	self.location = "/board/listAll.do?keyword=${cri.keyword}&searchType=${cri.searchType}&post=${post}&page=${cri.page}&perPageNum=${cri.perPageNum}";
 });
 </script>
 
@@ -279,6 +279,6 @@ $(".btn-primary").on("click", function() {
 			<span class="mailbox-attachment-icon has-img"><img name="files" src="{{imgsrc}}" alt="Attachment"></span>
 		</li>
 	</script>
-	
 </body>
+<c:import url="/footer.do"></c:import>
 </html>

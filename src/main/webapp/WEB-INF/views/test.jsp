@@ -1,50 +1,88 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-  <body>
-    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<style>
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700');
 
-    <script>
-      // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
+h2{float:left; width:100%; color:#fff; margin-bottom:40px; font-size: 14px; position:relartive; z-index:3; margin-top:30px}
+h2 span{font-family: 'Libre Baskerville', serif; display:block; font-size:45px; text-transform:none; margin-bottom:20px; margin-top:30px; font-weight:700}
+h2 a{color:#fff; font-weight:bold;}
 
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+.head{float:left;width:100%;}
+.search-box{width:90%; margin:0 auto 40px; box-shadow:10px 13px 0 rgba(0,0,0,0.2);}
+.listing-block{background:#fff; height:500px; padding:3px!important; overflow-y:scroll;  width: 180px!important; }
+.slimScrollDiv{width:200px!important; padding: 0px; margin-left: 890px; float: right; top: 300px; position: fixed!important; /*  left: 1030px; */}
+.media {background:#fff; position:relative; margin-bottom:15px; width: 180px;}
+.media img{width:70px;margin:0; height:110px;}
+.media-body{border:1px solid #bcbcbc; border-left:0; height:110px;}
+.media .price{float:left; width:100%; font-size:1.7rem!important; font-weight:600; color:#4765AB;}
+.media .price small{display:block; font-size:17px; color:#232323;}
+.media .stats{float:left; width:100%; margin-top:10px;}
+.media .stats span{float:left; margin-right:10px; font-size:15px;}
+.media .stats span i{margin-right:7px; color:#4765AB;}
+.media .address{float:left; width:100%;font-size:14px; margin-top:5px; color:#888;}
+.media .fav-box{position:absolute; right:10px; font-size:20px; top:4px; color:#E74C3C;}
 
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '360',
-          width: '640',
-          videoId: 'bMQPMlPRTUA',
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-      // 4. The API will call this function when the video player is ready.
-      function onPlayerReady(event) {
-        event.target.playVideo();
-      }
-
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
-    </script>
-  </body>
+.map-box{background-color:#A3CCFF;}
+</style>
+		<div class="col-md-12 listing-block" style="background-color: black;">
+		<span><h3 style="color:white;">추천상품</h3></span>
+        <div class="media">
+            
+              <img class="d-flex align-self-start" src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb" alt="Generic placeholder image">
+              <div class="media-body pl-3">
+                <div class="price">$506,400<small>New York</small></div>
+                <div class="stats">
+                    <span><i class="fa fa-bath"></i>userName</span>
+                </div>
+                
+              </div>
+            </div>
+        <div class="media">
+          
+              <img class="d-flex align-self-start" src="https://images.pexels.com/photos/358636/pexels-photo-358636.jpeg?h=350&auto=compress&cs=tinysrgb" alt="Generic placeholder image">
+              <div class="media-body pl-3">
+                <div class="price">$506,400<small>New York</small></div>
+                <div class="stats">
+                    <span><i class="fa fa-bath"></i>userName</span>
+                </div>
+               
+              </div>
+            </div>
+        <div class="media">
+          
+              <img class="d-flex align-self-start" src="https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?h=350&auto=compress&cs=tinysrgb" alt="Generic placeholder image">
+              <div class="media-body pl-3">
+                <div class="price">$799,000<small>New York</small></div>
+                <div class="stats">
+                    <span><i class="fa fa-bath"></i>userName</span>
+                </div>
+                
+              </div>
+            </div>
+        <div class="media">
+            
+              <img class="d-flex align-self-start" src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb" alt="Generic placeholder image">
+              <div class="media-body pl-3">
+                <div class="price">$506,400<small>New York</small></div>
+                <div class="stats">
+                    <span><i class="fa fa-bath"></i>userName</span>
+                </div>
+                
+              </div>
+            </div>
+            </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+<script>
+$(function(){
+    $('.listing-block').slimScroll({
+        height: '500px'
+    });
+});
+</script>
 </html>

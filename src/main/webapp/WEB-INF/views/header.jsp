@@ -3,14 +3,15 @@
 <!DOCTYPE html>
 <div>
 <c:import url="/sideBar.do"></c:import>
+<c:import url="/test.do"></c:import>
 </div>
 	<header class="blog-header py-3" style="width: 880px;">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
-            <a class="text-muted" href="#"><h3>LOGO Image</h3></a>
+            <a class="text-muted" href="/main.do"><img style="height: 100px; width: 200px;" src="/resources/uploadFile/image/logo.png" /></a>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark" href="/main.do">NAME</a>
+            <a class="blog-header-logo text-dark" href="/main.do">GAME ARENA</a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <c:if test="${login.email == null}">

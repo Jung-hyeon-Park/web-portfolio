@@ -10,26 +10,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <style>
 .abc1 {
-	width: 100px;
+	width: 76px;
 }
 
 .abc2 {
-	width: 400px;
+	width: 376px;
 }
 
 .abc3 {
-	width: 150px;
+	width: 126px;
 }
 
 .abc4 {
-	width: 250px;
+	width: 226px;
 }
 
 .abc5 {
-	width: 100px;
+	width: 76px;
 }
 
 .row2 {
@@ -42,7 +43,7 @@
 }
 </style>
 </head>
-<body style="width:880px; margin: auto;">
+<body style="width: 880px; margin: 0 auto;">
 <c:import url="/header.do"></c:import>
 <c:import url="/nav.do"></c:import>
 
@@ -127,8 +128,6 @@
 		</div>
 	</c:if>
 
-	<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
-
 <script type="text/javascript">
 	var result = '${msg}';
 	if(result == 'SUCCESS') {
@@ -167,10 +166,11 @@ $(document).ready(function() {
 </script>
 
  <script>
- 	let test = '<%=session.getAttribute("search")%>';
-    var search = (test !== null) ? '<%=session.getAttribute("search")%>' : null ;
-	if(search !== null ) {
-		//유튜브 영상 api(CORS 주의)
+
+ 	var abc =  <%=session.getAttribute("search") != null%>;
+    var search = '<%=session.getAttribute("search")%>';
+	if(abc == true) {
+		
 		$.ajax({
 			type : "GET",
 			url : "https://www.googleapis.com/youtube/v3/search?key=AIzaSyDMJwx7YPFWlHnC-7B7ch3ub41FvU_66KU&type=video&part=id&q="+search,
@@ -189,9 +189,7 @@ $(document).ready(function() {
 
 				}
 				$("#ytplayer").html(html);
-			}
-				
-							
+			}				
 		});
 		
 		
@@ -214,25 +212,22 @@ $(document).ready(function() {
 					}
 					$("#blogReview").html(html);
 				}else{
-					html="<h4 class='blog-post-title'>입력하신 상품에 대한 블로그 글이 없습니다.</h4>"
-						 +"<p class='blog-post-meta'><a>GAME</a></p>";
+					html="<h6 class='blog-post-title'>입력하신 상품에 대한 블로그 글이 없습니다.</h6>";
 						$("#blogReview").html(html);
 				}
 			},
 			error : function(request, status, error) {
-				var html="<h4 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h4>"
-					 +"<p class='blog-post-meta'><a>GAME</a></p>";
+				var html="<h6 class='blog-post-title'>게시판 입력창에 원하는 게임을 입력하세요.</h6>";
 					$("#blogReview").html(html);
 
 			}
 							
 		});
 		
-
-
 	}
 
    </script>
 
 </body>
+<c:import url="/footer.do"></c:import>
 </html>

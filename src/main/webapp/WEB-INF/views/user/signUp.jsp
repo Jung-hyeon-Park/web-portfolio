@@ -698,4 +698,5 @@ $(document).ready(function() {
  
    </script>
 </body>
+<c:import url="/footer.do"></c:import>
 </html>

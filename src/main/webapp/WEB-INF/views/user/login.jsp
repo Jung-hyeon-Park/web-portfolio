@@ -11,11 +11,12 @@
 
     <title>Signin Template for Bootstrap</title>
     <style>
-html,body {
+html, body {
   height: 100%;
 }
 
-body {
+.text-center {
+font-size: 1rem;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -62,9 +63,9 @@ body {
     <!-- Custom styles for this template -->
   </head>
 
-  <body class="text-center" style="width: 1000px; margin: auto;">
+  <body class="text-center" style="width: 880px; margin: auto;">
     <form action="/user/loginCheck.do" method="POST" class="form-signin">
-      <img class="mb-4" src="" alt="image" width="72" height="72">
+      <img class="mb-4" src="/resources/uploadFile/image/logo.png" alt="image" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">로그인</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>

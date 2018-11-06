@@ -186,7 +186,7 @@ h1, h2, h3, h4, h5, h6 {
           </div>
         </aside><!-- /.blog-sidebar -->
 
-      </div><!-- /.row -->
+
 		<div class="ad8" style="width: 830px; clear: both; background-color: sliver;">
 		<h3 class="pb-3 mb-4 font-italic border-bottom">인기 리뷰</h3>
 			<p class="ty1" style="width: 540px; float: left; margin-top: 25px;">
@@ -211,12 +211,6 @@ h1, h2, h3, h4, h5, h6 {
 			</p>
 		</div>
     </main><!-- /.container -->
-
-    <footer class="blog-footer">
-      <p>Blog template built for <a href="#">BRAND</a> by <a href="#">tkarnrrns200@naver.com</a></p>
-      <p>
-        <a href="#">Back to top</a>
-      </p>
-    </footer>
   </body>
+  <c:import url="/footer.do"></c:import>
 </html>

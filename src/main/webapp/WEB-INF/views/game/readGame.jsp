@@ -249,6 +249,6 @@ $(".btn-primary").on("click", function() {
 			<span class="mailbox-attachment-icon has-img"><img name="files" src="{{imgsrc}}" alt="Attachment"></span>
 		</li>
 	</script>
-	
 </body>
+<c:import url="/footer.do"></c:import>
 </html>

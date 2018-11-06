@@ -136,7 +136,7 @@ public class BoardController {
 	// 상세 게시글
 	@RequestMapping(value = "/readBoard.do", method = RequestMethod.GET)
 	public void readBoard(HttpServletRequest request, @RequestParam("boardIdx") int boardIdx, Model model,
-			@RequestParam("post") int post, @ModelAttribute("cri") Criteria cri) throws Exception {
+			@RequestParam("post") int post, @ModelAttribute("cri") SearchVO cri) throws Exception {
 
 		// 게시글 읽기
 		model.addAttribute("post", post);

@@ -64,12 +64,6 @@
 		</ul>
 	</div>
 	
-	<script>
-	$.each("#email", function(i, email) {
-		var email = $("#email").html();
-	  	var email2 = email.split('@');
-	  	$("#email").html(email2[0]);
-	});
-	</script>
 </body>
+<c:import url="/footer.do"></c:import>
 </html>

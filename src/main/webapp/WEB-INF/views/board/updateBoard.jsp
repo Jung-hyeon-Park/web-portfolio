@@ -490,4 +490,5 @@ function getAutoComplete() {
 </script>
 	<a href="/main.do">메인으로</a>
 </body>
+<c:import url="/footer.do"></c:import>
 </html>
