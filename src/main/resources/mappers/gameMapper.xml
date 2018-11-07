@@ -7,7 +7,7 @@
 
 <!-- 게임 조회 -->
 	<select id="selectGame" resultType="GameDTO">
-		select c2.name2, c3.name3, g.status, g.state, g.price, g.sale_complete
+		select c2.name2, c3.name3, g.status, g.state, g.price, g.sale_complete, g.idx
 		from game g, category2 c2, category3 c3, game_classification gc
 		where board_idx = #{boardIdx}
         and gc.category2_idx = c2.idx
@@ -164,4 +164,10 @@
 			and g1.game_classification_idx = gc.idx
             and ${searchType} like CONCAT('%', #{keyword}, '%')
 	</select>
+	
+<!-- 조회 데이터 넣기 -->
+	<insert id="insertViewData">
+		insert into view_products (user_idx, game_idx)
+		values (#{userIdx}, #{gameIdx})
+	</insert>
 </mapper>

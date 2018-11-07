@@ -15,6 +15,7 @@ import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.GenreVO;
 import org.zerock.domain.SearchVO;
+import org.zerock.domain.UserGameVO;
 
 @Repository
 public class GameDAOImpl implements GameDAO {
@@ -120,5 +121,11 @@ public class GameDAOImpl implements GameDAO {
 	@Override
 	public List<GameListVO> selectSearchGameList(SearchVO cri) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".selectSearchGameList", cri);
+	}
+	
+	//상품 조회 데이터 넣기
+	@Override
+	public void insertViewData(UserGameVO userGameVO) throws Exception {
+		sqlSession.insert(NAMESPACE+".insertViewData", userGameVO);
 	}
 }

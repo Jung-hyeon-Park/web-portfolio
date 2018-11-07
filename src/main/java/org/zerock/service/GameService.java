@@ -12,6 +12,7 @@ import org.zerock.domain.GameListVO;
 import org.zerock.domain.GameVO;
 import org.zerock.domain.GenreVO;
 import org.zerock.domain.SearchVO;
+import org.zerock.domain.UserGameVO;
 
 public interface GameService {
 	
@@ -59,4 +60,7 @@ public interface GameService {
 	
 	//키워드 검색 게임 리스트
 	public List<GameListVO> selectSearchGameList(SearchVO cri) throws Exception;
+
+	//상품 조회 데이터 넣기
+	public void insertViewData(UserGameVO userGameVO) throws Exception;
 }

@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.domain.GameCategory1VO;
 import org.zerock.domain.GameClassificationVO;
+import org.zerock.domain.GameDTO;
 import org.zerock.domain.GameListVO;
 import org.zerock.domain.NominationVO;
 import org.zerock.domain.SearchVO;
+import org.zerock.domain.UserGameVO;
 import org.zerock.domain.UserVO;
 import org.zerock.service.BoardService;
 import org.zerock.service.GameService;
@@ -143,18 +145,28 @@ public class GameController {
 	@RequestMapping(value="/readGame.do", method=RequestMethod.GET)
 	public void readGame(HttpServletRequest request, @RequestParam("boardIdx") int boardIdx, Model model, @ModelAttribute("console") int categoryIdx, @ModelAttribute("console2") int category2Idx) throws Exception {
 		
+		UserGameVO userGameVO = new UserGameVO();
 		model.addAttribute("boardVO", boardService.readBoard(boardIdx));
-		model.addAttribute("gameDTO", gameService.selectGame(boardIdx));
-		
+		GameDTO gameDTO = gameService.selectGame(boardIdx);
+		model.addAttribute("gameDTO",gameDTO);
 		if (request.getSession().getAttribute("login") != null) {
 			int userIdx = ((UserVO) request.getSession().getAttribute("login")).getIdx();
+			System.out.println("Abc = " + userIdx);
 
+			userGameVO.setUserIdx(userIdx);
+			userGameVO.setGameIdx(gameDTO.getIdx());
+			
+			gameService.insertViewData(userGameVO);
+			
 			NominationVO nominationVO = new NominationVO();
 			nominationVO.setBoardIdx(boardIdx);
 			nominationVO.setUserIdx(userIdx);
 
 			model.addAttribute("count", boardService.selectNomination(nominationVO));
 		}
+		
+		//System.out.println("ABV = " +((UserVO) request.getSession().getAttribute("login")).getIdx());
+		
 	}
 	
 }

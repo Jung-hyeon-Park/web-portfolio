@@ -6,8 +6,24 @@ public class UserGameVO {
 	private int[] category2Idxes;
 	private int category2Idx;
 	private int age;
-	
-	
+	private int boardIdx;
+	private int gameIdx;
+
+	public int getGameIdx() {
+		return gameIdx;
+	}
+
+	public void setGameIdx(int gameIdx) {
+		this.gameIdx = gameIdx;
+	}
+
+	public int getBoardIdx() {
+		return boardIdx;
+	}
+
+	public void setBoardIdx(int boardIdx) {
+		this.boardIdx = boardIdx;
+	}
 
 	public int getAge() {
 		return age;
@@ -40,8 +56,5 @@ public class UserGameVO {
 	public void setCategory2Idx(int category2Idx) {
 		this.category2Idx = category2Idx;
 	}
-	
-	
 
-	
 }

@@ -141,12 +141,19 @@ public class BoardController {
 		// 게시글 읽기
 		model.addAttribute("post", post);
 		model.addAttribute("boardVO", boardService.readBoard(boardIdx));
-
+		
+		
+		// 게임 게시글
 		if (post == 5) {
 			model.addAttribute("gameDTO", gameService.selectGame(boardIdx));
+			
+			/*//상품 조회 데이터 넣기
+			gameService.insertViewData(boardIdx);*/
+		//리뷰 게시글
 		} else if (post > 5 && post < 9) {
 			model.addAttribute("reviewDTO", boardService.selectReview(boardIdx));
 		}
+		// 게시글 좋아요
 		if (request.getSession().getAttribute("login") != null) {
 			int userIdx = ((UserVO) request.getSession().getAttribute("login")).getIdx();
 

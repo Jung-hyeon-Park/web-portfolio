@@ -11,6 +11,15 @@ public class GameDTO {
 	private String name2;
 	private String name3;
 	private int saleComplete;
+	private int idx;
+
+	public int getIdx() {
+		return idx;
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 
 	public int getSaleComplete() {
 		return saleComplete;
