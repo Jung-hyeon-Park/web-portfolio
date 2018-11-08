@@ -27,7 +27,10 @@
       </header>
       
       <script>
-      	var email = $("#email").html();
-      	var email2 = email.split('@');
-      	$("#email").html(email2[0]);
+      var user = <%=session.getAttribute("login")%>;
+	  	if(user == true) {
+	      	var email = $("#email").html();
+	      	var email2 = email.split('@');
+	      	$("#email").html(email2[0]);
+	  	}
       </script>

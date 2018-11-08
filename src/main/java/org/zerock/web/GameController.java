@@ -151,7 +151,6 @@ public class GameController {
 		model.addAttribute("gameDTO",gameDTO);
 		if (request.getSession().getAttribute("login") != null) {
 			int userIdx = ((UserVO) request.getSession().getAttribute("login")).getIdx();
-			System.out.println("Abc = " + userIdx);
 
 			userGameVO.setUserIdx(userIdx);
 			userGameVO.setGameIdx(gameDTO.getIdx());
@@ -164,9 +163,6 @@ public class GameController {
 
 			model.addAttribute("count", boardService.selectNomination(nominationVO));
 		}
-		
-		//System.out.println("ABV = " +((UserVO) request.getSession().getAttribute("login")).getIdx());
-		
 	}
 	
 }
