@@ -166,4 +166,10 @@ public class GameServiceImpl implements GameService {
 	public void insertViewData(UserGameVO userGameVO) throws Exception {
 		gameDAO.insertViewData(userGameVO);
 	}
+	
+	//게임 랭킹 카테고리
+	@Override
+	public List<GameCategory2VO> selectRankingPost() throws Exception {
+		return gameDAO.selectRankingPost();
+	}
 }

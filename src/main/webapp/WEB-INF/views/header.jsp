@@ -27,8 +27,8 @@
       </header>
       
       <script>
-      var user = <%=session.getAttribute("login")%>;
-	  	if(user == true) {
+      var user = '<%=session.getAttribute("login")%>';
+	  	if(user != 'null') {
 	      	var email = $("#email").html();
 	      	var email2 = email.split('@');
 	      	$("#email").html(email2[0]);

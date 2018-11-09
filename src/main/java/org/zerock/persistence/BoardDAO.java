@@ -96,4 +96,5 @@ public interface BoardDAO {
 	
 	//특정 게시글 리스트
 	public int countBoard(int postCategoryIdx) throws Exception;
+	
 }

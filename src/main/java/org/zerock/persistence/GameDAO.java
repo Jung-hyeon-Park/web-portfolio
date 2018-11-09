@@ -65,4 +65,7 @@ public interface GameDAO {
 	
 	//상품 조회 데이터 넣기
 	public void insertViewData(UserGameVO userGameVO) throws Exception;
+	
+	//게임 랭킹 카테고리
+	public List<GameCategory2VO> selectRankingPost() throws Exception;
 }

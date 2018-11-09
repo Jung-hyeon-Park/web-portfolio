@@ -165,4 +165,9 @@ public class GameController {
 		}
 	}
 	
+	@RequestMapping(value="/rankng.do", method=RequestMethod.GET)
+	public void ranking(Model model) throws Exception {
+		
+	}
+	
 }

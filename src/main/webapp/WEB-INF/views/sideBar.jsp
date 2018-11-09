@@ -335,6 +335,15 @@ body {
                     	</c:if>
                 	</c:forEach>
                 </ul>
+                
+                <li data-toggle="collapse" data-target="#ranking" class="collapsed">
+                  <a href="#"><i class="fa fa-globe fa-lg"></i> 게임 랭킹 <span class="arrow"></span></a>
+                </li>  
+                <ul class="sub-menu collapse" id="ranking">
+                  <c:forEach var="category2VO" items="${category2VOs}">
+                    	<li><a href="/game/ranking.do">${category2VO.name2}</a></li>
+                	</c:forEach>
+                </ul>
             </ul>
      </div>
 </div>

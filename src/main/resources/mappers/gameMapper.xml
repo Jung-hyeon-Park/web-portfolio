@@ -170,4 +170,10 @@
 		insert into view_products (user_idx, game_idx)
 		values (#{userIdx}, #{gameIdx})
 	</insert>
+	
+<!-- 게임 랭킹 카테고리 -->
+	<select id="selectRankingPost" resultType="GameCategory2VO">
+		select * from category2
+		where idx = 2 or idx = 4 or idx = 5 or idx = 6 or idx = 8
+	</select>
 </mapper>

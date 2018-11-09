@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.zerock.service.BoardService;
+import org.zerock.service.GameService;
 
 /**
  * Handles requests for the application home page.
@@ -24,6 +24,9 @@ public class HomeController {
 	
 	@Inject
 	private BoardService boardService;
+	
+	@Inject
+	private GameService gameService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -73,6 +76,7 @@ public class HomeController {
 			
 		model.addAttribute("post2VOs", boardService.selectPost2());
 		model.addAttribute("post3VOs", boardService.selectPost3());
+		model.addAttribute("category2VOs", gameService.selectRankingPost());
 	}
 	
 	@RequestMapping(value="/test.do", method=RequestMethod.GET)

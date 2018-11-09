@@ -128,4 +128,10 @@ public class GameDAOImpl implements GameDAO {
 	public void insertViewData(UserGameVO userGameVO) throws Exception {
 		sqlSession.insert(NAMESPACE+".insertViewData", userGameVO);
 	}
+	
+	//게임 랭킹 카테고리
+	@Override
+	public List<GameCategory2VO> selectRankingPost() throws Exception {
+		return sqlSession.selectList(NAMESPACE+".selectRankingPost");
+	}
 }
