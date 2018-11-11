@@ -341,7 +341,7 @@ body {
                 </li>  
                 <ul class="sub-menu collapse" id="ranking">
                   <c:forEach var="category2VO" items="${category2VOs}">
-                    	<li><a href="/game/ranking.do">${category2VO.name2}</a></li>
+                    	<li><a href="/game/ranking.do?post=${category2VO.idx}">${category2VO.name2}</a></li>
                 	</c:forEach>
                 </ul>
             </ul>

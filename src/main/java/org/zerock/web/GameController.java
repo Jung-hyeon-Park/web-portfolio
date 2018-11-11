@@ -1,6 +1,16 @@
 package org.zerock.web;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -165,9 +175,56 @@ public class GameController {
 		}
 	}
 	
-	@RequestMapping(value="/rankng.do", method=RequestMethod.GET)
-	public void ranking(Model model) throws Exception {
+	@RequestMapping(value="/ranking.do", method=RequestMethod.GET)
+	public void ranking(Model model, @RequestParam("post") int post) throws Exception {
 		
+		List<List<Object>> ret = new ArrayList<List<Object>>();
+		BufferedReader br = null;
+		
+		String fileName = "";
+		if(post == 2) {
+			fileName = "game_rank_ps4.csv";
+		}else if(post == 4) {
+			fileName = "game_rank_psVita.csv";
+		}else if(post == 5) {
+			fileName = "game_rank_switch.csv";
+		}else if(post == 6) {
+			fileName = "game_rank_3ds.csv";
+		}else if(post == 8) {
+			fileName = "game_rank_xBoxOne.csv";
+		}
+		
+		try {
+			br = Files.newBufferedReader(Paths.get("C:\\Users\\JungHyeon\\PycharmProjects\\BIGDATA\\portfolio\\"+fileName));
+			Charset.forName("UTF-8");
+			String line = "";
+			
+			while((line = br.readLine()) != null) {
+				
+				List<Object> gameRank = new ArrayList<Object>();
+			
+				String array[] = line.split(",");
+				
+				gameRank = Arrays.asList(array);
+			
+				ret.add(gameRank);
+				
+			}
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(br != null) {
+					br.close();
+				}
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		model.addAttribute("gameRanks", ret);
 	}
 	
 }

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,13 +47,13 @@
 	}
 	.event-list > li > time > .day {
 		display: block;
-		font-size: 56pt;
+		font-size: 20pt;
 		font-weight: 100;
 		line-height: 1;
 	}
 	.event-list > li time > .month {
 		display: block;
-		font-size: 24pt;
+		font-size: 1rem;
 		font-weight: 900;
 		line-height: 1;
 	}
@@ -142,7 +143,7 @@
 			position: relative;
 			display: block;
 			width: 100%;
-			height: 120px;
+			height: 40px;
 			padding: 0px;
 		}
 		.event-list > li > time,
@@ -161,13 +162,13 @@
 		.event-list > li > time,
 		.event-list > li > img {
 			width: 120px;
-			height: 120px;
+			height: 40px;
 			padding: 0px;
 			margin: 0px;
 		}
 		.event-list > li > .info {
 			position: relative;
-			height: 120px;
+			height: 40px;
 			text-align: left;
 			padding-right: 40px;
 		}	
@@ -205,64 +206,25 @@
         padding: 100px;
         }
 </style>
-<body>
+<body style="width: 880px; margin: 0 auto;">
+      <div><c:import url="/header.do"></c:import></div>
 
+      <div><c:import url="/nav.do"></c:import></div>
 
 <div class="container">
     	<div class="row">
 			<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
 				<ul class="event-list">
+				<c:forEach var="gameRank" items="${gameRanks}">
 					<li>
 						<time datetime="2014-07-20">
-							<span class="day">4</span>
-							<span class="month">Jul</span>
-							<span class="year">2014</span>
-							<span class="time">ALL DAY</span>
+							<span class="day">${gameRank[1]}</span>
 						</time>						
 						<div class="info">
-							<h2 class="title">Independence Day</h2>
-							<p class="desc">United States Holiday</p>
+							<h2 class="title">${gameRank[0]}</h2>
 						</div>
 					</li>
-
-					<li>
-						<time datetime="2014-07-20 0000">
-							<span class="day">8</span>
-							<span class="month">Jul</span>
-							<span class="year">2014</span>
-							<span class="time">12:00 AM</span>
-						</time>
-						<div class="info">
-							<h2 class="title">One Piece Unlimited World Red</h2>
-							<p class="desc">PS Vita</p>
-						</div>
-					</li>
-
-					<li>
-						<time datetime="2014-07-20 2000">
-							<span class="day">20</span>
-							<span class="month">Jan</span>
-							<span class="year">2014</span>
-							<span class="time">8:00 PM</span>
-						</time>						
-						<div class="info">
-							<h2 class="title">Mouse0270's 24th Birthday!</h2>
-							<p class="desc">Bar Hopping in Erie, Pa.</p>
-						</div>
-					</li>
-
-					<li>
-						<time datetime="2014-07-31 1600">
-							<span class="day">31</span>
-							<span class="month">Jan</span>
-							<span class="year">2014</span>
-							<span class="time">4:00 PM</span>
-						</time>						
-						<div class="info">
-							<h2 class="title">Disney Junior Live On Tour!</h2>
-							<p class="desc"> Pirate and Princess Adventure</p>
-						</div>						
-					</li>
+				</c:forEach>
 				</ul>
 			</div>
 		</div>
