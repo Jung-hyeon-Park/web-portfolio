@@ -182,20 +182,30 @@ public class GameController {
 		BufferedReader br = null;
 		
 		String fileName = "";
+		String name = "";
 		if(post == 2) {
+			name = "PS4";
 			fileName = "game_rank_ps4.csv";
 		}else if(post == 4) {
+			name = "PSVita";
 			fileName = "game_rank_psVita.csv";
 		}else if(post == 5) {
+			name = "닌텐도 Switch";
 			fileName = "game_rank_switch.csv";
 		}else if(post == 6) {
+			name = "닌텐도 3DS";
 			fileName = "game_rank_3ds.csv";
 		}else if(post == 8) {
+			name = "XBoxOne";
 			fileName = "game_rank_xBoxOne.csv";
 		}
 		
 		try {
-			br = Files.newBufferedReader(Paths.get("C:\\Users\\JungHyeon\\PycharmProjects\\BIGDATA\\portfolio\\"+fileName));
+			//노트북
+			//br = Files.newBufferedReader(Paths.get("C:\\Users\\JungHyeon\\PycharmProjects\\BIGDATA\\portfolio\\"+fileName));
+			
+			//학원 
+			br = Files.newBufferedReader(Paths.get("E:\\bigdata\\portfolio\\"+fileName));
 			Charset.forName("UTF-8");
 			String line = "";
 			
@@ -223,7 +233,7 @@ public class GameController {
 				e.printStackTrace();
 			}
 		}
-		
+		model.addAttribute("name", name);
 		model.addAttribute("gameRanks", ret);
 	}
 	

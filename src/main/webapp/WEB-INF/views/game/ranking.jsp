@@ -212,6 +212,7 @@
       <div><c:import url="/nav.do"></c:import></div>
 
 <div class="container">
+	<span>${name} 게임 랭킹</span>
     	<div class="row">
 			<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
 				<ul class="event-list">
