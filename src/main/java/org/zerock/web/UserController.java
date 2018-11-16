@@ -111,7 +111,7 @@ public class UserController {
 			
 			Cookie logincookie = WebUtils.getCookie(request, "loginCookie");
 			
-			//쿠키가 있을경우
+			//쿠키가 있을경우 쿠키 초기화
 			if(logincookie != null) {
 				logincookie.setPath("/");
 				logincookie.setMaxAge(0);
