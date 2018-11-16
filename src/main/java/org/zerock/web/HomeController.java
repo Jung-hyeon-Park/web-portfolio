@@ -79,7 +79,11 @@ public class HomeController {
 		model.addAttribute("category2VOs", gameService.selectRankingPost());
 	}
 	
+	//추천상품 사이드 바
 	@RequestMapping(value="/test.do", method=RequestMethod.GET)
-	public void test() throws Exception {}
+	public void test(Model model) throws Exception {
+		
+		model.addAttribute("recommends", gameService.recommendList());
+	}
 	
 }

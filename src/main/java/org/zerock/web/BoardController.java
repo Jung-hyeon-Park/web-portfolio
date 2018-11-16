@@ -65,9 +65,6 @@ public class BoardController {
 		// 게시판 목록 생성
 		if (post < 6) {
 			model.addAttribute("postVOs", boardService.selectPost());
-			/*if(post == 5) {
-				model.addAttribute("gameVOs", gameService.selectGameTitle());
-			}*/
 		} else if (post > 5 && post < 9) {
 			model.addAttribute("postVOs", boardService.selectPost2());
 		} else if (post > 8 && post < 11) {
@@ -76,6 +73,7 @@ public class BoardController {
 
 	}
 
+	//게시글 작성
 	@RequestMapping(value = "/insertBoard.do", method = RequestMethod.POST)
 	public String insertBoard(ReviewVO reviewVO, GameVO gameVO, BoardVO boardVO, Model model, HttpSession session)
 			throws Exception {

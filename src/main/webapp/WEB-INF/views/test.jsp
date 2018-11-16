@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -31,51 +31,20 @@ h2 a{color:#fff; font-weight:bold;}
 .map-box{background-color:#A3CCFF;}
 </style>
 		<div class="col-md-12 listing-block" style="background-color: black;">
-		<span><h3 style="color:white;">추천상품</h3></span>
-        <div class="media">
+			<span><h3 style="color:white;">추천상품</h3></span>
+			<c:forEach var="recommend" items="${recommends}">
+        		<div class="media">
             
-              <img class="d-flex align-self-start" src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb" alt="Generic placeholder image">
-              <div class="media-body pl-3">
-                <div class="price">$506,400<small>New York</small></div>
-                <div class="stats">
-                    <span><i class="fa fa-bath"></i>userName</span>
-                </div>
+              	<img class="d-flex align-self-start" src="/upload/displayFile.do?fileName=${recommend.fullName}">
+              	<div class="media-body pl-3">
+                	<div class="price">${recommend.price}원<small> ${recommend.title}</small></div>
+                	<div class="stats">
+                    	<span><i class="fa fa-bath"></i>${recommend.email}</span>
+                	</div>
                 
-              </div>
-            </div>
-        <div class="media">
-          
-              <img class="d-flex align-self-start" src="https://images.pexels.com/photos/358636/pexels-photo-358636.jpeg?h=350&auto=compress&cs=tinysrgb" alt="Generic placeholder image">
-              <div class="media-body pl-3">
-                <div class="price">$506,400<small>New York</small></div>
-                <div class="stats">
-                    <span><i class="fa fa-bath"></i>userName</span>
-                </div>
-               
-              </div>
-            </div>
-        <div class="media">
-          
-              <img class="d-flex align-self-start" src="https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?h=350&auto=compress&cs=tinysrgb" alt="Generic placeholder image">
-              <div class="media-body pl-3">
-                <div class="price">$799,000<small>New York</small></div>
-                <div class="stats">
-                    <span><i class="fa fa-bath"></i>userName</span>
-                </div>
-                
-              </div>
-            </div>
-        <div class="media">
-            
-              <img class="d-flex align-self-start" src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?h=350&auto=compress&cs=tinysrgb" alt="Generic placeholder image">
-              <div class="media-body pl-3">
-                <div class="price">$506,400<small>New York</small></div>
-                <div class="stats">
-                    <span><i class="fa fa-bath"></i>userName</span>
-                </div>
-                
-              </div>
-            </div>
+              	</div>
+            	</div>
+        	</c:forEach>
             </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
 <script>

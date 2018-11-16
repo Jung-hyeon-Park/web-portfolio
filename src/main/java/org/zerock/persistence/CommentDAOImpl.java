@@ -27,4 +27,10 @@ public class CommentDAOImpl implements CommentDAO{
 	public List<CommentVO> selectComment(int boardIdx) throws Exception {
 		return sqlSession.selectList(namespace+".selectComment", boardIdx);
 	}
+	
+	//댓글 삭제
+	@Override
+	public void deleteComment(int boardIdx) throws Exception {
+		sqlSession.delete(namespace+".deleteComment", boardIdx);
+	}
 }

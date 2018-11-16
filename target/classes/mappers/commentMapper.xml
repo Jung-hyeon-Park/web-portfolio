@@ -20,4 +20,10 @@
 		and b.idx = c.board_idx
 		order by c.write_date desc;
 	</select>
+	
+<!-- 댓글 삭제 -->
+	<delete id="deleteComment">
+		delete from comment where board_idx = #{boardIdx}
+	</delete>
+
 </mapper>

@@ -59,7 +59,6 @@ public class GameDAOImpl implements GameDAO {
 	//게임 리스트 조회
 	@Override
 	public List<GameListVO> selectGameList(GameListVO gameListVO) throws Exception {
-		System.out.println("asdfasdf = " + gameListVO.getCategoryIdx());
 		return sqlSession.selectList(NAMESPACE+".selectGameList", gameListVO);
 	}
 	
@@ -133,5 +132,11 @@ public class GameDAOImpl implements GameDAO {
 	@Override
 	public List<GameCategory2VO> selectRankingPost() throws Exception {
 		return sqlSession.selectList(NAMESPACE+".selectRankingPost");
+	}
+	
+	//추천 게임 리스트
+	@Override
+	public List<GameListVO> recommendList() throws Exception {
+		return sqlSession.selectList(NAMESPACE+".recommendList");
 	}
 }

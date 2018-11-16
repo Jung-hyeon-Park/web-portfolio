@@ -68,4 +68,7 @@ public interface GameDAO {
 	
 	//게임 랭킹 카테고리
 	public List<GameCategory2VO> selectRankingPost() throws Exception;
+	
+	//추천 게임 리스트
+	public List<GameListVO> recommendList() throws Exception;
 }

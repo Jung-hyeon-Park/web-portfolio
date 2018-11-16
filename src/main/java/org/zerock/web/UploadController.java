@@ -37,6 +37,7 @@ public class UploadController {
 	@RequestMapping(value="/uploadAjax.do", method=RequestMethod.GET)
 	public void uploadAjax() throws Exception {}
 	
+	//업로드 한 파일, 폴더에 생성
 	@ResponseBody
 	@RequestMapping(value="/uploadAjax.do", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
@@ -44,6 +45,7 @@ public class UploadController {
 		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 	}
 	
+	//업로드 파일 조회
 	@ResponseBody
 	@RequestMapping(value="/displayFile.do", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
@@ -79,6 +81,7 @@ public class UploadController {
 		return entity;
 	}
 	
+	//파일 삭제
 	@ResponseBody
 	@RequestMapping(value="/deleteFile.do", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) throws Exception {
@@ -98,7 +101,7 @@ public class UploadController {
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 	
-	//업로드 파일 삭제
+	//업로드 파일 전부 삭제
 	@ResponseBody
 	@RequestMapping(value="/deleteAllFiles.do", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files) throws Exception {

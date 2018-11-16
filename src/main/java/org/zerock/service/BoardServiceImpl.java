@@ -15,12 +15,16 @@ import org.zerock.domain.ReviewVO;
 import org.zerock.domain.SearchVO;
 import org.zerock.domain.SimpleBoardDTO;
 import org.zerock.persistence.BoardDAO;
+import org.zerock.persistence.CommentDAO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 	
 	@Inject
 	private BoardDAO boardDAO;
+	
+	@Inject
+	private CommentDAO commentDAO;
 	
 	//인기 리뷰 게시글 조회 
 	@Override
@@ -84,6 +88,7 @@ public class BoardServiceImpl implements BoardService {
 		if(boardDAO.readBoard(boardIdx).getLikeCount() > 0) {
 			boardDAO.deleteBoardNomination(boardIdx);
 		}
+		commentDAO.deleteComment(boardIdx);
 		boardDAO.deleteBoard(boardIdx);
 		
 	}

@@ -172,4 +172,10 @@ public class GameServiceImpl implements GameService {
 	public List<GameCategory2VO> selectRankingPost() throws Exception {
 		return gameDAO.selectRankingPost();
 	}
+	
+	//추천 게임 리스트
+	@Override
+	public List<GameListVO> recommendList() throws Exception {
+		return gameDAO.recommendList();
+	}
 }

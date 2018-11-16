@@ -11,5 +11,8 @@ public interface CommentDAO {
 	
 	// 댓글 리스트
 	public List<CommentVO> selectComment(int boardIdx) throws Exception;
+	
+	//댓글 삭제
+	public void deleteComment(int boardIdx) throws Exception;
 
 }

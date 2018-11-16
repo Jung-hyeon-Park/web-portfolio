@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value="/blogAPI")
 public class SearchBlogAPI {
 	
+	//네이버 블로그 검색 API
 	@RequestMapping(value="/main.do", method=RequestMethod.GET, produces="application/json; charset=utf8")
 	@ResponseBody
 	public ResponseEntity<StringBuffer> searchBlog(Model model, HttpSession session, @RequestParam("post") int post) throws Exception {

@@ -175,6 +175,7 @@ public class GameController {
 		}
 	}
 	
+	//게임 랭킹 페이지
 	@RequestMapping(value="/ranking.do", method=RequestMethod.GET)
 	public void ranking(Model model, @RequestParam("post") int post) throws Exception {
 		
